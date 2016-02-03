@@ -1,26 +1,45 @@
+analytics = require './analytics'
+Promise = require 'broken'
+
 class Cart
-  @waits: 0
-  queue: null
+  waits:    0
+  queue:    null
 
-  # referential tree for an order
-  @data: null
+  # referential tree with
+  # order
+  # taxRates
+  data:     null
 
-  constructor: (@data)->
+  # hanzo.js client
+  client:   null
+
+  promise:  null
+  reject:   null
+  resolve:  null
+
+  constructor: (@client, @data)->
     @queue  = []
 
   set: (id, quantity, locked=false)->
     @queue.push [id, quantity, locked]
 
     if @queue.length == 1
+      @promise = new Promise (resolve, reject)=>
+        @resolve = resolve
+        @reject = reject
       @_set()
 
+    return @promise
+
   _set: ->
-    items = @data.get 'items'
+    items = @data.get 'order.items'
 
     if @queue.length == 0
+      @invoice()
+      @resolve items
       return
 
-    [id, quantity, locked] = @queue.shift()
+    [id, quantity, locked] = @queue[0]
 
     # delete item
     if quantity == 0
@@ -28,9 +47,7 @@ class Cart
         break if item.productId == id || item.productSlug == id || item.id == id
 
       if i < items.length
-        # Do this until there is a riot version that fixes loops and riot.upate
-        items[i].quantity = 0
-        #items.splice i, 1
+        items.splice i, 1
 
         analytics.track 'Removed Product',
           id: item.productId
@@ -40,12 +57,14 @@ class Cart
           price: parseFloat(item.price / 100)
 
         @onUpdate item
-      @set()
+
+      @queue.shift()
+      @_set()
       return
 
     # try and update item quantity
     for item, i in items
-      continue if item.productId != id && item.productSlug != id
+      continue if item.id != id && item.productId != id && item.productSlug != id
 
       item.quantity = quantity
       item.locked = locked
@@ -70,7 +89,8 @@ class Cart
           price: parseFloat(item.price / 100)
 
       @onUpdate item
-      @set()
+      @queue.shift()
+      @_set()
       return
 
     # Fetch up to date information at time of checkout openning
@@ -84,13 +104,13 @@ class Cart
     # waiting for response so don't update
     @waits++
 
-    @reload id
+    @load id
 
-  reload: (id) ->
-    items = @data.get 'items'
+  load: (id) ->
+    items = @data.get 'order.items'
 
     client.product.get id
-      .then (product) ->
+      .then (product) =>
         @waits--
         for item, i in items
           if product.id == item.id || product.slug == item.id
@@ -103,14 +123,16 @@ class Cart
 
             @update product, item
             break
-        @set()
-      .catch (err) ->
+        @queue.shift()
+        @_set()
+      .catch (err) =>
         @waits--
         console.log "setItem Error: #{err}"
-        @set()
+        @queue.shift()
+        @_set()
 
   update: (product, item) ->
-    item.id             = undefined
+    delete item.id
     item.productId      = product.id
     item.productSlug    = product.slug
     item.productName    = product.name
@@ -118,17 +140,33 @@ class Cart
     item.listPrice      = product.listPrice
     @onUpdate item
 
-  # overwrite
+  # overwrite to add some behavior
   onUpdate: (item)->
-    # @mediator.trigger Events.UpdateItems
+    # mediator.trigger Events.UpdateItems
     # riot.update()
 
+  # set / get a coupon
+  coupon: (coupon) ->
+    if coupon?
+      @data.set 'order.coupon', coupon
+      @invoice()
+
+    return @data.get 'order.coupon'
+
+  taxRates: (taxRates)->
+    if taxRates?
+      @data.set 'taxRates', taxRates
+      @invoice()
+
+    return @data.get 'taxRates'
+
+  # update properties on data related to invoicing
   invoice: ()->
-    items = @data.get 'items'
+    items = @data.get 'order.items'
     # store.set 'items', items
 
     discount = 0
-    coupon = @data.get 'coupon'
+    coupon = @data.get 'order.coupon'
 
     if coupon?
       switch coupon.type
@@ -136,55 +174,57 @@ class Cart
           if !coupon.productId? || coupon.productId == ''
             discount = (coupon.amount || 0)
           else
-            for item in @data.get 'items'
+            for item in @data.get 'order.items'
               if item.productId == coupon.productId
                 discount += (coupon.amount || 0) * item.quantity
 
         when 'percent'
           if !coupon.productId? || coupon.productId == ''
-            for item in @data.get 'items'
+            for item in @data.get 'order.items'
               discount += (coupon.amount || 0) * item.price * item.quantity * 0.01
           else
-            for item in @data.get 'items'
+            for item in @data.get 'order.items'
               if item.productId == coupon.productId
                 discount += (coupon.amount || 0) * item.price * item.quantity * 0.01
           discount = Math.floor discount
 
-    @data.set 'discount', discount
+    @data.set 'order.discount', discount
 
-    items    =    @data.get 'items'
+    items    =    @data.get 'order.items'
     subtotal =    -discount
 
     for item in items
       subtotal += item.price * item.quantity
 
-    @data.set 'subtotal', subtotal
+    @data.set 'order.subtotal', subtotal
 
-    for taxRateFilter in @data.get 'taxRates'
-      city = @data.get 'shippingAddress.city'
-      if !city || (taxRateFilter.city? && taxRateFilter.city.toLowerCase() != city.toLowerCase())
-        continue
+    taxRates = @data.get 'taxRates'
+    if taxRates?
+      for taxRateFilter in taxRates
+        city = @data.get 'order.shippingAddress.city'
+        if !city || (taxRateFilter.city? && taxRateFilter.city.toLowerCase() != city.toLowerCase())
+          continue
 
-      state = @data.get 'shippingAddress.state'
-      if !state || (taxRateFilter.state? && taxRateFilter.state.toLowerCase() != state.toLowerCase())
-        continue
+        state = @data.get 'order.shippingAddress.state'
+        if !state || (taxRateFilter.state? && taxRateFilter.state.toLowerCase() != state.toLowerCase())
+          continue
 
-      country = @data.get 'shippingAddress.country'
-      if !country || (taxRateFilter.country? && taxRateFilter.country.toLowerCase() != country.toLowerCase())
-        continue
+        country = @data.get 'order.shippingAddress.country'
+        if !country || (taxRateFilter.country? && taxRateFilter.country.toLowerCase() != country.toLowerCase())
+          continue
 
-      @data.set 'taxRate', taxRateFilter.taxRate
-      break
+        @data.set 'order.taxRate', taxRateFilter.taxRate
+        break
 
-    taxRate   = (@data.get 'taxRate') ? 0
+    taxRate   = (@data.get 'order.taxRate') ? 0
     tax       = Math.ceil (taxRate ? 0) * subtotal
 
-    shippingRate = (@data.get 'shippingRate') ? 0
+    shippingRate = (@data.get 'order.shippingRate') ? 0
     shipping = shippingRate
 
-    @data.set 'shipping', shipping
-    @data.set 'tax', tax
-    @data.set 'total', subtotal + shipping + tax
+    @data.set 'order.shipping', shipping
+    @data.set 'order.tax', tax
+    @data.set 'order.total', subtotal + shipping + tax
 
 module.exports = Cart
 

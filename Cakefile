@@ -33,15 +33,7 @@ task 'build', 'build project', (cb) ->
 task 'build-min', 'build project', ['build'], ->
   exec 'uglifyjs commerce.js --compress --mangle --lint=false > commerce.min.js'
 
-server = do require 'connect'
-
-task 'static-server', 'Run static server for tests', (cb) ->
-  port = process.env.PORT ? 3333
-
-  server.use (require 'serve-static') './test/fixtures'
-  server = require('http').createServer(server).listen port, cb
-
-task 'test', 'Run tests', ['build', 'static-server'], (opts) ->
+task 'test', 'Run tests', ['build'], (opts) ->
   bail     = opts.bail     ? true
   coverage = opts.coverage ? false
   grep     = opts.grep     ? ''
@@ -69,7 +61,6 @@ task 'test', 'Run tests', ['build', 'static-server'], (opts) ->
         #{grep}
         #{test}"
 
-  server.close()
   process.exit status
 
 task 'test-ci', 'Run tests', (opts) ->
