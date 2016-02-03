@@ -7,6 +7,8 @@ class Cart
 
   # referential tree with
   # order
+  # user
+  # payment
   # taxRates
   data:     null
 
@@ -146,12 +148,26 @@ class Cart
     # riot.update()
 
   # set / get a coupon
-  coupon: (coupon) ->
-    if coupon?
-      @data.set 'order.coupon', coupon
+  promoCode: (promoCode) ->
+    if promoCode?
       @invoice()
 
-    return @data.get 'order.coupon'
+      return @client.coupon.get(promoCode).then (coupon)=>
+        if coupon.enabled
+          @data.set 'order.coupon', coupon
+          @data.set 'order.couponCodes', [promoCode]
+          if coupon.freeProductId != "" && coupon.freeQuantity > 0
+            return @client.product.get(coupon.freeProductId).then((freeProduct)=>
+              @invoice()
+            ).catch (err)=>
+              throw new Error 'This coupon is invalid.'
+          else
+            @invoice()
+            return
+        else
+          throw new Error 'This code is expired.'
+
+    return @data.get 'order.promoCode'
 
   taxRates: (taxRates)->
     if taxRates?
@@ -225,6 +241,37 @@ class Cart
     @data.set 'order.shipping', shipping
     @data.set 'order.tax', tax
     @data.set 'order.total', subtotal + shipping + tax
+
+  checkout: ()->
+    # just to be sure
+    @invoice()
+
+    data =
+      user:     @data.get 'user'
+      order:    @data.get 'order'
+      payment:  @data.get 'payment'
+
+    return @client.checkout.authorize(data).then (order)=>
+      @data.set 'coupon', @data.get('order.coupon') || {}
+      @data.set 'order', order
+
+      referralProgram = @data.get 'referralProgram'
+
+      if referralProgram?
+        @client.referrer.create(
+          userId: data.order.userId
+          orderId: data.order.orderId
+          program: referralProgram
+        ).then((referrer)=>
+          @data.set 'referrerId', referrer.id
+        ).catch (err)->
+          window?.Raven?.captureException(err)
+          console.log "new referralProgram Error: #{err}"
+
+      @client.checkout.capture(order.id).then((order)=>
+        @data.set 'order', order
+      ).catch (err)=>
+        window?.Raven?.captureException(err)
 
 module.exports = Cart
 
