@@ -159,7 +159,7 @@ class Cart
           if coupon.freeProductId != "" && coupon.freeQuantity > 0
             return @client.product.get(coupon.freeProductId).then((freeProduct)=>
               @invoice()
-            ).catch (err)=>
+            ).catch (err)->
               throw new Error 'This coupon is invalid.'
           else
             @invoice()
@@ -265,13 +265,15 @@ class Cart
         ).then((referrer)=>
           @data.set 'referrerId', referrer.id
         ).catch (err)->
-          window?.Raven?.captureException(err)
+          window?.Raven?.captureException err
           console.log "new referralProgram Error: #{err}"
 
       @client.checkout.capture(order.id).then((order)=>
         @data.set 'order', order
-      ).catch (err)=>
-        window?.Raven?.captureException(err)
+      ).catch (err)->
+        window?.Raven?.captureException err
+
+      return order
 
 module.exports = Cart
 
