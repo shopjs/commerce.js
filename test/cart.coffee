@@ -307,7 +307,6 @@ describe 'Cart', ->
       item = items[0]
       item.quantity.should.eq 1
 
-      yield cart.checkout()
-
-      order = data.get 'order'
+      checkoutPRef = yield cart.checkout()
+      order = yield checkoutPRef.p
       expect(order.id).to.exist

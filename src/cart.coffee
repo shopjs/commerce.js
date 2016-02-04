@@ -268,12 +268,14 @@ class Cart
           window?.Raven?.captureException err
           console.log "new referralProgram Error: #{err}"
 
-      @client.checkout.capture(order.id).then((order)=>
+      p = @client.checkout.capture(order.id).then((order)=>
         @data.set 'order', order
+
+        return order
       ).catch (err)->
         window?.Raven?.captureException err
 
-      return order
+      return { p: p }
 
 module.exports = Cart
 
