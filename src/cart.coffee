@@ -38,7 +38,7 @@ class Cart
 
     if @queue.length == 0
       @invoice()
-      @resolve items
+      @resolve items if @resolve?
       return
 
     [id, quantity, locked] = @queue[0]
