@@ -21,6 +21,7 @@ class Cart
 
   constructor: (@client, @data)->
     @queue  = []
+    @invoice()
 
   set: (id, quantity, locked=false)->
     @queue.push [id, quantity, locked]
