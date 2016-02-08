@@ -257,6 +257,15 @@ class Cart
       @data.set 'coupon', @data.get('order.coupon') || {}
       @data.set 'order', order
 
+      # capture
+      p = @client.checkout.capture(order.id).then((order)=>
+        @data.set 'order', order
+        return order
+      ).catch (err)->
+        window?.Raven?.captureException err
+        console.log "capture Error: #{err}"
+
+      # create referrer token
       referralProgram = @data.get 'referralProgram'
 
       if referralProgram?
@@ -270,12 +279,27 @@ class Cart
           window?.Raven?.captureException err
           console.log "new referralProgram Error: #{err}"
 
-      p = @client.checkout.capture(order.id).then((order)=>
-        @data.set 'order', order
+      # fire off analytics
+      options =
+        orderId:  @data.get 'order.id'
+        total:    parseFloat(@data.get('order.total') /100),
+        # revenue: parseFloat(order.total/100),
+        shipping: parseFloat(@data.get('order.shipping') /100),
+        tax:      parseFloat(@data.get('order.tax') /100),
+        discount: parseFloat(@data.get('order.discount') /100),
+        coupon:   @data.get('order.couponCodes.0') || '',
+        currency: @data.get('order.currency'),
+        products: []
 
-        return order
-      ).catch (err)->
-        window?.Raven?.captureException err
+      for item, i in @data.get 'order.items'
+        options.products[i] =
+          id: item.productId
+          sku: item.productSlug
+          name: item.productName
+          quantity: item.quantity
+          price: parseFloat(item.price / 100)
+
+      analytics.track 'Completed Order', options
 
       return { p: p }
 

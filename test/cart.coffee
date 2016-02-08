@@ -32,6 +32,11 @@ describe 'Cart', ->
       item.productSlug.should.eq 'sad-keanu-shirt'
       item.quantity.should.eq 1
 
+      analyticsArgs[0].should.eq 'Added Product'
+      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
+      analyticsArgs[1].quantity.should.eq 1
+
       order = data.get 'order'
       order.total.should.eq item.price * item.quantity
 
@@ -49,6 +54,11 @@ describe 'Cart', ->
       item.productId.should.eq 'dZc6BopOFA5Xvd'
       item.productSlug.should.eq 'sad-keanu-shirt'
       item.quantity.should.eq 1
+
+      analyticsArgs[0].should.eq 'Added Product'
+      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
+      analyticsArgs[1].quantity.should.eq 1
 
       order = data.get 'order'
       order.total.should.eq item.price * item.quantity
@@ -70,6 +80,12 @@ describe 'Cart', ->
       item.productSlug.should.eq 'sad-keanu-shirt'
       item.quantity.should.eq 2
 
+      analyticsArgs[0].should.eq 'Added Product'
+      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
+      # set to 1, then set to 2, the quantity below is therefore 2-1 = 1
+      analyticsArgs[1].quantity.should.eq 1
+
       order = data.get 'order'
       order.total.should.eq item.price * item.quantity
 
@@ -89,12 +105,24 @@ describe 'Cart', ->
       item.productSlug.should.eq 'sad-keanu-shirt'
       item.quantity.should.eq 1
 
-      items = yield cart.set 'sad-keanu-shirt', 2
+      analyticsArgs[0].should.eq 'Added Product'
+      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
+      # set to 1, then set to 2, the quantity below is therefore 2-1 = 1
+      analyticsArgs[1].quantity.should.eq 1
+
+      items = yield cart.set 'sad-keanu-shirt', 3
       items.length.should.eq 1
       item = items[0]
       item.productId.should.eq 'dZc6BopOFA5Xvd'
       item.productSlug.should.eq 'sad-keanu-shirt'
-      item.quantity.should.eq 2
+      item.quantity.should.eq 3
+
+      analyticsArgs[0].should.eq 'Added Product'
+      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
+      # set to 1, then set to 3, the quantity below is therefore 3-1 = 2
+      analyticsArgs[1].quantity.should.eq 2
 
       order = data.get 'order'
       order.total.should.eq item.price * item.quantity
@@ -108,6 +136,12 @@ describe 'Cart', ->
       cart = new Cart client, data
       cart.set 'sad-keanu-shirt', 1
       items = yield cart.set 'sad-keanu-shirt', 0
+
+      analyticsArgs[0].should.eq 'Removed Product'
+      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
+      # set to 1, then set to 0, the quantity below is therefore |0-1| = 1
+      analyticsArgs[1].quantity.should.eq 1
 
       items.length.should.eq 0
 
@@ -166,6 +200,11 @@ describe 'Cart', ->
       item = items[0]
       item.quantity.should.eq 1
 
+      analyticsArgs[0].should.eq 'Added Product'
+      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
+      analyticsArgs[1].quantity.should.eq 1
+
       order = data.get 'order'
       order.total.should.eq Math.ceil(item.price * item.quantity + .0875 * item.price)
 
@@ -201,6 +240,11 @@ describe 'Cart', ->
       items = yield cart.set 'sad-keanu-shirt', 1
       item = items[0]
       item.quantity.should.eq 1
+
+      analyticsArgs[0].should.eq 'Added Product'
+      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
+      analyticsArgs[1].quantity.should.eq 1
 
       order = data.get 'order'
       order.total.should.eq Math.ceil(item.price * item.quantity + .075 * item.price)
@@ -238,6 +282,11 @@ describe 'Cart', ->
       item = items[0]
       item.quantity.should.eq 1
 
+      analyticsArgs[0].should.eq 'Added Product'
+      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
+      analyticsArgs[1].quantity.should.eq 1
+
       order = data.get 'order'
       order.total.should.eq Math.ceil(item.price * item.quantity + 1 * item.price)
 
@@ -255,6 +304,11 @@ describe 'Cart', ->
       item = items[0]
       item.quantity.should.eq 1
 
+      analyticsArgs[0].should.eq 'Added Product'
+      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
+      analyticsArgs[1].quantity.should.eq 1
+
       yield cart.promoCode 'SAD-COUPON'
 
       order = data.get 'order'
@@ -271,6 +325,11 @@ describe 'Cart', ->
       items = yield cart.set 'sad-keanu-shirt', 1
       item = items[0]
       item.quantity.should.eq 1
+
+      analyticsArgs[0].should.eq 'Added Product'
+      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
+      analyticsArgs[1].quantity.should.eq 1
 
       failed = false
       yield cart.promoCode('BAD-COUPON').catch ()->
@@ -307,6 +366,29 @@ describe 'Cart', ->
       item = items[0]
       item.quantity.should.eq 1
 
+      analyticsArgs[0].should.eq 'Added Product'
+      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
+      analyticsArgs[1].quantity.should.eq 1
+
       checkoutPRef = yield cart.checkout()
+
+      analyticsArgs[0].should.eq 'Completed Order'
+      analyticsArgs[1].total.should.eq parseFloat(data.get('order.total') /100)
+      analyticsArgs[1].shipping.should.eq parseFloat(data.get('order.shipping') /100)
+      analyticsArgs[1].tax.should.eq parseFloat(data.get('order.tax') /100)
+      analyticsArgs[1].discount.should.eq parseFloat(data.get('order.discount') /100)
+      analyticsArgs[1].coupon.should.eq data.get('order.couponCodes.0') || ''
+      analyticsArgs[1].currency.should.eq 'usd'
+
+      for p, i in analyticsArgs[1].products
+        p.id.should.eq items[i].productId
+        p.sku.should.eq items[i].productSlug
+        p.quantity.should.eq items[i].quantity
+        p.price.should.eq parseFloat(items[i].price / 100)
+
       order = yield checkoutPRef.p
+
+      analyticsArgs[1].orderId.should.eq order.id
+
       expect(order.id).to.exist

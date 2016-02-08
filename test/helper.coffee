@@ -5,6 +5,10 @@ chai.use require 'chai-as-promised'
 Api = require 'crowdstart.js'
 
 before ->
+  global.window =
+    analytics:
+      track: ()->
+        global.analyticsArgs = arguments
   global.client = new Api
     debug:    false
     endpoint: 'https://api.staging.crowdstart.com'
