@@ -69,10 +69,11 @@ class Cart
     for item, i in items
       continue if item.id != id && item.productId != id && item.productSlug != id
 
+      oldValue = item.quantity
+
       item.quantity = quantity
       item.locked = locked
 
-      oldValue = item.quantity
       newValue = quantity
 
       deltaQuantity = newValue - oldValue
