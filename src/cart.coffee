@@ -157,6 +157,7 @@ class Cart
     item.productName    = product.name
     item.price          = product.price
     item.listPrice      = product.listPrice
+    item.description    = product.description
 
     if update
       @onUpdate item
