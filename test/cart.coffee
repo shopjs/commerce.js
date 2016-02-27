@@ -89,6 +89,31 @@ describe 'Cart', ->
       order = data.get 'order'
       order.total.should.eq item.price * item.quantity
 
+    it 'should refresh an existing item', ->
+      data = refer
+        order:
+          currency: 'usd'
+          items: []
+
+      cart = new Cart client, data
+
+      items = yield cart.set 'sad-keanu-shirt', 1
+      items[0].slug = 'zzz'
+      oldPrice = items[0].price
+      items[0].price = -1
+
+      items = yield cart.refresh 'sad-keanu-shirt'
+
+      items.length.should.eq 1
+      item = items[0]
+      item.productId.should.eq 'dZc6BopOFA5Xvd'
+      item.productSlug.should.eq 'sad-keanu-shirt'
+      item.quantity.should.eq 1
+      item.price.should.eq oldPrice
+
+      order = data.get 'order'
+      order.total.should.eq item.price * item.quantity
+
     # exclusively for testing internal set implementation
     it 'should handle executing multiple yielded sets', ->
       data = refer

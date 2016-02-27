@@ -135,14 +135,31 @@ class Cart
         @queue.shift()
         @_set()
 
-  update: (product, item) ->
+  refresh: (id)->
+    items = @data.get 'order.items'
+
+    client.product.get id
+      .then (product) =>
+        @waits--
+        for item, i in items
+          if product.id == item.productId || product.slug == item.productSlug
+            @update product, item, false
+            break
+
+        return items
+      .catch (err) ->
+        console.log "setItem Error: #{err}"
+
+  update: (product, item, update=true) ->
     delete item.id
     item.productId      = product.id
     item.productSlug    = product.slug
     item.productName    = product.name
     item.price          = product.price
     item.listPrice      = product.listPrice
-    @onUpdate item
+
+    if update
+      @onUpdate item
 
   # overwrite to add some behavior
   onUpdate: (item)->
@@ -181,7 +198,6 @@ class Cart
   # update properties on data related to invoicing
   invoice: ()->
     items = @data.get 'order.items'
-    # store.set 'items', items
 
     discount = 0
     coupon = @data.get 'order.coupon'
