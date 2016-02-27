@@ -143,14 +143,14 @@ class Cart
         @waits--
         for item, i in items
           if product.id == item.productId || product.slug == item.productSlug
-            @update product, item, false
+            @update product, item
             break
 
         return items
       .catch (err) ->
         console.log "setItem Error: #{err}"
 
-  update: (product, item, update=true) ->
+  update: (product, item) ->
     delete item.id
     item.productId      = product.id
     item.productSlug    = product.slug
@@ -159,8 +159,7 @@ class Cart
     item.listPrice      = product.listPrice
     item.description    = product.description
 
-    if update
-      @onUpdate item
+    @onUpdate item
 
   # overwrite to add some behavior
   onUpdate: (item)->
