@@ -34,6 +34,22 @@ class Cart
 
     return @promise
 
+  get: (id)->
+    items = @data.get 'order.items'
+    for item, i in items
+      continue if item.id != id && item.productId != id && item.productSlug != id
+
+      return item
+
+    for item, i in @queue
+      continue if item[0] != id
+
+      return {
+        id: item[0]
+        quantity: item[2]
+        locked: item[3]
+      }
+
   _set: ->
     items = @data.get 'order.items'
 

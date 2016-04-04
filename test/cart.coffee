@@ -63,6 +63,43 @@ describe 'Cart', ->
       order = data.get 'order'
       order.total.should.eq item.price * item.quantity
 
+    it 'should get an item by id or slug', ->
+      data = refer
+        order:
+          currency: 'usd'
+          items: []
+
+      cart = new Cart client, data
+
+      yield cart.set 'dZc6BopOFA5Xvd', 1
+
+      item = cart.get 'dZc6BopOFA5Xvd'
+      item.productId.should.eq 'dZc6BopOFA5Xvd'
+      item.productSlug.should.eq 'sad-keanu-shirt'
+      item.quantity.should.eq 1
+
+      item = cart.get 'sad-keanu-shirt'
+      item.productId.should.eq 'dZc6BopOFA5Xvd'
+      item.productSlug.should.eq 'sad-keanu-shirt'
+      item.quantity.should.eq 1
+
+    it 'should get an item (stubbed) being loaded with supplied id', ->
+      data = refer
+        order:
+          currency: 'usd'
+          items: []
+
+      cart = new Cart client, data
+
+      cart.set 'dZc6BopOFA5Xvd', 1
+
+      item = cart.get 'dZc6BopOFA5Xvd'
+      item.id.should.eq 'dZc6BopOFA5Xvd'
+      item.quantity.should.eq 1
+
+      item = cart.get 'sad-keanu-shirt'
+      expect(item).to.not.exist
+
     it 'should overwrite an existing item', ->
       data = refer
         order:
