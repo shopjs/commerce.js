@@ -4,6 +4,7 @@
   "description": "Commerce.js is the cart and checkout flow logic library for Shop.js",
   "main": "lib/",
   "scripts": {
+    "prepublish": "cake build-min",
     "test": "cake test"
   },
   "repository": {
