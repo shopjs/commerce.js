@@ -1,6 +1,6 @@
 {
   "name": "commerce.js",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "Commerce.js is the cart and checkout flow logic library for Shop.js",
   "main": "lib/",
   "scripts": {
