@@ -75,6 +75,7 @@ class Cart
           quantity: item.quantity
           price: parseFloat(item.price / 100)
 
+        @data.set 'order.items', items
         @onUpdate item
 
       @queue.shift()
@@ -108,6 +109,7 @@ class Cart
           quantity: deltaQuantity
           price: parseFloat(item.price / 100)
 
+      @data.set 'order.items.' + i, item
       @onUpdate item
       @queue.shift()
       @_set()
@@ -142,6 +144,7 @@ class Cart
               price: parseFloat(product.price / 100)
 
             @update product, item
+            @data.set 'order.items.' + i, item
             break
         @queue.shift()
         @_set()
