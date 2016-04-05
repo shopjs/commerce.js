@@ -66,7 +66,9 @@ class Cart
         break if item.productId == id || item.productSlug == id || item.id == id
 
       if i < items.length
+        @data.set 'order.items', []
         items.splice i, 1
+        @onUpdate()
 
         analytics.track 'Removed Product',
           id: item.productId
