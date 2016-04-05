@@ -109,7 +109,8 @@ class Cart
           quantity: deltaQuantity
           price: parseFloat(item.price / 100)
 
-      @data.set 'order.items.' + i, item
+      @data.set 'order.items.' + i + '.quantity', quantity
+      @data.set 'order.items.' + i + '.locked', locked
       @onUpdate item
       @queue.shift()
       @_set()
