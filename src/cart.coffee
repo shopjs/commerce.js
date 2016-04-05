@@ -134,7 +134,7 @@ class Cart
   load: (id) ->
     items = @data.get 'order.items'
 
-    client.product.get id
+    @client.product.get id
       .then (product) =>
         @waits--
         for item, i in items
@@ -160,7 +160,7 @@ class Cart
   refresh: (id)->
     items = @data.get 'order.items'
 
-    client.product.get id
+    @client.product.get id
       .then (product) =>
         @waits--
         for item, i in items
