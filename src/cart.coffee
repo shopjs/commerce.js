@@ -154,6 +154,12 @@ class Cart
       .catch (err) =>
         @waits--
         console.log "setItem Error: #{err}"
+        for item, i in items
+          if item.id == id
+            items.splice i, 1
+            @data.set 'order.items', items
+            break
+
         @queue.shift()
         @_set()
 

@@ -83,6 +83,18 @@ describe 'Cart', ->
       item.productSlug.should.eq 'sad-keanu-shirt'
       item.quantity.should.eq 1
 
+    it 'should not get an item by invalid id or slug', ->
+      data = refer
+        order:
+          currency: 'usd'
+          items: []
+
+      cart = new Cart client, data
+
+      items = yield cart.set 'dZc6BopOFA5Xvdzzz', 1
+
+      items.length.should.eq 0
+
     it 'should get an item (stubbed) being loaded with supplied id', ->
       data = refer
         order:
