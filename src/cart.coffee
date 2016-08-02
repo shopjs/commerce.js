@@ -19,7 +19,10 @@ class Cart
   reject:   null
   resolve:  null
 
-  constructor: (@client, @data)->
+  # function for calculating shipping
+  shippingFn: ()->
+
+  constructor: (@client, @data, @shippingFn)->
     @queue  = []
     @invoice()
 
