@@ -15,6 +15,8 @@ class Cart
   # hanzo.js client
   client:   null
 
+  cartPromise: null
+
   promise:  null
   reject:   null
   resolve:  null
@@ -26,6 +28,45 @@ class Cart
     @queue  = []
     @invoice()
 
+  initCart: ()->
+    cartId = @data.get 'order.cartId'
+    if !cartId
+      if @client.cart?
+        @client.cart.create()
+          .then (cart)=>
+            @data.set 'order.cartId', cart.id
+
+            items = @data.get 'order.items'
+
+            for item, i in items
+              @_cartSet item.productId, item.quantity
+            @onCart cart.id
+    else
+      @onCart cartId
+
+      items = @data.get 'order.items'
+
+      for item, i in items
+        @_cartSet item.productId, item.quantity
+      @onCart cartId
+
+  # fired when cart id is obtained
+  onCart: (cartId)->
+
+  _cartSet: (id, quantity)->
+    cartId = @data.get 'order.cartId'
+    if cartId
+      @client.cart.set
+        id:           cartId
+        productId:    id
+        quantity:     quantity
+
+  _cartUpdate: (cart)->
+    cartId = @data.get 'order.cartId'
+    if cartId
+      cart.id = cartId
+      @client.cart.update cart
+
   set: (id, quantity, locked=false)->
     @queue.push [id, quantity, locked]
 
@@ -33,6 +74,7 @@ class Cart
       @promise = new Promise (resolve, reject)=>
         @resolve = resolve
         @reject = reject
+
       @_set()
 
     return @promise
@@ -81,6 +123,8 @@ class Cart
           price: parseFloat(item.price / 100)
 
         @data.set 'order.items', items
+        @_cartSet item.productId, 0
+
         @onUpdate item
 
       @queue.shift()
@@ -116,6 +160,8 @@ class Cart
 
       @data.set 'order.items.' + i + '.quantity', quantity
       @data.set 'order.items.' + i + '.locked', locked
+      @_cartSet item.productId, quantity
+
       @onUpdate item
       @queue.shift()
       @_set()
@@ -151,6 +197,8 @@ class Cart
 
             @update product, item
             @data.set 'order.items.' + i, item
+            @_cartSet product.id, quantity
+
             break
         @queue.shift()
         @_set()
@@ -206,6 +254,10 @@ class Cart
         if coupon.enabled
           @data.set 'order.coupon', coupon
           @data.set 'order.couponCodes', [promoCode]
+          @_cartUpdate
+            coupon:         coupon
+            couponCodes:    [promoCode]
+
           if coupon.freeProductId != "" && coupon.freeQuantity > 0
             return @client.product.get(coupon.freeProductId).then((freeProduct)=>
               @invoice()
