@@ -55,7 +55,7 @@ class Cart
 
   _cartSet: (id, quantity)->
     cartId = @data.get 'order.cartId'
-    if cartId
+    if cartId && @client.cart?
       @client.cart.set
         id:           cartId
         productId:    id
@@ -63,7 +63,7 @@ class Cart
 
   _cartUpdate: (cart)->
     cartId = @data.get 'order.cartId'
-    if cartId
+    if cartId && @client.cart?
       cart.id = cartId
       @client.cart.update cart
 
