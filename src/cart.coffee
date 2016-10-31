@@ -22,25 +22,24 @@ class Cart
   resolve:  null
 
   # function for calculating shipping
-  shippingFn: ()->
+  shippingFn: ->
 
   constructor: (@client, @data, @shippingFn)->
-    @queue  = []
+    @queue = []
     @invoice()
 
-  initCart: ()->
+  initCart: ->
     cartId = @data.get 'order.cartId'
-    if !cartId
-      if @client.cart?
-        @client.cart.create()
-          .then (cart)=>
-            @data.set 'order.cartId', cart.id
+    if !cartId and @client.cart?
+        @client.cart.create().then (cart) =>
+          @data.set 'order.cartId', cart.id
 
-            items = @data.get 'order.items'
+          items = @data.get 'order.items'
 
-            for item, i in items
-              @_cartSet item.productId, item.quantity
-            @onCart cart.id
+          for item, i in items
+            @_cartSet item.productId, item.quantity
+
+          @onCart cart.id
     else
       @onCart cartId
 
@@ -51,9 +50,9 @@ class Cart
       @onCart cartId
 
   # fired when cart id is obtained
-  onCart: (cartId)->
+  onCart: (cartId) ->
 
-  _cartSet: (id, quantity)->
+  _cartSet: (id, quantity) ->
     cartId = @data.get 'order.cartId'
     if cartId && @client.cart?
       @client.cart.set
@@ -61,17 +60,17 @@ class Cart
         productId:    id
         quantity:     quantity
 
-  _cartUpdate: (cart)->
+  _cartUpdate: (cart) ->
     cartId = @data.get 'order.cartId'
     if cartId && @client.cart?
       cart.id = cartId
       @client.cart.update cart
 
-  set: (id, quantity, locked=false)->
+  set: (id, quantity, locked=false) ->
     @queue.push [id, quantity, locked]
 
     if @queue.length == 1
-      @promise = new Promise (resolve, reject)=>
+      @promise = new Promise (resolve, reject) =>
         @resolve = resolve
         @reject = reject
 
@@ -79,11 +78,10 @@ class Cart
 
     return @promise
 
-  get: (id)->
+  get: (id) ->
     items = @data.get 'order.items'
     for item, i in items
       continue if item.id != id && item.productId != id && item.productSlug != id
-
       return item
 
     for item, i in @queue
@@ -195,7 +193,6 @@ class Cart
               name: product.name
               quantity: item.quantity
               price: parseFloat(product.price / 100)
-              console.log(item)
 
             @update product, item
             @data.set 'order.items.' + i, item
