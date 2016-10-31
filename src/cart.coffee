@@ -181,11 +181,12 @@ class Cart
     @load id
 
   load: (id) ->
-    items = @data.get 'order.items'
-
     @client.product.get id
       .then (product) =>
         @waits--
+
+        items = @data.get 'order.items'
+
         for item, i in items
           if product.id == item.id || product.slug == item.id
             analytics.track 'Added Product',
@@ -194,17 +195,21 @@ class Cart
               name: product.name
               quantity: item.quantity
               price: parseFloat(product.price / 100)
+              console.log(item)
 
             @update product, item
             @data.set 'order.items.' + i, item
-            @_cartSet product.id, quantity
+            @_cartSet product.id, item.quantity
 
             break
         @queue.shift()
         @_set()
       .catch (err) =>
         @waits--
-        console.log "setItem Error: #{err}"
+        console.log "setItem Error: #{err.stack}"
+
+        items = @data.get 'order.items'
+
         for item, i in items
           if item.id == id
             items.splice i, 1
@@ -278,6 +283,13 @@ class Cart
 
     return @data.get 'taxRates'
 
+  shippingRates: (shippingRates)->
+    if shippingRates?
+      @data.set 'shippingRates', shippingRates
+      @invoice()
+
+    return @data.get 'shippingRates'
+
   # update properties on data related to invoicing
   invoice: ()->
     items = @data.get 'order.items'
@@ -331,6 +343,24 @@ class Cart
           continue
 
         @data.set 'order.taxRate', taxRateFilter.taxRate
+        break
+
+    shippingRates = @data.get 'shippingRates'
+    if shippingRates?
+      for shippingRateFilter in shippingRates
+        city = @data.get 'order.shippingAddress.city'
+        if !city || (shippingRateFilter.city? && shippingRateFilter.city.toLowerCase() != city.toLowerCase())
+          continue
+
+        state = @data.get 'order.shippingAddress.state'
+        if !state || (shippingRateFilter.state? && shippingRateFilter.state.toLowerCase() != state.toLowerCase())
+          continue
+
+        country = @data.get 'order.shippingAddress.country'
+        if !country || (shippingRateFilter.country? && shippingRateFilter.country.toLowerCase() != country.toLowerCase())
+          continue
+
+        @data.set 'order.shippingRate', shippingRateFilter.shippingRate
         break
 
     taxRate   = (@data.get 'order.taxRate') ? 0

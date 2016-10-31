@@ -25,15 +25,15 @@ describe 'Cart', ->
 
       cart = new Cart client, data
 
-      items = yield cart.set 'dZc6BopOFA5Xvd', 1
+      items = yield cart.set '84cRXBYs9jX7w', 1
       items.length.should.eq 1
       item = items[0]
-      item.productId.should.eq 'dZc6BopOFA5Xvd'
+      item.productId.should.eq '84cRXBYs9jX7w'
       item.productSlug.should.eq 'sad-keanu-shirt'
       item.quantity.should.eq 1
 
       analyticsArgs[0].should.eq 'Added Product'
-      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].id.should.eq '84cRXBYs9jX7w'
       analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
       analyticsArgs[1].quantity.should.eq 1
 
@@ -51,12 +51,12 @@ describe 'Cart', ->
       items = yield cart.set 'sad-keanu-shirt', 1
       items.length.should.eq 1
       item = items[0]
-      item.productId.should.eq 'dZc6BopOFA5Xvd'
+      item.productId.should.eq '84cRXBYs9jX7w'
       item.productSlug.should.eq 'sad-keanu-shirt'
       item.quantity.should.eq 1
 
       analyticsArgs[0].should.eq 'Added Product'
-      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].id.should.eq '84cRXBYs9jX7w'
       analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
       analyticsArgs[1].quantity.should.eq 1
 
@@ -71,15 +71,15 @@ describe 'Cart', ->
 
       cart = new Cart client, data
 
-      yield cart.set 'dZc6BopOFA5Xvd', 1
+      yield cart.set '84cRXBYs9jX7w', 1
 
-      item = cart.get 'dZc6BopOFA5Xvd'
-      item.productId.should.eq 'dZc6BopOFA5Xvd'
+      item = cart.get '84cRXBYs9jX7w'
+      item.productId.should.eq '84cRXBYs9jX7w'
       item.productSlug.should.eq 'sad-keanu-shirt'
       item.quantity.should.eq 1
 
       item = cart.get 'sad-keanu-shirt'
-      item.productId.should.eq 'dZc6BopOFA5Xvd'
+      item.productId.should.eq '84cRXBYs9jX7w'
       item.productSlug.should.eq 'sad-keanu-shirt'
       item.quantity.should.eq 1
 
@@ -91,7 +91,7 @@ describe 'Cart', ->
 
       cart = new Cart client, data
 
-      items = yield cart.set 'dZc6BopOFA5Xvdzzz', 1
+      items = yield cart.set '84cRXBYs9jX7wzzz', 1
 
       items.length.should.eq 0
 
@@ -103,10 +103,10 @@ describe 'Cart', ->
 
       cart = new Cart client, data
 
-      cart.set 'dZc6BopOFA5Xvd', 1
+      cart.set '84cRXBYs9jX7w', 1
 
-      item = cart.get 'dZc6BopOFA5Xvd'
-      item.id.should.eq 'dZc6BopOFA5Xvd'
+      item = cart.get '84cRXBYs9jX7w'
+      item.id.should.eq '84cRXBYs9jX7w'
       item.quantity.should.eq 1
 
       item = cart.get 'sad-keanu-shirt'
@@ -125,12 +125,12 @@ describe 'Cart', ->
 
       items.length.should.eq 1
       item = items[0]
-      item.productId.should.eq 'dZc6BopOFA5Xvd'
+      item.productId.should.eq '84cRXBYs9jX7w'
       item.productSlug.should.eq 'sad-keanu-shirt'
       item.quantity.should.eq 2
 
       analyticsArgs[0].should.eq 'Added Product'
-      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].id.should.eq '84cRXBYs9jX7w'
       analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
       # set to 1, then set to 2, the quantity below is therefore 2-1 = 1
       analyticsArgs[1].quantity.should.eq 1
@@ -155,7 +155,7 @@ describe 'Cart', ->
 
       items.length.should.eq 1
       item = items[0]
-      item.productId.should.eq 'dZc6BopOFA5Xvd'
+      item.productId.should.eq '84cRXBYs9jX7w'
       item.productSlug.should.eq 'sad-keanu-shirt'
       item.quantity.should.eq 1
       item.price.should.eq oldPrice
@@ -175,12 +175,12 @@ describe 'Cart', ->
       items = yield cart.set 'sad-keanu-shirt', 1
       items.length.should.eq 1
       item = items[0]
-      item.productId.should.eq 'dZc6BopOFA5Xvd'
+      item.productId.should.eq '84cRXBYs9jX7w'
       item.productSlug.should.eq 'sad-keanu-shirt'
       item.quantity.should.eq 1
 
       analyticsArgs[0].should.eq 'Added Product'
-      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].id.should.eq '84cRXBYs9jX7w'
       analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
       # set to 1, then set to 2, the quantity below is therefore 2-1 = 1
       analyticsArgs[1].quantity.should.eq 1
@@ -188,12 +188,12 @@ describe 'Cart', ->
       items = yield cart.set 'sad-keanu-shirt', 3
       items.length.should.eq 1
       item = items[0]
-      item.productId.should.eq 'dZc6BopOFA5Xvd'
+      item.productId.should.eq '84cRXBYs9jX7w'
       item.productSlug.should.eq 'sad-keanu-shirt'
       item.quantity.should.eq 3
 
       analyticsArgs[0].should.eq 'Added Product'
-      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].id.should.eq '84cRXBYs9jX7w'
       analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
       # set to 1, then set to 3, the quantity below is therefore 3-1 = 2
       analyticsArgs[1].quantity.should.eq 2
@@ -212,7 +212,7 @@ describe 'Cart', ->
       items = yield cart.set 'sad-keanu-shirt', 0
 
       analyticsArgs[0].should.eq 'Removed Product'
-      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].id.should.eq '84cRXBYs9jX7w'
       analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
       # set to 1, then set to 0, the quantity below is therefore |0-1| = 1
       analyticsArgs[1].quantity.should.eq 1
@@ -221,6 +221,92 @@ describe 'Cart', ->
 
       order = data.get 'order'
       order.total.should.eq 0
+
+  # invoice is updated whenever anything changes
+  describe 'invoice & shippingRates', ->
+    it 'should use order.shippingRate', ->
+      data = refer
+        order:
+          currency: 'usd'
+          items: []
+          shippingRate: 1
+
+      cart = new Cart client, data
+
+      items = yield cart.set 'sad-keanu-shirt', 1
+      item = items[0]
+      item.quantity.should.eq 1
+
+      order = data.get 'order'
+      order.total.should.eq item.price * item.quantity + order.shippingRate
+
+    it 'should use shippingRates filter with shippingAddress with correct city', ->
+      data = refer
+        order:
+          currency: 'usd'
+          items: []
+          shippingAddress:
+            city:       'san francisco'
+            state:      'ca'
+            country:    'us'
+        shippingRates: [
+          {
+            country:    'us'
+            shippingRate:    1000
+          }
+          {
+            shippingRate:    2000
+          }
+        ]
+
+      cart = new Cart client, data
+      cart.shippingAddress
+
+      items = yield cart.set 'sad-keanu-shirt', 1
+      item = items[0]
+      item.quantity.should.eq 1
+
+      analyticsArgs[0].should.eq 'Added Product'
+      analyticsArgs[1].id.should.eq '84cRXBYs9jX7w'
+      analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
+      analyticsArgs[1].quantity.should.eq 1
+
+      order = data.get 'order'
+      order.total.should.eq Math.ceil(item.price * item.quantity + 1000)
+
+    it 'should use shippingRates filter with shippingAddress with default country filter', ->
+      data = refer
+        order:
+          currency: 'usd'
+          items: []
+          shippingAddress:
+            city:       'san francisco'
+            state:      'ca'
+            country:    'uk'
+        shippingRates: [
+          {
+            country:    'us'
+            shippingRate:    1000
+          }
+          {
+            shippingRate:    2000
+          }
+        ]
+
+      cart = new Cart client, data
+      cart.shippingAddress
+
+      items = yield cart.set 'sad-keanu-shirt', 1
+      item = items[0]
+      item.quantity.should.eq 1
+
+      analyticsArgs[0].should.eq 'Added Product'
+      analyticsArgs[1].id.should.eq '84cRXBYs9jX7w'
+      analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
+      analyticsArgs[1].quantity.should.eq 1
+
+      order = data.get 'order'
+      order.total.should.eq Math.ceil(item.price * item.quantity + 2000)
 
   # invoice is updated whenever anything changes
   describe 'invoice & taxRates', ->
@@ -275,7 +361,7 @@ describe 'Cart', ->
       item.quantity.should.eq 1
 
       analyticsArgs[0].should.eq 'Added Product'
-      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].id.should.eq '84cRXBYs9jX7w'
       analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
       analyticsArgs[1].quantity.should.eq 1
 
@@ -316,7 +402,7 @@ describe 'Cart', ->
       item.quantity.should.eq 1
 
       analyticsArgs[0].should.eq 'Added Product'
-      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].id.should.eq '84cRXBYs9jX7w'
       analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
       analyticsArgs[1].quantity.should.eq 1
 
@@ -357,7 +443,7 @@ describe 'Cart', ->
       item.quantity.should.eq 1
 
       analyticsArgs[0].should.eq 'Added Product'
-      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].id.should.eq '84cRXBYs9jX7w'
       analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
       analyticsArgs[1].quantity.should.eq 1
 
@@ -379,14 +465,14 @@ describe 'Cart', ->
       item.quantity.should.eq 1
 
       analyticsArgs[0].should.eq 'Added Product'
-      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].id.should.eq '84cRXBYs9jX7w'
       analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
       analyticsArgs[1].quantity.should.eq 1
 
-      yield cart.promoCode 'SAD-COUPON'
+      yield cart.promoCode 'SUCH-COUPON'
 
       order = data.get 'order'
-      order.total.should.eq Math.ceil item.price * item.quantity - 500
+      order.total.should.eq Math.ceil item.price * item.quantity - 5
 
     it 'should not use invalid coupon codes', ->
       data = refer
@@ -401,7 +487,7 @@ describe 'Cart', ->
       item.quantity.should.eq 1
 
       analyticsArgs[0].should.eq 'Added Product'
-      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].id.should.eq '84cRXBYs9jX7w'
       analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
       analyticsArgs[1].quantity.should.eq 1
 
@@ -441,7 +527,7 @@ describe 'Cart', ->
       item.quantity.should.eq 1
 
       analyticsArgs[0].should.eq 'Added Product'
-      analyticsArgs[1].id.should.eq 'dZc6BopOFA5Xvd'
+      analyticsArgs[1].id.should.eq '84cRXBYs9jX7w'
       analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
       analyticsArgs[1].quantity.should.eq 1
 
