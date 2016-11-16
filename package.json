@@ -25,6 +25,7 @@
   "homepage": "https://github.com/hanzo-io/commerce.js#readme",
   "dependencies": {
     "broken": "0.1.4",
+    "crowdstart.js": "2.2.8",
     "referential": "0.4.6"
   },
   "devDependencies": {

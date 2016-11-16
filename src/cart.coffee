@@ -31,15 +31,15 @@ class Cart
   initCart: ->
     cartId = @data.get 'order.cartId'
     if !cartId and @client.cart?
-        @client.cart.create().then (cart) =>
-          @data.set 'order.cartId', cart.id
+      @client.cart.create().then (cart) =>
+        @data.set 'order.cartId', cart.id
 
-          items = @data.get 'order.items'
+        items = @data.get 'order.items'
 
-          for item, i in items
-            @_cartSet item.productId, item.quantity
+        for item, i in items
+          @_cartSet item.productId, item.quantity
 
-          @onCart cart.id
+        @onCart cart.id
     else
       @onCart cartId
 
