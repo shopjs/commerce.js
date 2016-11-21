@@ -302,16 +302,25 @@ class Cart
           else
             for item in @data.get 'order.items'
               if item.productId == coupon.productId
-                discount += (coupon.amount || 0) * item.quantity
+                quantity = item.quantity
+                if coupon.once
+                  quantity = 1
+                discount += (coupon.amount || 0) * quantity
 
         when 'percent'
           if !coupon.productId? || coupon.productId == ''
             for item in @data.get 'order.items'
-              discount += (coupon.amount || 0) * item.price * item.quantity * 0.01
+              quantity = item.quantity
+              if coupon.once
+                quantity = 1
+              discount += (coupon.amount || 0) * item.price * quantity * 0.01
           else
             for item in @data.get 'order.items'
               if item.productId == coupon.productId
-                discount += (coupon.amount || 0) * item.price * item.quantity * 0.01
+                quantity = item.quantity
+                if coupon.once
+                  quantity = 1
+                discount += (coupon.amount || 0) * item.price * quantity * 0.01
           discount = Math.floor discount
 
     @data.set 'order.discount', discount
