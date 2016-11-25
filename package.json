@@ -43,7 +43,7 @@
     "es5-shim": "4.5.9",
     "istanbul": "0.4.5",
     "joseph": "^0.2.9",
-    "mocha": "3.1.2",
+    "mocha": "3.2.0",
     "mocha-lcov-reporter": "^1.0.0",
     "mz": "2.4.0",
     "nightmare": "2.0.9",
