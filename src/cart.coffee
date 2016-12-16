@@ -401,18 +401,19 @@ class Cart
         console.log "capture Error: #{err}"
 
       # create referrer token
-      # referralProgram = @data.get 'referralProgram'
+      referralProgram = @data.get 'referralProgram'
 
-      # if referralProgram?
-      #   @client.referrer.create(
-      #     userId: data.order.userId
-      #     orderId: data.order.orderId
-      #     program: referralProgram
-      #   ).then((referrer)=>
-      #     @data.set 'referrerId', referrer.id
-      #   ).catch (err)->
-      #     window?.Raven?.captureException err
-      #     console.log "new referralProgram Error: #{err}"
+      if referralProgram?
+        @client.referrer.create(
+          userId: data.order.userId
+          orderId: data.order.orderId
+          program: referralProgram
+          programId: @data.get 'referralProgram.id'
+        ).then((referrer)=>
+          @data.set 'referrerId', referrer.id
+        ).catch (err)->
+          window?.Raven?.captureException err
+          console.log "new referralProgram Error: #{err}"
 
       # fire off analytics
       options =
