@@ -404,7 +404,7 @@ class Cart
       referralProgram = @data.get 'referralProgram'
 
       if referralProgram?
-        @client.referrer.create(
+        p = p.then @client.referrer.create(
           userId: data.order.userId
           orderId: data.order.orderId
           program: referralProgram
