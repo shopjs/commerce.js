@@ -404,16 +404,24 @@ class Cart
       referralProgram = @data.get 'referralProgram'
 
       if referralProgram?
-        p = p.then @client.referrer.create(
+        p2 = @client.referrer.create(
           userId: data.order.userId
           orderId: data.order.orderId
           program: referralProgram
           programId: @data.get 'referralProgram.id'
-        ).then((referrer)=>
-          @data.set 'referrerId', referrer.id
         ).catch (err)->
           window?.Raven?.captureException err
           console.log "new referralProgram Error: #{err}"
+
+        p = Promise.settle([p, p2]
+        ).then((pis)=>
+          order = pis[0].value
+          referrer = pis[1].value
+          @data.set 'referrerId', referrer.id
+          return order
+        ).catch (err)->
+          window?.Raven?.captureException err
+          console.log "order/referralProgram Error: #{err}"
 
       # fire off analytics
       options =
