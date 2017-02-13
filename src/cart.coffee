@@ -114,15 +114,15 @@ class Cart
         items.splice i, 1
         @onUpdate()
 
-        p =
+        a =
           id: item.productId
           sku: item.productSlug
           name: item.productName
           quantity: item.quantity
           price: parseFloat(item.price / 100)
 
-        p = @opts.analyticsProductTransform(p) if @opts.analyticsProductTransform?
-        analytics.track 'Removed Product', p
+        a = @opts.analyticsProductTransform(a) if @opts.analyticsProductTransform?
+        analytics.track 'Removed Product', a
 
         @data.set 'order.items', items
         @_cartSet item.productId, 0
@@ -146,23 +146,23 @@ class Cart
 
       deltaQuantity = newValue - oldValue
       if deltaQuantity > 0
-        p =
+        a =
           id: item.productId
           sku: item.productSlug
           name: item.productName
           quantity: deltaQuantity
           price: parseFloat(item.price / 100)
-        p = @opts.analyticsProductTransform(p) if @opts.analyticsProductTransform?
-        analytics.track 'Added Product', p
+        a = @opts.analyticsProductTransform(a) if @opts.analyticsProductTransform?
+        analytics.track 'Added Product', a
       else if deltaQuantity < 0
-        p =
+        a =
           id: item.productId
           sku: item.productSlug
           name: item.productName
           quantity: deltaQuantity
           price: parseFloat(item.price / 100)
-        p = @opts.analyticsProductTransform(p) if @opts.analyticsProductTransform?
-        analytics.track 'Removed Product', p
+        a = @opts.analyticsProductTransform(a) if @opts.analyticsProductTransform?
+        analytics.track 'Removed Product', a
 
       @data.set 'order.items.' + i + '.quantity', quantity
       @data.set 'order.items.' + i + '.locked', locked
@@ -195,14 +195,14 @@ class Cart
 
         for item, i in items
           if product.id == item.id || product.slug == item.id
-            p =
+            a =
               id: product.id
               sku: product.slug
               name: product.name
               quantity: item.quantity
               price: parseFloat(product.price / 100)
-            p = @opts.analyticsProductTransform(p) if @opts.analyticsProductTransform?
-            analytics.track 'Added Product', p
+            a = @opts.analyticsProductTransform(a) if @opts.analyticsProductTransform?
+            analytics.track 'Added Product', a
 
             @update product, item
             @data.set 'order.items.' + i, item
@@ -446,15 +446,15 @@ class Cart
         products: []
 
       for item, i in @data.get 'order.items'
-        p =
+        a =
           id: item.productId
           sku: item.productSlug
           name: item.productName
           quantity: item.quantity
           price: parseFloat(item.price / 100)
 
-        p = @opts.analyticsProductTransform(p) if @opts.analyticsProductTransform?
-        options.products[i] = p
+        a = @opts.analyticsProductTransform(a) if @opts.analyticsProductTransform?
+        options.products[i] = a
       analytics.track 'Completed Order', options
 
       return { p: p }
