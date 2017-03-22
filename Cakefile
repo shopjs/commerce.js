@@ -5,9 +5,6 @@ use 'cake-outdated'
 use 'cake-publish'
 use 'cake-version'
 
-fs        = require 'fs'
-requisite = require 'requisite'
-
 option '-b', '--browser [browser]', 'browser to use for tests'
 option '-g', '--grep [filter]',     'test filter'
 option '-t', '--test [test]',       'specify test to run'
@@ -16,24 +13,22 @@ option '-v', '--verbose',           'enable verbose test logging'
 task 'clean', 'clean project', ->
   exec 'rm -rf lib'
 
-task 'build', 'build project', (cb) ->
-  todo = 2
-  done = (err) ->
-    throw err if err?
-    cb() if --todo is 0
+task 'build', 'build project', ->
+  b = new Bundle
+    entry: 'src/index.coffee'
+    compilers:
+      coffee:
+        version: 1
 
-  exec 'coffee -bcm -o lib/ src/', done
+  yield b.write
+    formats: ['es', 'cjs']
 
-  opts =
-    entry:      'src/index.coffee'
-    stripDebug: true
-
-  requisite.bundle opts, (err, bundle) ->
-    return done err if err?
-    fs.writeFile 'commerce.js', (bundle.toString opts), 'utf8', done
-
-task 'build-min', 'build project', ['build'], ->
-  exec 'uglifyjs commerce.js --compress --mangle --lint=false > commerce.min.js'
+task 'build:min', 'build project', ['build'], ->
+  yield b.write
+    format:    'web'
+    external:  false
+    minify:    true
+    sourceMap: false
 
 task 'test', 'Run tests', ['build'], (opts) ->
   bail     = opts.bail     ? true
@@ -76,7 +71,6 @@ task 'coverage', 'Process coverage statistics', ->
     '''
 
 task 'watch', 'watch for changes and recompile project', ->
-  exec 'coffee -bcmw -o lib/ src/'
   exec 'bebop -o'
 
 task 'watch:test', 'watch for changes and re-run tests', ->
