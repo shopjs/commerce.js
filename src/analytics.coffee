@@ -1,4 +1,4 @@
-module.exports =
+export default analytics =
   track: (event, data) ->
     if window?.analytics?
       try

@@ -1,19 +1,19 @@
-analytics = require './analytics'
-Promise = require 'broken'
+import analytics from './analytics'
+import Promise   from 'broken'
 
 class Cart
-  waits:    0
-  queue:    null
+  waits: 0
+  queue: null
 
   # referential tree with
   # order
   # user
   # payment
   # taxRates
-  data:     null
+  data: null
 
   # hanzo.js client
-  client:   null
+  client: null
 
   cartPromise: null
 
@@ -22,7 +22,7 @@ class Cart
   resolve:  null
 
   opts: {
-    #analyticsProductTransform: Takes analytics product info and transforms it.
+    # analyticsProductTransform: Takes analytics product info and transforms it.
   }
 
   constructor: (@client, @data, @opts={})->
@@ -226,7 +226,7 @@ class Cart
         @queue.shift()
         @_set()
 
-  refresh: (id)->
+  refresh: (id) ->
     items = @data.get 'order.items'
 
     @client.product.get id
@@ -253,7 +253,7 @@ class Cart
     @onUpdate item
 
   # overwrite to add some behavior
-  onUpdate: (item)->
+  onUpdate: (item) ->
     # mediator.trigger Events.UpdateItems
     # riot.update()
 
@@ -283,14 +283,14 @@ class Cart
 
     return @data.get 'order.promoCode'
 
-  taxRates: (taxRates)->
+  taxRates: (taxRates) ->
     if taxRates?
       @data.set 'taxRates', taxRates
       @invoice()
 
     return @data.get 'taxRates'
 
-  shippingRates: (shippingRates)->
+  shippingRates: (shippingRates) ->
     if shippingRates?
       @data.set 'shippingRates', shippingRates
       @invoice()
@@ -298,7 +298,7 @@ class Cart
     return @data.get 'shippingRates'
 
   # update properties on data related to invoicing
-  invoice: ()->
+  invoice: ->
     items = @data.get 'order.items'
 
     discount = 0
@@ -389,7 +389,7 @@ class Cart
     @data.set 'order.tax', tax
     @data.set 'order.total', subtotal + shipping + tax
 
-  checkout: ()->
+  checkout: ->
     # just to be sure
     @invoice()
 
@@ -459,5 +459,4 @@ class Cart
 
       return { p: p }
 
-module.exports = Cart
-
+export default Cart
