@@ -25,11 +25,12 @@
   "homepage": "https://github.com/hanzo-io/commerce.js#readme",
   "dependencies": {
     "broken": "0.1.4",
-    "crowdstart.js": "2.2.8",
     "referential": "0.4.6"
   },
   "devDependencies": {
     "bebop": "1.10.0",
+    "cake-bundle": "0.2.1",
+    "cake-outdated": "0.1.13",
     "cake-publish": "0.1.5",
     "cake-version": "0.1.9",
     "chai": "3.5.0",
