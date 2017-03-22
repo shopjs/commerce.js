@@ -24,7 +24,8 @@ task 'build', 'build project', ->
     formats: ['es', 'cjs']
 
 task 'build:min', 'build project', ['build'], ->
-  yield b.write
+  yield bundle.write
+    entry:     'src/index.coffee'
     format:    'web'
     external:  false
     minify:    true
