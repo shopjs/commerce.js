@@ -6,8 +6,6 @@
   "module": "dist/lib.mjs",
   "js:next": "dist/lib.mjs",
   "files": [
-    "README.md",
-    "LICENSE",
     "dist/",
     "src/"
   ],
