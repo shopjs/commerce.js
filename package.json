@@ -2,9 +2,17 @@
   "name": "commerce.js",
   "version": "1.0.33",
   "description": "Commerce.js is the cart and checkout flow logic library for Shop.js",
-  "main": "lib/",
+  "main": "dist/lib.js",
+  "module": "dist/lib.js",
+  "js:next": "dist/lib.mjs",
+  "files": [
+    "README.md",
+    "LICENSE",
+    "dist/",
+    "src/"
+  ],
   "scripts": {
-    "prepublish": "cake build-min",
+    "prepublishOnly": "cake build:min",
     "test": "cake test"
   },
   "repository": {
@@ -18,7 +26,7 @@
     "cart"
   ],
   "author": "Hanzo Inc.",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/hanzo-io/commerce.js/issues"
   },
