@@ -3,7 +3,7 @@
   "version": "1.0.34",
   "description": "Commerce.js is the cart and checkout flow logic library for Shop.js",
   "main": "dist/lib.js",
-  "module": "dist/lib.js",
+  "module": "dist/lib.mjs",
   "js:next": "dist/lib.mjs",
   "files": [
     "README.md",
