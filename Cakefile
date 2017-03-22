@@ -1,7 +1,9 @@
 require 'shortcake'
 
-use 'cake-version'
+use 'cake-bundle'
+use 'cake-outdated'
 use 'cake-publish'
+use 'cake-version'
 
 fs        = require 'fs'
 requisite = require 'requisite'
