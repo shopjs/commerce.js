@@ -23,7 +23,7 @@
     "shop.js",
     "cart"
   ],
-  "author": "Hanzo Inc.",
+  "author": "Hanzo, Inc. <hi@hanzo.io>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/hanzo-io/commerce.js/issues"
