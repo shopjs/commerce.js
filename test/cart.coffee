@@ -472,7 +472,7 @@ describe 'Cart', ->
       yield cart.promoCode 'SUCH-COUPON'
 
       order = data.get 'order'
-      order.total.should.eq Math.ceil item.price * item.quantity - 5
+      order.total.should.eq Math.ceil item.price * item.quantity - 500
 
     it 'should not use invalid coupon codes', ->
       data = refer
