@@ -1,2 +1,3 @@
-module.exports =
-  Cart: require './cart'
+import Cart from './cart'
+
+export {Cart}
