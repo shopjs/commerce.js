@@ -14,17 +14,13 @@ task 'clean', 'clean project', ->
   exec 'rm -rf lib'
 
 task 'build', 'build project', ->
-  b = new Bundle
+  bundle.write
     entry: 'src/index.coffee'
     compilers:
-      coffee:
-        version: 1
-
-  yield b.write
-    formats: ['es', 'cjs']
+      coffee: version: 1
 
 task 'build:min', 'build project', ['build'], ->
-  yield bundle.write
+  bundle.write
     entry:     'src/index.coffee'
     format:    'web'
     external:  false
