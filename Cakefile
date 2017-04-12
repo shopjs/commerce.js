@@ -1,14 +1,7 @@
-require 'shortcake'
-
-use 'cake-bundle'
-use 'cake-outdated'
-use 'cake-publish'
-use 'cake-version'
-
-option '-b', '--browser [browser]', 'browser to use for tests'
-option '-g', '--grep [filter]',     'test filter'
-option '-t', '--test [test]',       'specify test to run'
-option '-v', '--verbose',           'enable verbose test logging'
+use 'sake-bundle'
+use 'sake-outdated'
+use 'sake-publish'
+use 'sake-version'
 
 task 'clean', 'clean project', ->
   exec 'rm -rf lib'

@@ -10,8 +10,10 @@
     "src/"
   ],
   "scripts": {
-    "prepublishOnly": "cake build:min",
-    "test": "cake test"
+    "build": "sake build",
+    "pretest": "sake build",
+    "prepublishOnly": "sake build:min",
+    "test": "sake test"
   },
   "repository": {
     "type": "git",
@@ -35,10 +37,6 @@
   },
   "devDependencies": {
     "bebop": "1.12.2",
-    "cake-bundle": "0.2.21",
-    "cake-outdated": "0.1.18",
-    "cake-publish": "0.1.10",
-    "cake-version": "0.1.15",
     "chai": "3.5.0",
     "chai-as-promised": "6.0.0",
     "co-mocha": "1.2.0",
@@ -56,7 +54,12 @@
     "nightmare": "2.10.0",
     "postmortem": "^0.2.3",
     "random-token": "0.0.8",
-    "serve-static": "1.12.1",
-    "shortcake": "1.2.8"
+    "sake-bundle": "0.4.11",
+    "sake-cli": "0.3.2",
+    "sake-core": "1.3.7",
+    "sake-outdated": "0.1.20",
+    "sake-publish": "0.1.12",
+    "sake-version": "0.1.18",
+    "serve-static": "1.12.1"
   }
 }
