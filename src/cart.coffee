@@ -350,6 +350,10 @@ class Cart
         if !city || (taxRateFilter.city? && taxRateFilter.city.toLowerCase() != city.toLowerCase())
           continue
 
+        postalCode = @data.get 'order.shippingAddress.postalCode'
+        if !postalCode || (taxRateFilter.postalCode? && taxRateFilter.postalCode.toLowerCase() != postalCode.toLowerCase())
+          continue
+
         state = @data.get 'order.shippingAddress.state'
         if !state || (taxRateFilter.state? && taxRateFilter.state.toLowerCase() != state.toLowerCase())
           continue
@@ -366,6 +370,10 @@ class Cart
       for shippingRateFilter in shippingRates
         city = @data.get 'order.shippingAddress.city'
         if !city || (shippingRateFilter.city? && shippingRateFilter.city.toLowerCase() != city.toLowerCase())
+          continue
+
+        postalCode = @data.get 'order.shippingAddress.postalCode'
+        if !postalCode || (shippingRateFilter.postalCode? && shippingRateFilter.postalCode.toLowerCase() != postalCode.toLowerCase())
           continue
 
         state = @data.get 'order.shippingAddress.state'
