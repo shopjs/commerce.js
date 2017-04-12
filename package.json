@@ -1,6 +1,6 @@
 {
   "name": "commerce.js",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Commerce.js is the cart and checkout flow logic library for Shop.js",
   "main": "lib/commerce.js",
   "module": "lib/commerce.mjs",
@@ -33,7 +33,7 @@
   "homepage": "https://github.com/hanzo-io/commerce.js#readme",
   "dependencies": {
     "broken": "0.1.13",
-    "referential": "0.5.15"
+    "referential": "0.5.17"
   },
   "devDependencies": {
     "bebop": "1.12.2",
@@ -41,11 +41,11 @@
     "chai-as-promised": "6.0.0",
     "co-mocha": "1.2.0",
     "codecov.io": "^0.1.6",
-    "coffee-script": "1.12.4",
+    "coffee-script": "1.12.5",
     "connect": "3.6.0",
     "coveralls": "2.13.0",
     "es5-shim": "4.5.9",
-    "hanzo.js": "2.3.13",
+    "hanzo.js": "2.3.16",
     "istanbul": "0.4.5",
     "joseph": "^0.2.9",
     "mocha": "3.2.0",
