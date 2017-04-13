@@ -7,10 +7,14 @@ task 'clean', 'clean project', ->
   exec 'rm -rf lib'
 
 task 'build', 'build project', ->
-  bundle.write
+  b = new Bundle
     entry: 'src/index.coffee'
     compilers:
       coffee: version: 1
+  Promise.all [
+    b.write format: 'es'
+    b.write format: 'cjs', include: ['es-is']
+  ]
 
 task 'build:min', 'build project', ['build'], ->
   bundle.write
