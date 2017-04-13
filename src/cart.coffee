@@ -344,6 +344,8 @@ class Cart
     @data.set 'order.subtotal', subtotal
 
     taxRates = @data.get 'taxRates'
+    @data.set 'order.taxRate', 0
+
     if taxRates?
       for taxRateFilter in taxRates
         city = @data.get 'order.shippingAddress.city'
@@ -366,6 +368,8 @@ class Cart
         break
 
     shippingRates = @data.get 'shippingRates'
+    @data.set 'order.shippingRate', 0
+
     if shippingRates?
       for shippingRateFilter in shippingRates
         city = @data.get 'order.shippingAddress.city'
