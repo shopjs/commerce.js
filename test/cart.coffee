@@ -1,5 +1,5 @@
 refer = require 'referential'
-Cart = require '../lib/cart'
+{Cart} = require '../'
 {expect} = require 'chai'
 
 describe 'Cart', ->
