@@ -12,7 +12,8 @@
 ## License
 [BSD][license-url]
 
-[examples]:       https://github.com/hanzo-io/commerce.js/blob/master/test/test.coffee
+[shopjs]:           https://getshopjs.com
+[examples]:         https://github.com/hanzo-io/commerce.js/blob/master/test/test.coffee
 
 [build-img]:        https://img.shields.io/travis/hanzo-io/commerce.js.svg
 [build-url]:        https://travis-ci.org/hanzo-io/commerce.js
