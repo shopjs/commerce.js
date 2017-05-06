@@ -56,7 +56,6 @@
     "random-token": "0.0.8",
     "sake-bundle": "0.4.21",
     "sake-cli": "0.5.5",
-    "sake-core": "1.4.5",
     "sake-outdated": "0.1.22",
     "sake-publish": "0.1.12",
     "sake-version": "0.1.19",
