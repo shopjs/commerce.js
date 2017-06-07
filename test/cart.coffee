@@ -222,6 +222,36 @@ describe 'Cart', ->
       order = data.get 'order'
       order.total.should.eq 0
 
+  describe 'clear', ->
+    it 'should clear a set item', ->
+      data = refer
+        order:
+          currency: 'usd'
+          items: []
+
+      cart = new Cart client, data
+
+      items = yield cart.set '84cRXBYs9jX7w', 1
+      items.length.should.eq 1
+      item = items[0]
+      item.productId.should.eq '84cRXBYs9jX7w'
+      item.productSlug.should.eq 'sad-keanu-shirt'
+      item.quantity.should.eq 1
+
+      analyticsArgs[0].should.eq 'Added Product'
+      analyticsArgs[1].id.should.eq '84cRXBYs9jX7w'
+      analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
+      analyticsArgs[1].quantity.should.eq 1
+
+      order = data.get 'order'
+      order.total.should.eq item.price * item.quantity
+
+      items = cart.clear()
+      items.length.should.eq 0
+
+      order = data.get 'order'
+      order.total.should.eq 0
+
   # invoice is updated whenever anything changes
   describe 'invoice & shippingRates', ->
     it 'should use order.shippingRate', ->
