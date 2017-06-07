@@ -67,6 +67,13 @@ class Cart
       cart.id = cartId
       @client.cart.update cart
 
+  clear: ()->
+    @queue.length = 0
+    items = @data.get 'order.items'
+    for item in items
+      @set item.productId, 0
+    return @data.get 'order.items'
+
   set: (id, quantity, locked=false) ->
     @queue.push [id, quantity, locked]
 
