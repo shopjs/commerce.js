@@ -223,7 +223,7 @@ describe 'Cart', ->
       order.total.should.eq 0
 
   describe 'clear', ->
-    it 'should clear a set item', ->
+    it 'should clear', ->
       data = refer
         order:
           currency: 'usd'
