@@ -358,19 +358,19 @@ class Cart
     if taxRates?
       for taxRateFilter in taxRates
         city = @data.get 'order.shippingAddress.city'
-        if !city || (taxRateFilter.city? && taxRateFilter.city.toLowerCase() != city.toLowerCase())
+        if (!city && taxRateFilter.city) || (taxRateFilter.city? && taxRateFilter.city.toLowerCase() != city.toLowerCase())
           continue
 
         postalCode = @data.get 'order.shippingAddress.postalCode'
-        if !postalCode || (taxRateFilter.postalCode? && taxRateFilter.postalCode.toLowerCase() != postalCode.toLowerCase())
+        if (!postalCode && taxRateFilter.postalCode) || (taxRateFilter.postalCode? && taxRateFilter.postalCode.toLowerCase() != postalCode.toLowerCase())
           continue
 
         state = @data.get 'order.shippingAddress.state'
-        if !state || (taxRateFilter.state? && taxRateFilter.state.toLowerCase() != state.toLowerCase())
+        if (!state && taxRateFilter.state) || (taxRateFilter.state? && taxRateFilter.state.toLowerCase() != state.toLowerCase())
           continue
 
         country = @data.get 'order.shippingAddress.country'
-        if !country || (taxRateFilter.country? && taxRateFilter.country.toLowerCase() != country.toLowerCase())
+        if (!country && taxRateFilter.country) || (taxRateFilter.country? && taxRateFilter.country.toLowerCase() != country.toLowerCase())
           continue
 
         @data.set 'order.taxRate', taxRateFilter.taxRate
@@ -384,19 +384,19 @@ class Cart
     if shippingRates?
       for shippingRateFilter in shippingRates
         city = @data.get 'order.shippingAddress.city'
-        if !city || (shippingRateFilter.city? && shippingRateFilter.city.toLowerCase() != city.toLowerCase())
+        if (!city && shippingRateFilter.city) || (shippingRateFilter.city? && shippingRateFilter.city.toLowerCase() != city.toLowerCase())
           continue
 
         postalCode = @data.get 'order.shippingAddress.postalCode'
-        if !postalCode || (shippingRateFilter.postalCode? && shippingRateFilter.postalCode.toLowerCase() != postalCode.toLowerCase())
+        if (!postalCode && shippingRateFilter.postalCode) || (shippingRateFilter.postalCode? && shippingRateFilter.postalCode.toLowerCase() != postalCode.toLowerCase())
           continue
 
         state = @data.get 'order.shippingAddress.state'
-        if !state || (shippingRateFilter.state? && shippingRateFilter.state.toLowerCase() != state.toLowerCase())
+        if (!state && shippingRateFilter.state) || (shippingRateFilter.state? && shippingRateFilter.state.toLowerCase() != state.toLowerCase())
           continue
 
         country = @data.get 'order.shippingAddress.country'
-        if !country || (shippingRateFilter.country? && shippingRateFilter.country.toLowerCase() != country.toLowerCase())
+        if (!country && shippingRateFilter.country) || (shippingRateFilter.country? && shippingRateFilter.country.toLowerCase() != country.toLowerCase())
           continue
 
         @data.set 'order.shippingRate', shippingRateFilter.shippingRate
