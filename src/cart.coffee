@@ -41,7 +41,11 @@ class Cart
           @_cartSet item.productId, item.quantity
 
         @onCart cart.id
-    else
+
+      @data.on 'set', (name)=>
+        @_cartSyncStore() if name == 'order.storeId'
+
+    else if @client.cart?
       @onCart cartId
 
       items = @data.get 'order.items'
@@ -49,6 +53,9 @@ class Cart
       for item, i in items
         @_cartSet item.productId, item.quantity
       @onCart cartId
+
+      @data.on 'set', (name)=>
+        @_cartSyncStore() if name == 'order.storeId'
 
   # fired when cart id is obtained
   onCart: (cartId) ->
@@ -60,12 +67,20 @@ class Cart
         id:           cartId
         productId:    id
         quantity:     quantity
+        storeId:      @data.get 'order.storeId'
 
   _cartUpdate: (cart) ->
     cartId = @data.get 'order.cartId'
     if cartId && @client.cart?
       cart.id = cartId
       @client.cart.update cart
+
+  _cartSyncStore: ()->
+    cartId = @data.get 'order.cartId'
+    if cartId && @client.cart?
+      @client.cart.update
+        id:      cartId
+        storeId: @data.get 'order.storeId'
 
   clear: ()->
     @queue.length = 0
