@@ -453,8 +453,8 @@ class Cart
 
       if referralProgram?
         p2 = @client.referrer.create(
-          userId: data.order.userId
-          orderId: data.order.orderId
+          userId: @data.get 'order.userId'
+          orderId: @data.get 'order.id'
           program: referralProgram
           programId: @data.get 'referralProgram.id'
         ).catch (err)->
