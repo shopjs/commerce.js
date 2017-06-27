@@ -665,3 +665,5 @@ describe 'Cart', ->
       analyticsArgs[1].orderId.should.eq order.id
 
       expect(order.id).to.exist
+      expect(order.userId).to.exist
+
