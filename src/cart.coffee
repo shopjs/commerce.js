@@ -15,8 +15,6 @@ class Cart
   # hanzo.js client
   client: null
 
-  cartPromise: null
-
   promise:  null
   reject:   null
   resolve:  null
@@ -56,6 +54,8 @@ class Cart
 
       @data.on 'set', (name)=>
         @_cartSyncStore() if name == 'order.storeId'
+        @_cartSyncName() if name == 'user.firstName'
+        @_cartSyncName() if name == 'user.lastName'
 
   # fired when cart id is obtained
   onCart: (cartId) ->
