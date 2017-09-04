@@ -222,6 +222,27 @@ describe 'Cart', ->
       order = data.get 'order'
       order.total.should.eq 0
 
+    it 'should delete an existing item by setting quantity to -1', ->
+      data = refer
+        order:
+          currency: 'usd'
+          items: []
+
+      cart = new Cart client, data
+      cart.set 'sad-keanu-shirt', 1
+      items = yield cart.set 'sad-keanu-shirt', -1
+
+      analyticsArgs[0].should.eq 'Removed Product'
+      analyticsArgs[1].id.should.eq '84cRXBYs9jX7w'
+      analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
+      # set to 1, then set to max(0, -1) = 0, the quantity below is therefore |0-1| = 1
+      analyticsArgs[1].quantity.should.eq 1
+
+      items.length.should.eq 0
+
+      order = data.get 'order'
+      order.total.should.eq 0
+
   describe 'clear', ->
     it 'should clear', ->
       data = refer

@@ -126,6 +126,10 @@ class Cart
 
     [id, quantity, locked] = @queue[0]
 
+    # handle negative quantities.
+    if quantity < 0
+      quantity = 0
+
     # delete item
     if quantity == 0
       for item, i in items
