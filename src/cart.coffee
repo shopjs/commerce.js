@@ -153,6 +153,7 @@ class Cart
         @data.set 'order.items', items
         @_cartSet item.productId, 0
 
+        item.quantity = 0
         @onUpdate item
 
       @queue.shift()
