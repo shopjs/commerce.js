@@ -280,7 +280,8 @@ describe 'Cart', ->
         order:
           currency: 'usd'
           items: []
-          shippingRate: 1
+          shippingRate:
+            cost: 1000
 
       cart = new Cart client, data
 
@@ -289,7 +290,7 @@ describe 'Cart', ->
       item.quantity.should.eq 1
 
       order = data.get 'order'
-      order.total.should.eq item.price * item.quantity + order.shippingRate
+      order.total.should.eq item.price * item.quantity + order.shippingRate.cost
 
     it 'should use shippingRates filter with shippingAddress with correct city', ->
       data = refer
@@ -300,15 +301,16 @@ describe 'Cart', ->
             city:       'san francisco'
             state:      'ca'
             country:    'us'
-        shippingRates: [
-          {
-            country:    'us'
-            shippingRate:    1000
-          }
-          {
-            shippingRate:    2000
-          }
-        ]
+        shippingRates:
+          geoRates: [
+            {
+              country:    'US'
+              cost:       1000
+            }
+            {
+              cost:       2000
+            }
+          ]
 
       cart = new Cart client, data
       cart.shippingAddress
@@ -335,20 +337,21 @@ describe 'Cart', ->
             postalCode: '94016'
             state:      'ca'
             country:    'us'
-        shippingRates: [
-          {
-            country:    'us'
-            postalCode: '94016'
-            shippingRate:    500
-          }
-          {
-            country:    'us'
-            shippingRate:    1000
-          }
-          {
-            shippingRate:    2000
-          }
-        ]
+        shippingRates:
+          geoRates: [
+            {
+              country:        'US'
+              postalCodes:    '94016'
+              cost:           500
+            }
+            {
+              country:    'US'
+              cost:       1000
+            }
+            {
+              cost:       2000
+            }
+          ]
 
       cart = new Cart client, data
       cart.shippingAddress
@@ -374,15 +377,16 @@ describe 'Cart', ->
             city:       'san francisco'
             state:      'ca'
             country:    'uk'
-        shippingRates: [
-          {
-            country:    'us'
-            shippingRate:    1000
-          }
-          {
-            shippingRate:    2000
-          }
-        ]
+        shippingRates:
+          geoRates: [
+            {
+              country:    'US'
+              cost:       1000
+            }
+            {
+              cost:       2000
+            }
+          ]
 
       cart = new Cart client, data
       cart.shippingAddress
@@ -406,7 +410,8 @@ describe 'Cart', ->
         order:
           currency: 'usd'
           items: []
-          taxRate: 1
+          taxRate:
+            percent: 1
 
       cart = new Cart client, data
 
@@ -415,7 +420,7 @@ describe 'Cart', ->
       item.quantity.should.eq 1
 
       order = data.get 'order'
-      order.total.should.eq item.price * item.quantity + order.taxRate * item.price
+      order.total.should.eq item.price * item.quantity + order.taxRate.percent * item.price
 
     it 'should use taxRates filter with shippingAddress with correct city', ->
       data = refer
@@ -426,23 +431,24 @@ describe 'Cart', ->
             city:       'san francisco'
             state:      'ca'
             country:    'us'
-        taxRates: [
-          {
-            city:       'san francisco'
-            state:      'ca'
-            country:    'us'
-            taxRate:    .0875
-          }
-          {
-            state:      'ca'
-            country:    'us'
-            taxRate:    .075
-          }
-          {
-            country:    'us'
-            taxRate:    1
-          }
-        ]
+        taxRates:
+          geoRates: [
+            {
+              city:       'SANFRANCISCO'
+              state:      'CA'
+              country:    'US'
+              percent:    .0875
+            }
+            {
+              state:      'CA'
+              country:    'US'
+              percent:    .075
+            }
+            {
+              country:    'US'
+              percent:    1
+            }
+          ]
 
       cart = new Cart client, data
       cart.shippingAddress
@@ -469,23 +475,24 @@ describe 'Cart', ->
             state:      'ca'
             postalCode: '94016'
             country:    'us'
-        taxRates: [
-          {
-            postalCode: '94016'
-            state:      'ca'
-            country:    'us'
-            taxRate:    .0875
-          }
-          {
-            state:      'ca'
-            country:    'us'
-            taxRate:    .075
-          }
-          {
-            country:    'us'
-            taxRate:    1
-          }
-        ]
+        taxRates:
+          geoRates: [
+            {
+              postalCode: '94016'
+              state:      'CA'
+              country:    'US'
+              percent:    .0875
+            }
+            {
+              state:      'CA'
+              country:    'US'
+              percent:    .075
+            }
+            {
+              country:    'US'
+              taxRate:    1
+            }
+          ]
 
       cart = new Cart client, data
       cart.shippingAddress
@@ -511,23 +518,24 @@ describe 'Cart', ->
             city:       'sacramento'
             state:      'ca'
             country:    'us'
-        taxRates: [
-          {
-            city:       'san francisco'
-            state:      'ca'
-            country:    'us'
-            taxRate:    .08750
-          }
-          {
-            state:      'ca'
-            country:    'us'
-            taxRate:    .075
-          }
-          {
-            country:    'us'
-            taxRate:    1
-          }
-        ]
+        taxRates:
+          geoRates:[
+            {
+              city:       'SANFRANCISCO'
+              state:      'CA'
+              country:    'US'
+              percent:    .0875
+            }
+            {
+              state:      'CA'
+              country:    'US'
+              percent:    .075
+            }
+            {
+              country:    'US'
+              percent:    1
+            }
+          ]
 
       cart = new Cart client, data
 
@@ -552,23 +560,24 @@ describe 'Cart', ->
             city:       'kansas city'
             state:      'mo'
             country:    'us'
-        taxRates: [
-          {
-            city:       'san francisco'
-            state:      'ca'
-            country:    'us'
-            taxRate:    .08750
-          }
-          {
-            state:      'ca'
-            country:    'us'
-            taxRate:    .075
-          }
-          {
-            country:    'us'
-            taxRate:    1
-          }
-        ]
+        taxRates:
+          geoRates:[
+            {
+              city:       'SANFRANCISCO'
+              state:      'CA'
+              country:    'US'
+              percent:    .0875
+            }
+            {
+              state:      'CA'
+              country:    'US'
+              percent:    .075
+            }
+            {
+              country:    'US'
+              percent:    1
+            }
+          ]
 
       cart = new Cart client, data
 
