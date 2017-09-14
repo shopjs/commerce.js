@@ -1,6 +1,8 @@
 import analytics from './analytics'
 import Promise   from 'broken'
 
+import { matchesGeoRate, closestGeoRate, clean } from './util'
+
 class Cart
   waits: 0
   queue: null

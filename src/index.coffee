@@ -1,3 +1,4 @@
 import Cart from './cart'
 
-export {Cart}
+export { matchesGeoRate, closestGeoRate, clean } from './util'
+export { Cart }
