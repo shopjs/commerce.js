@@ -1,7 +1,7 @@
 import analytics from './analytics'
 import Promise   from 'broken'
 
-import { matchesGeoRate, closestGeoRate, clean } from './util'
+import { closestGeoRate } from './util'
 
 class Cart
   waits: 0
@@ -375,60 +375,42 @@ class Cart
     taxRates = @data.get 'taxRates'
     rate = @data.get 'order.taxRate'
     if !rate?
-      @data.set 'order.taxRate', 0
+      rate = { percent: 0, cost: 0 }
+      @data.set 'order.taxRate', rate
 
     if taxRates?
-      for taxRateFilter in taxRates
-        city = @data.get 'order.shippingAddress.city'
-        if (!city && taxRateFilter.city) || (taxRateFilter.city? && taxRateFilter.city.toLowerCase() != city.toLowerCase())
-          continue
+      country = @data.get 'order.shippingAddress.country'
+      state = @data.get 'order.shippingAddress.state'
+      city = @data.get 'order.shippingAddress.city'
+      postalCode = @data.get 'order.shippingAddress.postalCode'
 
-        postalCode = @data.get 'order.shippingAddress.postalCode'
-        if (!postalCode && taxRateFilter.postalCode) || (taxRateFilter.postalCode? && taxRateFilter.postalCode.toLowerCase() != postalCode.toLowerCase())
-          continue
-
-        state = @data.get 'order.shippingAddress.state'
-        if (!state && taxRateFilter.state) || (taxRateFilter.state? && taxRateFilter.state.toLowerCase() != state.toLowerCase())
-          continue
-
-        country = @data.get 'order.shippingAddress.country'
-        if (!country && taxRateFilter.country) || (taxRateFilter.country? && taxRateFilter.country.toLowerCase() != country.toLowerCase())
-          continue
-
-        @data.set 'order.taxRate', taxRateFilter.taxRate
-        break
+      [gr, l, i] = closestGeoRate(taxRates.geoRates, country, state, city, postalCode)
+      if !gr?
+        gr = rate
+      @data.set 'order.taxRate', gr
 
     shippingRates = @data.get 'shippingRates'
     rate = @data.get 'order.shippingRate'
     if !rate?
-      @data.set 'order.shippingRate', 0
+      rate = { percent: 0, cost: 0 }
+      @data.set 'order.shippingRate', rate
 
     if shippingRates?
-      for shippingRateFilter in shippingRates
-        city = @data.get 'order.shippingAddress.city'
-        if (!city && shippingRateFilter.city) || (shippingRateFilter.city? && shippingRateFilter.city.toLowerCase() != city.toLowerCase())
-          continue
+      country = @data.get 'order.shippingAddress.country'
+      state = @data.get 'order.shippingAddress.state'
+      city = @data.get 'order.shippingAddress.city'
+      postalCode = @data.get 'order.shippingAddress.postalCode'
 
-        postalCode = @data.get 'order.shippingAddress.postalCode'
-        if (!postalCode && shippingRateFilter.postalCode) || (shippingRateFilter.postalCode? && shippingRateFilter.postalCode.toLowerCase() != postalCode.toLowerCase())
-          continue
+      [gr, l, i] = closestGeoRate(shippingRates.geoRates, country, state, city, postalCode)
+      if !gr?
+        gr = rate
+      @data.set 'order.shippingRate', gr
 
-        state = @data.get 'order.shippingAddress.state'
-        if (!state && shippingRateFilter.state) || (shippingRateFilter.state? && shippingRateFilter.state.toLowerCase() != state.toLowerCase())
-          continue
+    taxRate   = (@data.get 'order.taxRate') ? { percent: 0, cost: 0 }
+    tax       = Math.ceil (taxRate.percent ? 0) * subtotal + (taxRate.cost ? 0)
 
-        country = @data.get 'order.shippingAddress.country'
-        if (!country && shippingRateFilter.country) || (shippingRateFilter.country? && shippingRateFilter.country.toLowerCase() != country.toLowerCase())
-          continue
-
-        @data.set 'order.shippingRate', shippingRateFilter.shippingRate
-        break
-
-    taxRate   = (@data.get 'order.taxRate') ? 0
-    tax       = Math.ceil (taxRate ? 0) * subtotal
-
-    shippingRate = (@data.get 'order.shippingRate') ? 0
-    shipping = shippingRate
+    shippingRate    = (@data.get 'order.shippingRate') ? { percent: 0, cost: 0 }
+    shipping        = Math.ceil (shippingRate.percent ? 0) * subtotal + (shippingRate.cost ? 0)
 
     @data.set 'order.shipping', shipping
     @data.set 'order.tax', tax
