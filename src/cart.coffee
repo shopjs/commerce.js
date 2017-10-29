@@ -429,13 +429,14 @@ class Cart
       @data.set 'coupon', @data.get('order.coupon') || {}
       @data.set 'order', order
 
-      # capture
-      p = @client.checkout.capture(order.id).then((order)=>
-        @data.set 'order', order
-        return order
-      ).catch (err)->
-        window?.Raven?.captureException err
-        console.log "capture Error: #{err}"
+      if order.type != 'ethereum'
+        # capture
+        p = @client.checkout.capture(order.id).then((order)=>
+          @data.set 'order', order
+          return order
+        ).catch (err)->
+          window?.Raven?.captureException err
+          console.log "capture Error: #{err}"
 
       # create referrer token
       referralProgram = @data.get 'referralProgram'
