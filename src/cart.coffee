@@ -429,7 +429,11 @@ class Cart
       @data.set 'coupon', @data.get('order.coupon') || {}
       @data.set 'order', order
 
-      if order.type != 'ethereum'
+      if order.type == 'ethereum'
+        # ignore checkout
+        p = new Promise (resolve)->
+          resolve(order)
+      else
         # capture
         p = @client.checkout.capture(order.id).then((order)=>
           @data.set 'order', order
