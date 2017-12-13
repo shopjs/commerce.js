@@ -757,3 +757,38 @@ describe 'Cart', ->
       expect(order.id).to.exist
       expect(order.userId).to.exist
 
+    it 'should checkout an itemless order', ->
+      data = refer
+        user:
+          email:        'test@hanzo.io'
+          firstName:    'test'
+          lastName:     'test'
+        order:
+          currency: 'usd'
+          mode: 'contribution'
+          subtotal: 123456
+        payment:
+          account:
+            number: '4242424242424242'
+            cvc:    '424'
+            month:  '1'
+            year:   '2020'
+
+      cart = new Cart client, data
+      checkoutPRef = yield cart.checkout()
+
+      analyticsArgs[0].should.eq 'Completed Order'
+      analyticsArgs[1].total.should.eq parseFloat(data.get('order.total') /100)
+      analyticsArgs[1].shipping.should.eq parseFloat(data.get('order.shipping') /100)
+      analyticsArgs[1].tax.should.eq parseFloat(data.get('order.tax') /100)
+      analyticsArgs[1].discount.should.eq parseFloat(data.get('order.discount') /100)
+      analyticsArgs[1].coupon.should.eq data.get('order.couponCodes.0') || ''
+      analyticsArgs[1].currency.should.eq 'usd'
+
+      order = yield checkoutPRef.p
+
+      analyticsArgs[1].orderId.should.eq order.id
+
+      expect(order.id).to.exist
+      expect(order.userId).to.exist
+
