@@ -243,6 +243,21 @@ describe 'Cart', ->
       order = data.get 'order'
       order.total.should.eq 0
 
+    it 'should not set when in an itemless mode', ->
+      data = refer
+        order:
+          currency: 'usd'
+          items: []
+          mode: 'deposit'
+
+      cart = new Cart client, data
+
+      items = yield cart.set '84cRXBYs9jX7w', 1
+      items.length.should.eq 0
+
+      order = data.get 'order'
+      order.total.should.eq 0
+
   describe 'clear', ->
     it 'should clear', ->
       data = refer
@@ -272,6 +287,38 @@ describe 'Cart', ->
 
       order = data.get 'order'
       order.total.should.eq 0
+
+    it 'should clear when switching to an itemless mode', ->
+      data = refer
+        order:
+          currency: 'usd'
+          items: []
+
+      cart = new Cart client, data
+
+      items = yield cart.set '84cRXBYs9jX7w', 1
+      items.length.should.eq 1
+      item = items[0]
+      item.productId.should.eq '84cRXBYs9jX7w'
+      item.productSlug.should.eq 'sad-keanu-shirt'
+      item.quantity.should.eq 1
+
+      analyticsArgs[0].should.eq 'Added Product'
+      analyticsArgs[1].id.should.eq '84cRXBYs9jX7w'
+      analyticsArgs[1].sku.should.eq 'sad-keanu-shirt'
+      analyticsArgs[1].quantity.should.eq 1
+
+      order = data.get 'order'
+      order.total.should.eq item.price * item.quantity
+
+      data.set 'order.mode', 'deposit'
+
+      items.length.should.eq 0
+
+      order = data.get 'order'
+      # subtotal keeps last value, whatever it was
+      order.subtotal.should.eq 2500
+      order.total.should.eq 2500
 
   # invoice is updated whenever anything changes
   describe 'invoice & shippingRates', ->
@@ -639,6 +686,19 @@ describe 'Cart', ->
         failed = true
 
       failed.should.be.true
+
+  describe 'invoice', ->
+    it 'should total should equal arbitrary subtotal in itemless node', ->
+      data = refer
+        order:
+          mode: 'deposit'
+          subtotal: 123456
+
+      cart = new Cart client, data
+
+      order = data.get 'order'
+      order.subtotal.should.eq 123456
+      order.total.should.eq 123456
 
   describe 'checkout', ->
     it 'should checkout an order', ->

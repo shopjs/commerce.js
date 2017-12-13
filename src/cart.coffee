@@ -12,21 +12,29 @@ class Cart
   # user
   # payment
   # taxRates
-  data: null
+  data:    null
 
   # hanzo.js client
-  client: null
+  client:  null
 
-  promise:  null
-  reject:   null
-  resolve:  null
+  promise: null
+  reject:  null
+  resolve: null
 
   opts: {
     # analyticsProductTransform: Takes analytics product info and transforms it.
+    # storeId: ''
   }
 
   constructor: (@client, @data, @opts={})->
     @queue = []
+
+    @data.on 'set', (name)=>
+      switch name
+        when 'order.mode'
+          if @inItemlessMode()
+            @clear()
+
     @invoice()
 
   initCart: ->
@@ -43,7 +51,9 @@ class Cart
         @onCart cart.id
 
       @data.on 'set', (name)=>
-        @_cartSyncStore() if name == 'order.storeId'
+        switch name
+          when 'order.storeId'
+            @_cartSyncStore()
 
     else if @client.cart?
       @onCart cartId
@@ -58,6 +68,10 @@ class Cart
         @_cartSyncStore() if name == 'order.storeId'
         @_cartSyncName() if name == 'user.firstName'
         @_cartSyncName() if name == 'user.lastName'
+
+  inItemlessMode: ()->
+    mode = @data.get('order.mode')
+    return mode == 'deposit' || mode == 'contribution'
 
   # fired when cart id is obtained
   onCart: (cartId) ->
@@ -123,10 +137,15 @@ class Cart
 
     if @queue.length == 0
       @invoice()
-      @resolve items if @resolve?
+      @resolve items ? [] if @resolve?
       return
 
     [id, quantity, locked] = @queue[0]
+
+    if @inItemlessMode() && quantity > 0
+      @invoice()
+      @resolve items ? [] if @resolve?
+      return
 
     # handle negative quantities.
     if quantity < 0
@@ -328,6 +347,13 @@ class Cart
 
   # update properties on data related to invoicing
   invoice: ->
+    # handle deposit and contribution mode which ignore items
+    if @inItemlessMode()
+      subtotal = @data.get('order.subtotal') ? 0
+      @data.set 'order.subtotal', subtotal
+      @data.set 'order.total', subtotal
+      return
+
     items = @data.get 'order.items'
 
     discount = 0
