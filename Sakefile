@@ -22,7 +22,7 @@ task 'build:min', 'build project', ['build'], ->
     format:    'web'
     external:  false
     minify:    true
-    sourceMap: false
+    sourcemap: false
 
 task 'test', 'Run tests', ['build'], (opts) ->
   bail     = opts.bail     ? true
