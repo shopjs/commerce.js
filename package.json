@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hanzo-io/commerce.js.git"
+    "url": "git+https://github.com/hanzoai/commerce.js.git"
   },
   "keywords": [
     "hanzo",
@@ -25,12 +25,12 @@
     "shop.js",
     "cart"
   ],
-  "author": "Hanzo, Inc. <hi@hanzo.io>",
+  "author": "Hanzo, Inc. <hi@hanzo.ai>",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/hanzo-io/commerce.js/issues"
+    "url": "https://github.com/hanzoai/commerce.js/issues"
   },
-  "homepage": "https://github.com/hanzo-io/commerce.js#readme",
+  "homepage": "https://github.com/hanzoai/commerce.js#readme",
   "dependencies": {
     "broken": "0.1.13",
     "referential": "0.5.23"
