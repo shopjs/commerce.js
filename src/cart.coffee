@@ -455,7 +455,7 @@ class Cart
       @data.set 'coupon', @data.get('order.coupon') || {}
       @data.set 'order', order
 
-      if order.type == 'ethereum'
+      if order.type == 'ethereum' || order.type == 'bitcoin'
         # ignore checkout
         p = new Promise (resolve)->
           resolve(order)
