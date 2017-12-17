@@ -45,7 +45,6 @@
     "connect": "3.6.5",
     "coveralls": "3.0.0",
     "es5-shim": "4.5.9",
-    "hanzo.js": "2.5.0",
     "istanbul": "0.4.5",
     "joseph": "^0.2.10",
     "mocha": "4.0.1",

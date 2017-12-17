@@ -453,7 +453,13 @@ class Cart
 
     return @client.checkout.authorize(data).then (order)=>
       @data.set 'coupon', @data.get('order.coupon') || {}
+      # save items because descriptions and metadata are stored on them
+      items = @data.get('order.items').slice(0)
+
       @data.set 'order', order
+
+      # ensure descriptions are preserved
+      @data.set 'order.items', items
 
       if order.type == 'ethereum' || order.type == 'bitcoin'
         # ignore checkout
@@ -462,7 +468,13 @@ class Cart
       else
         # capture
         p = @client.checkout.capture(order.id).then((order)=>
+          # save items because descriptions and metadata are stored on them
+          items = @data.get('order.items').slice(0)
+
           @data.set 'order', order
+
+          # ensure descriptions are preserved
+          @data.set 'order.items', items
           return order
         ).catch (err)->
           window?.Raven?.captureException err
