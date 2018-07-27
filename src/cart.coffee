@@ -475,6 +475,7 @@ class Cart
 
           # ensure descriptions are preserved
           @data.set 'order.items', items
+          @invoice()
           return order
         ).catch (err)->
           window?.Raven?.captureException err
