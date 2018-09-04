@@ -11,6 +11,8 @@ task 'build', 'build project', ->
     entry: 'src/index.coffee'
     compilers:
       coffee: version: 1
+    external: false
+    commonjs:  true
   Promise.all [
     b.write format: 'es'
     b.write format: 'cjs', include: ['es-is']
@@ -23,6 +25,8 @@ task 'build:min', 'build project', ['build'], ->
     external:  false
     minify:    true
     sourcemap: false
+    compilers:
+      coffee: version: 1
 
 task 'test', 'Run tests', ['build'], (opts) ->
   bail     = opts.bail     ? true
