@@ -12,7 +12,7 @@
   "scripts": {
     "build": "sake build",
     "pretest": "sake build",
-    "prepublishOnly": "sake build:min",
+    "prepublishOnly": "sake build",
     "test": "sake test"
   },
   "repository": {
