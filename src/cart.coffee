@@ -249,9 +249,6 @@ class Cart
               name: product.name
               quantity: item.quantity
               price: parseFloat(product.price / 100)
-              isSubscribeable: item.isSubscribeable
-              interval: item.interval
-              intervalCount: item.IntervalCount
 
             a = @opts.analyticsProductTransform(a) if @opts.analyticsProductTransform?
             analytics.track 'Added Product', a
@@ -295,12 +292,15 @@ class Cart
 
   update: (product, item) ->
     delete item.id
-    item.productId      = product.id
-    item.productSlug    = product.slug
-    item.productName    = product.name
-    item.price          = product.price
-    item.listPrice      = product.listPrice
-    item.description    = product.description
+    item.productId       = product.id
+    item.productSlug     = product.slug
+    item.productName     = product.name
+    item.price           = product.price
+    item.listPrice       = product.listPrice
+    item.description     = product.description
+    item.isSubscribeable = product.isSubscribeable
+    item.interval        = product.interval
+    item.intervalCount   = product.intervalCount
 
     @onUpdate item
 
