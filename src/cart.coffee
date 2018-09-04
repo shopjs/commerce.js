@@ -249,6 +249,10 @@ class Cart
               name: product.name
               quantity: item.quantity
               price: parseFloat(product.price / 100)
+              isSubscribeable: item.isSubscribeable
+              interval: item.interval
+              intervalCount: item.IntervalCount
+
             a = @opts.analyticsProductTransform(a) if @opts.analyticsProductTransform?
             analytics.track 'Added Product', a
 
@@ -454,7 +458,7 @@ class Cart
     return @client.checkout.authorize(data).then (order)=>
       @data.set 'coupon', @data.get('order.coupon') || {}
       # save items because descriptions and metadata are stored on them
-      items = @data.get('order.items').slice(0)
+      items = (@data.get('order.items') ? []).slice(0)
 
       @data.set 'order', order
 
