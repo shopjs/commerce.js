@@ -101,7 +101,8 @@ class Cart
   clear: ()->
     @queue.length = 0
     items = @data.get 'order.items'
-    for item in items
+    itemsClone = items.slice(0)
+    for item in itemsClone
       @set item.productId, 0
     return @data.get 'order.items'
 
