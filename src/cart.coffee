@@ -1,5 +1,6 @@
 import analytics from './analytics'
 import Promise   from 'broken'
+import objectAssign from 'es-object-assign'
 
 import { closestGeoRate } from './util'
 
@@ -447,11 +448,11 @@ class Cart
     @data.set 'order.tax', tax
     @data.set 'order.total', subtotal + shipping + tax
 
-  checkout: ->
+  checkout: (opts = {}, authOnly = false)->
     # just to be sure
     @invoice()
 
-    data =
+    data = objectAssign {}, opts,
       user:     @data.get 'user'
       order:    @data.get 'order'
       payment:  @data.get 'payment'
@@ -466,25 +467,12 @@ class Cart
       # ensure descriptions are preserved
       @data.set 'order.items', items
 
-      if order.type == 'ethereum' || order.type == 'bitcoin'
+      if order.type == 'ethereum' || order.type == 'bitcoin' || authOnly
         # ignore checkout
         p = new Promise (resolve)->
           resolve(order)
       else
-        # capture
-        p = @client.checkout.capture(order.id).then((order)=>
-          # save items because descriptions and metadata are stored on them
-          items = @data.get('order.items').slice(0)
-
-          @data.set 'order', order
-
-          # ensure descriptions are preserved
-          @data.set 'order.items', items
-          @invoice()
-          return order
-        ).catch (err)->
-          window?.Raven?.captureException err
-          console.log "capture Error: #{err}"
+        p = @capture(opts).p
 
       # create referrer token
       referralProgram = @data.get 'referralProgram'
@@ -534,5 +522,35 @@ class Cart
       analytics.track 'Completed Order', options
 
       return { p: p }
+
+  authorize: ->
+    return @checkout {}, true
+
+  capture: (opts)->
+    # capture
+    order = @data.get 'order'
+
+    if !order.id
+      p = new Promise (resolve, reject)->
+        reject new Error('Order has no id, did you authorize?')
+    else
+      data = objectAssign {}, opts,
+        orderId: order.id
+
+      p = @client.checkout.capture(data).then((order)=>
+        # save items because descriptions and metadata are stored on them
+        items = @data.get('order.items').slice(0)
+
+        @data.set 'order', order
+
+        # ensure descriptions are preserved
+        @data.set 'order.items', items
+        @invoice()
+        return order
+      ).catch (err)->
+        window?.Raven?.captureException err
+        console.log "capture error: #{err}"
+
+    return { p: p }
 
 export default Cart

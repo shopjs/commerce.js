@@ -33,6 +33,7 @@
   "homepage": "https://github.com/hanzoai/commerce.js#readme",
   "dependencies": {
     "broken": "0.1.13",
+    "es-object-assign": "4.1.4",
     "referential": "0.5.23"
   },
   "devDependencies": {
