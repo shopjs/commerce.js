@@ -69,6 +69,7 @@ class Cart
         @_cartSyncStore() if name == 'order.storeId'
         @_cartSyncName() if name == 'user.firstName'
         @_cartSyncName() if name == 'user.lastName'
+        @_cartSyncEmail() if name == 'user.email'
 
   inItemlessMode: ()->
     mode = @data.get('order.mode')
@@ -98,6 +99,21 @@ class Cart
       @client.cart.update
         id:      cartId
         storeId: @data.get 'order.storeId'
+
+  # we don't record this on the backend yet
+  _cartSyncName: ()->
+    cartId = @data.get 'order.cartId'
+    if cartId && @client.cart?
+      @client.cart.update
+        id:      cartId
+        name:    @data.get('user.firstName') + ' ' + @data.get('user.lastName')
+
+  _cartSyncEmail: ()->
+    cartId = @data.get 'order.cartId'
+    if cartId && @client.cart?
+      @client.cart.update
+        id:      cartId
+        email:   @data.get 'user.email'
 
   clear: ()->
     @queue.length = 0
