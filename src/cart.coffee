@@ -123,8 +123,8 @@ class Cart
       @set item.productId, 0
     return @data.get 'order.items'
 
-  set: (id, quantity, locked=false) ->
-    @queue.push [id, quantity, locked]
+  set: (id, quantity, locked=false, ignore=false) ->
+    @queue.push [id, quantity, locked, ignore]
 
     if @queue.length == 1
       @promise = new Promise (resolve, reject) =>
@@ -148,6 +148,7 @@ class Cart
         id: item[0]
         quantity: item[2]
         locked: item[3]
+        ignore: item[4]
       }
 
   _set: ->
@@ -158,7 +159,7 @@ class Cart
       @resolve items ? [] if @resolve?
       return
 
-    [id, quantity, locked] = @queue[0]
+    [id, quantity, locked, ignore] = @queue[0]
 
     if @inItemlessMode() && quantity > 0
       @invoice()
@@ -207,6 +208,7 @@ class Cart
 
       item.quantity = quantity
       item.locked = locked
+      item.ignore = ignore
 
       newValue = quantity
 
@@ -232,6 +234,7 @@ class Cart
 
       @data.set 'order.items.' + i + '.quantity', quantity
       @data.set 'order.items.' + i + '.locked', locked
+      @data.set 'order.items.' + i + '.ignore', ignore
       @_cartSet item.productId, quantity
 
       @onUpdate item
@@ -246,6 +249,7 @@ class Cart
       id:         id
       quantity:   quantity
       locked:     locked
+      ignore:     ignore
 
     # waiting for response so don't update
     @waits++
@@ -468,9 +472,14 @@ class Cart
     # just to be sure
     @invoice()
 
+    newOrder = objectAssign {}, @data.get('order')
+    newOrder.items = (@data.get('order.items') ? []).slice(0)
+    newOrder.items = newOrder.items.filter (item)->
+      return !item.ignore
+
     data = objectAssign {}, opts,
       user:     @data.get 'user'
-      order:    @data.get 'order'
+      order:    newOrder
       payment:  @data.get 'payment'
 
     return @client.checkout.authorize(data).then (order)=>
