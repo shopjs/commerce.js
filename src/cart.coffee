@@ -483,6 +483,8 @@ class Cart
       payment:  @data.get 'payment'
 
     return @client.checkout.authorize(data).then (order)=>
+      throw 'Error authorizing order, please try again later.' if !order?
+
       @data.set 'coupon', @data.get('order.coupon') || {}
       # save items because descriptions and metadata are stored on them
       items = (@data.get('order.items') ? []).slice(0)
@@ -563,6 +565,7 @@ class Cart
         orderId: order.id
 
       p = @client.checkout.capture(data).then((order)=>
+        throw 'Error capturing order, please try again later.' if !order?
         # save items because descriptions and metadata are stored on them
         items = @data.get('order.items').slice(0)
 
