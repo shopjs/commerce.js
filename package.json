@@ -1,5 +1,5 @@
 {
-  "name": "@ecomv3/document",
+  "name": "@hanzo/commercejs",
   "version": "1.0.0",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -8,7 +8,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/davidtai/ecomv3"
+    "url": "https://github.com/shopjs/commerce.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "11.0.0",
