@@ -73,5 +73,7 @@
     "akasha": "0.1.13",
     "mobx": "5.15.1"
   },
-  "peerDependencies": {}
+  "peerDependencies": {
+    "hanzo.js": "2.5.13"
+  }
 }

@@ -9,10 +9,8 @@ export interface ICart {
  * Cart representation
  */
 export interface ICartClient {
-  client: {
-    cart: {
-      create: () => Promise<ICart>
-      update: (cart: ICart) => Promise<ICart>
-    }
+  cart: {
+    create: () => Promise<ICart>
+    update: (cart: ICart) => Promise<ICart>
   }
 }
