@@ -2,7 +2,7 @@
   "compilerOptions": {
     // include custom types
     "typeRoots": [
-      "src/types",
+      "src/@types",
       "node_modules/@types"
     ],
 
