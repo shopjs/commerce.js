@@ -1,17 +1,7 @@
 import { observable, computed, action } from 'mobx'
 import akasha from 'akasha'
 
-interface ICart {
-  id: string
-}
-
-interface ICartClient {
-  client: {
-    cart: {
-      create: () => Promise<ICart>
-    }
-  }
-}
+import { ICart, ICartClient } from './types'
 
 /**
  * Product is something that goes in a cart, we sync these from the server but
@@ -70,7 +60,7 @@ type CartUpdateRequest = [string, number, boolean, boolean]
 /**
  * Cart keeps track of items being added and removed from the cart/order
  */
-class Cart {
+class Commerce {
   /**
    * Id of the current cart in the system
    */
@@ -98,10 +88,10 @@ class Cart {
   @observable
   order: any = {}
 
-  constructor(api: any) {
+  constructor(api: ICartClient) {
     this.cartId = akasha.get('cartId')
     this.api = api
   }
 }
 
-export default Cart
+export default Commerce
