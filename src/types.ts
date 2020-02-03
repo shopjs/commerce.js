@@ -3,6 +3,9 @@
  */
 export interface ICart {
   id: string
+  storeId: string
+  email: string
+  name: string
 }
 
 /**
