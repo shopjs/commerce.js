@@ -1,7 +1,9 @@
 import { observable, computed, action, reaction, runInAction } from 'mobx'
 import akasha from 'akasha'
 
+import LineItem from './LineItem'
 import Order from './Order'
+
 import { ICart, ICartClient } from './types'
 
 export type CartUpdateRequest = [string, number, boolean, boolean]
@@ -17,6 +19,8 @@ class Commerce {
   cart: ICart = {
     id: '',
     storeId: '',
+    email: '',
+    name: '',
   }
 
   /**
@@ -132,6 +136,29 @@ class Commerce {
     )
   }
 
+  get(id: string): LineItem | undefined {
+    // Check the item on the order
+    let item = this.order.get(id)
+
+    if (item) {
+      return item
+    }
+
+    // Check the item in the queue
+    for (const request of this.updateQueue) {
+      if (request[0] !== id) {
+        continue;
+      }
+
+      return new LineItem({
+        id: request[0],
+        quantity: request[1],
+        locked: request[2],
+        ignore: request[3],
+      })
+    }
+  }
+
   @action
   async cartSetItem(productId: string, quantity: number) {
     if (this.cartId) {
@@ -162,7 +189,7 @@ class Commerce {
   async cartSetName(name: string) {
     if (this.cartId) {
       this.cart.id = this.cartId
-      this.cart.name = `${this.user.firstName} ${this.user.lastName}`
+      this.cart.name = name
       this.client.cart.update(this.cart)
     }
   }
