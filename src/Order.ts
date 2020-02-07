@@ -15,10 +15,14 @@ export default class Order {
   @observable
   storeId: string
 
-  constructor(raw: any) {
+  @observable
+  currency: string
+
+  constructor(raw: any = {}) {
     this.items = raw.items ? raw.items.map((x) => new LineItem(x)): []
     this.type = raw.type ?? 'stripe'
     this.storeId = raw.storeId ?? ''
+    this.currency = (raw.currency && raw.currency.toLowerCase) ? raw.currency.toLowerCase() : 'usd'
   }
 
   get(id): LineItem | undefined {
