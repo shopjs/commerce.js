@@ -61,7 +61,7 @@ class Commerce {
    * order is the object for tracking the user's order/cart info
    */
   @observable
-  order: Order = new Order({})
+  order: Order
 
   /**
    * user is an object for tracking the user's contact information
@@ -75,22 +75,47 @@ class Commerce {
   @observable
   payment: any = {}
 
-  constructor(client: ICartClient) {
+  @observable
+  _cartInitialized: any = false
+
+  /**
+   * Create an instance of Commerce
+   * @param client is the http client for talking to carts
+   * @param order is the default order configuration
+   */
+  constructor(client: ICartClient, order = {}) {
     this.client = client
-    this.init()
+    this.order = new Order({})
+    // this.cartInit()
   }
 
   /**
    * Get the cart id
+   * @return the cartId of the current cart from storage.  If there is no
+   * current cart, return empty
    */
   @computed
   get cartId(): string {
     return akasha.get('cartId') ?? ''
   }
 
+  /**
+   * Get the cart id
+   */
+  @computed
+  get isCartInit(): boolean {
+    return this._cartInitialized
+  }
+
+  /**
+   * Initialize the cart system.
+   * @return initialized or recovered cart instance
+   */
   @action
-  async init() {
-    if (!this.cartId && this.client.cart) {
+  async cartInit(): Promise<ICart> {
+    // check for if the cartId exists and either create a new cart or load cart
+    // id
+    if (!this.cartId) {
       this.cart = await this.client.cart.create()
       akasha.set('cart', this.cart)
     } else {
@@ -134,6 +159,8 @@ class Commerce {
         this.cartSetName(name)
       }
     )
+
+    return this.cart
   }
 
   get(id: string): LineItem | undefined {
