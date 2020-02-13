@@ -1,10 +1,11 @@
 import { observable } from 'mobx'
+import { IProduct, IProductClient } from './types'
 
 /**
  * Product is something that goes in a cart, we sync these from the server but
  * only keep the fields we care about
  */
-export default class Product {
+export default class Product implements IProduct {
   @observable
   id: string
 
@@ -26,7 +27,7 @@ export default class Product {
   @observable
   description: string
 
-  constructor(raw: any) {
+  constructor(raw: any, client: IProductClient) {
     this.id = raw.id ?? ''
     this.productId = raw.productId ?? ''
     this.productSlug = raw.productSlug ?? ''

@@ -1,5 +1,6 @@
 import { observable, computed } from 'mobx'
 import Product from './Product'
+import { IProductClient } from './types'
 
 /**
  * A combination of cart and quantity
@@ -14,8 +15,8 @@ export default class LineItem extends Product {
   @observable
   ignore: boolean = false
 
-  constructor(raw: any) {
-    super(raw)
+  constructor(raw: any, client: IProductClient) {
+    super(raw, client)
 
     this.quantity = raw.quantity
     this.locked = raw.locked
