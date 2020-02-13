@@ -1,12 +1,21 @@
-import { observable, computed, action, reaction, runInAction } from 'mobx'
+import {
+  action,
+  autorun,
+  computed,
+  observable,
+  reaction,
+  runInAction
+} from 'mobx'
+
 import akasha from 'akasha'
 
 import LineItem from './LineItem'
 import Order from './Order'
 
-import { ICart, ICartClient } from './types'
+import { ICart, IClient } from './types'
 
 export type CartUpdateRequest = [string, number, boolean, boolean]
+export type AnalyticsProductTransformFn = (v: any) => any
 
 /**
  * Cart keeps track of items being added and removed from the cart/order
@@ -24,10 +33,10 @@ class Commerce {
   }
 
   /**
-   * client is reference to a ICartClient
+   * client is reference to a IClient
    */
   @observable
-  client: ICartClient
+  client: IClient
 
   /**
    * updateQueue contains the list of cart item updates so we can ensure
@@ -48,7 +57,7 @@ class Commerce {
    * for ongoing cart item updates.  It resolves when the queue is empty.
    */
   @observable
-  updateQueuePromiseResolve: ((val?: any) => void) | undefined
+  updateQueuePromiseResolve: ((items: LineItem[]) => void) | undefined
 
   /**
    * updateQueuePromiseResolve is a refernce to the promise reject function
@@ -78,14 +87,22 @@ class Commerce {
   @observable
   _cartInitialized: any = false
 
+  @observable
+  analyticsProductTransform: AnalyticsProductTransformFn
+
   /**
    * Create an instance of Commerce
    * @param client is the http client for talking to carts
    * @param order is the default order configuration
    */
-  constructor(client: ICartClient, order = {}) {
+  constructor(
+    client: IClient,
+    order = {},
+    aPT: AnalyticsProductTransformFn = (v) => v,
+  ) {
     this.client = client
-    this.order = new Order({})
+    this.order = order ? new Order(order) : Order.load()
+    this.analyticsProductTransform = aPT
     // this.cartInit()
   }
 
@@ -105,6 +122,17 @@ class Commerce {
   @computed
   get isCartInit(): boolean {
     return this._cartInitialized
+  }
+
+  @computed
+  get storeId() : string {
+    return this.order.storeId
+  }
+
+  @computed
+  get inItemlessMode() : boolean {
+    const mode = this.order.mode
+    return mode === 'deposit' || mode === 'contribution'
   }
 
   /**
@@ -136,6 +164,14 @@ class Commerce {
       }
     )
 
+    // Save order on any update
+    reaction(
+      () => this.order,
+      (order) => {
+        Order.save(order)
+      }
+    )
+
     // Define reaction for storeid
     reaction (
       () => this.order.storeId,
@@ -163,6 +199,11 @@ class Commerce {
     return this.cart
   }
 
+  /**
+   * Get the current state of a specific lineitem
+   * @param id the product id of a lineitem
+   * @return lineitem or undefined if product isn't in cart
+   */
   get(id: string): LineItem | undefined {
     // Check the item on the order
     let item = this.order.get(id)
@@ -174,7 +215,7 @@ class Commerce {
     // Check the item in the queue
     for (const request of this.updateQueue) {
       if (request[0] !== id) {
-        continue;
+        continue
       }
 
       return new LineItem({
@@ -186,39 +227,232 @@ class Commerce {
     }
   }
 
+  /**
+   * Set a lineitem by product id.  Add lineitem to asynchronous update queue
+   * @param id productId
+   * @param quantity amount of productId in cart
+   * @param locked is this lineitem modifiable in the UI
+   * @param ignore is this lineitem ignored by the UI (loading in progress,
+   * freebie etc)
+   * @return promise for when all set operations are completed
+   */
   @action
-  async cartSetItem(productId: string, quantity: number) {
+  set(id, quantity, locked=false, ignore=false): Promise<LineItem[]> | undefined {
+    this.updateQueue.push([id, quantity, locked, ignore])
+
+    if (this.updateQueue.length === 1) {
+      this.updateQueuePromise = new Promise((resolve, reject) => {
+        this.updateQueuePromiseResolve = resolve
+        this.updateQueuePromiseReject = reject
+      })
+
+      this.executeUpdates()
+    }
+
+    return this.updateQueuePromise
+  }
+
+  @action
+  async executeUpdates(): Promise<any> {
+    const items = this.order.items ?? []
+
+    // Resolve or escape if empty queue
+    if (this.updateQueue.length === 0) {
+      // Resolve if empty queue but resolve function exists
+      if (this.updateQueuePromiseResolve != null) {
+        this.updateQueuePromiseResolve(items)
+        this.updateQueuePromiseResolve = undefined
+      }
+      return
+    }
+
+    let [id, quantity, locked, ignore] = this.updateQueue[0]
+
+    // Resolve or escape if itemless mode
+    if (this.inItemlessMode && quantity > 0) {
+      // Resolve if itemless mode resolve function exists
+      if (this.updateQueuePromiseResolve != null) {
+        this.updateQueuePromiseResolve(items)
+        this.updateQueuePromiseResolve = undefined
+      }
+      return
+    }
+
+    // handle negative quantities.
+    if (quantity < 0) {
+      quantity = 0
+    }
+
+    // delete item
+    if (quantity === 0) {
+      return await this.cartDeleteItem(id)
+    }
+
+    // try and update item quantity
+    for (const k in items) {
+      const item = items[k]
+      // ignore if not a match to id
+      if (
+        item.id !== id &&
+        item.productId !== id &&
+        item.productSlug !== id
+      ) {
+        continue
+      }
+
+      const oldValue = item.quantity
+
+      item.quantity = quantity
+      item.locked = locked
+      item.ignore = ignore
+
+      const newValue = quantity
+
+      const deltaQuantity = newValue - oldValue
+      let a: any
+      if (deltaQuantity > 0) {
+        a = {
+          id: item.productId,
+          sku: item.productSlug,
+          name: item.productName,
+          quantity: deltaQuantity,
+          price: item.price / 100
+        }
+        if (this.analyticsProductTransform != null) {
+          a = this.analyticsProductTransform(a)
+        }
+        (window as any).analytics.track('Added Product', a)
+      } else if (deltaQuantity < 0) {
+        a = {
+          id: item.productId,
+          sku: item.productSlug,
+          name: item.productName,
+          quantity: deltaQuantity,
+          price: item.price / 100
+        }
+        if (this.analyticsProductTransform != null) {
+          a = this.analyticsProductTransform(a)
+        }
+        (window as any).analytics.track('Removed Product', a)
+      }
+
+      this.order.items[k].quantity =  quantity
+      this.order.items[k].locked = locked
+      this.order.items[k].ignore = ignore
+      this.cartSetItem(item.productId, quantity)
+
+      this.updateQueue.shift()
+      return
+    }
+
+    // Fetch up to date information at time of checkout openning
+    // TODO: Think about revising so we don't report old prices if they changed after checkout is open
+
+    items.push(new LineItem({
+      id,
+      quantity,
+      locked,
+      ignore
+    }))
+  }
+
+  @action
+  async cartDeleteItem(id: string): Promise<LineItem | undefined> {
+    const items = this.order.items ?? []
+    let itemToDeleteIndex: number = items.length
+
+    for (const k in items) {
+      const item = items[k]
+      if(
+        item.productId === id ||
+        item.productSlug === id ||
+        item.id === id
+      ) {
+        itemToDeleteIndex = parseInt(k)
+        break
+      }
+    }
+
+    if (itemToDeleteIndex >= items.length) {
+      return
+    }
+
+    const item = items[itemToDeleteIndex]
+
+    // Remove the itemToDelete from the items list
+    this.order.items = items.splice(itemToDeleteIndex, 1)
+
+    let a: any = {
+      id: item.productId,
+      sku: item.productSlug,
+      name: item.productName,
+      quantity: item.quantity,
+      price: item.price / 100,
+    }
+
+    if (this.analyticsProductTransform != null) {
+      a = this.analyticsProductTransform(a)
+    }
+
+    (window as any).analytics.track('Removed Product', a)
+
+    await this.cartSetItem(item.productId, 0)
+
+    runInAction(() => {
+      item.quantity = 0
+    })
+
+    return item
+  }
+
+  @action
+  async cartSetItem(id: string, quantity: number): Promise<ICart | undefined> {
     if (this.cartId) {
       this.cart.id = this.cartId
-      this.client.cart.update(this.cart)
+      return this.client.cart.set({
+        id: this.cartId,
+        productId: id,
+        quantity: quantity,
+        storeId: this.storeId,
+      })
     }
   }
 
   @action
-  async cartSetStore(storeId: string) {
+  async cartSetStore(storeId: string): Promise<ICart | undefined> {
     if (this.cartId) {
       this.cart.id = this.cartId
-      this.cart.storeId =storeId
-      this.client.cart.update(this.cart)
+      this.cart.storeId = storeId || this.storeId
+      return this.client.cart.update(this.cart)
     }
   }
 
   @action
-  async cartSetEmail(email: string) {
+  async cartSetEmail(email: string): Promise<ICart | undefined> {
     if (this.cartId) {
       this.cart.id = this.cartId
       this.cart.email = this.user.email
-      this.client.cart.update(this.cart)
+      return this.client.cart.update(this.cart)
     }
   }
 
   @action
-  async cartSetName(name: string) {
+  async cartSetName(name: string): Promise<ICart | undefined> {
     if (this.cartId) {
       this.cart.id = this.cartId
       this.cart.name = name
-      this.client.cart.update(this.cart)
+      return this.client.cart.update(this.cart)
     }
+  }
+
+  @action
+  async clear() {
+    this.updateQueue.length = 0
+    const itemsClone = this.order.items.slice(0)
+
+    await Promise.all(itemsClone.map((item) => this.set(item.productId, 0)))
+
+    return this.order.items
   }
 }
 
