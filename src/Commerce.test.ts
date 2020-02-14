@@ -73,4 +73,63 @@ describe('Commerce', () => {
 
     expect(c.order.total).toBe(item.price * item.quantity)
   })
+
+  test('should set an item by slug', async () => {
+    let order = {
+      currency: 'usd',
+    }
+
+    let c = new Commerce(client, order, analytics)
+
+    await c.set('sad-keanu-shirt', 1)
+
+    let items = c.order.items
+
+    expect(items.length).toBe(1)
+
+    let item = items[0]
+
+    expect(item.productId).toBe('rbcXB3Qxcv6kNy')
+    expect(item.productSlug).toBe('sad-keanu-shirt')
+    expect(item.quantity).toBe(1)
+
+    expect(analyticsArgs[0]).toBe('Added Product')
+    expect(analyticsArgs[1].id).toBe('rbcXB3Qxcv6kNy')
+    expect(analyticsArgs[1].sku).toBe('sad-keanu-shirt')
+    expect(analyticsArgs[1].quantity).toBe(1)
+
+    expect(c.order.total).toBe(item.price * item.quantity)
+  })
+
+  test('should set and get an item by item or slug', async () => {
+    let order = {
+      currency: 'usd',
+    }
+
+    let c = new Commerce(client, order, analytics)
+
+    await c.set('sad-keanu-shirt', 1)
+
+    let item = await c.get('rbcXB3Qxcv6kNy')
+
+    expect(item).not.toBeNull()
+
+    if (item) {
+      expect(item.productId).toBe('rbcXB3Qxcv6kNy')
+      expect(item.productSlug).toBe('sad-keanu-shirt')
+      expect(item.quantity).toBe(1)
+    }
+
+    item = await c.get('sad-keanu-shirt')
+
+    expect(item).not.toBeNull()
+
+    if (item) {
+      expect(item.productId).toBe('rbcXB3Qxcv6kNy')
+      expect(item.productSlug).toBe('sad-keanu-shirt')
+      expect(item.quantity).toBe(1)
+
+      expect(c.order.total).toBe(item.price * item.quantity)
+    }
+  })
 })
