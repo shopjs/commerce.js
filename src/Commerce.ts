@@ -3,7 +3,7 @@ import {
   computed,
   observable,
   reaction,
-  runInAction
+  runInAction,
 } from 'mobx'
 
 import akasha from 'akasha'
@@ -11,7 +11,10 @@ import akasha from 'akasha'
 import LineItem from './LineItem'
 import Order from './Order'
 
-import { ICart, IClient } from './types'
+import {
+  ICart,
+  IClient,
+} from './types'
 
 export type CartUpdateRequest = [string, number, boolean, boolean]
 export type AnalyticsProductTransformFn = (v: any) => any
@@ -19,7 +22,7 @@ export type AnalyticsProductTransformFn = (v: any) => any
 /**
  * Cart keeps track of items being added and removed from the cart/order
  */
-class Commerce {
+export default class Commerce {
   /**
    * id of the current cart in the system
    */
@@ -66,6 +69,9 @@ class Commerce {
   _cartInitialized: any = false
 
   @observable
+  analytics: any
+
+  @observable
   analyticsProductTransform: AnalyticsProductTransformFn
 
   /**
@@ -76,10 +82,12 @@ class Commerce {
   constructor(
     client: IClient,
     order = {},
+    analytics: any = undefined,
     aPT: AnalyticsProductTransformFn = (v) => v,
   ) {
     this.client = client
     this.order = order ? new Order(order, [], [], client) : Order.load(client)
+    this.analytics = analytics
     this.analyticsProductTransform = aPT
     // this.cartInit()
   }
@@ -223,7 +231,7 @@ class Commerce {
 
   @action
   async executeUpdates(): Promise<void> {
-    const items = this.order.items ?? []
+    const items = this.order.items
 
     // Resolve or escape if empty queue
     if (this.updateQueue.length === 0) {
@@ -232,10 +240,14 @@ class Commerce {
 
     let [id, quantity, locked, ignore] = this.updateQueue[0]
 
+    // console.log('eu', id)
+
     // Resolve or escape if itemless mode
     if (this.order.inItemlessMode && quantity > 0) {
       return
     }
+
+    // console.log('eu2')
 
     // handle negative quantities.
     if (quantity < 0) {
@@ -248,10 +260,14 @@ class Commerce {
       return
     }
 
+    // console.log('eu3')
+
     // try and update item quantity
-    if (this.executeUpdateItem(id, quantity, locked, ignore) != null) {
+    if (await this.executeUpdateItem(id, quantity, locked, ignore) != null) {
       return
     }
+
+    // console.log('eu4')
 
     // Fetch up to date information at time of checkout openning
     // TODO: Think about revising so we don't report old prices if they changed after checkout is open
@@ -263,10 +279,30 @@ class Commerce {
       ignore
     }, this.client)
 
+    // console.log('eu4.5')
+
     await li.loadProductPromise
+
+    // console.log('eu5', this.analytics)
 
     runInAction(() => {
       items.push(li)
+
+      let a = {
+        id: li.productId,
+        sku: li.productSlug,
+        name: li.productName,
+        quantity: quantity,
+        price: li.price / 100
+      }
+
+      if (this.analytics)  {
+        if (this.analyticsProductTransform != null) {
+          a = this.analyticsProductTransform(a)
+        }
+
+        this.analytics.track('Added Product', a)
+      }
     })
 
     await this.executeUpdates()
@@ -274,6 +310,7 @@ class Commerce {
 
   @action
   async executeUpdateItem(id: string, quantity: number, locked: boolean, ignore: boolean): Promise<LineItem | undefined> {
+    // console.log('eui', id)
     const items = this.order.items ?? []
 
     for (const k in items) {
@@ -296,32 +333,41 @@ class Commerce {
       const newValue = quantity
 
       const deltaQuantity = newValue - oldValue
-      let a: any
       if (deltaQuantity > 0) {
-        a = {
+        let a = {
           id: item.productId,
           sku: item.productSlug,
           name: item.productName,
           quantity: deltaQuantity,
           price: item.price / 100
         }
-        if (this.analyticsProductTransform != null) {
-          a = this.analyticsProductTransform(a)
+
+        if (this.analytics)  {
+          if (this.analyticsProductTransform != null) {
+            a = this.analyticsProductTransform(a)
+          }
+
+          this.analytics.track('Added Product', a)
         }
-        (window as any).analytics.track('Added Product', a)
       } else if (deltaQuantity < 0) {
-        a = {
+        let a = {
           id: item.productId,
           sku: item.productSlug,
           name: item.productName,
           quantity: deltaQuantity,
           price: item.price / 100
         }
-        if (this.analyticsProductTransform != null) {
-          a = this.analyticsProductTransform(a)
+
+        if (this.analytics)  {
+          if (this.analyticsProductTransform != null) {
+            a = this.analyticsProductTransform(a)
+          }
+
+          this.analytics.track('Removed Product', a)
         }
-        (window as any).analytics.track('Removed Product', a)
       }
+
+      // console.log('order.items', this.order.items)
 
       this.order.items[k].quantity =  quantity
       this.order.items[k].locked = locked
@@ -368,11 +414,13 @@ class Commerce {
       price: item.price / 100,
     }
 
-    if (this.analyticsProductTransform != null) {
-      a = this.analyticsProductTransform(a)
-    }
+    if (this.analytics)  {
+      if (this.analyticsProductTransform != null) {
+        a = this.analyticsProductTransform(a)
+      }
 
-    (window as any).analytics.track('Removed Product', a)
+      this.analytics.track('Removed Product', a)
+    }
 
     await this.cartSetItem(item.productId, 0)
 
@@ -433,5 +481,3 @@ class Commerce {
     return this.order.items
   }
 }
-
-export default Commerce

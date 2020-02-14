@@ -6,6 +6,14 @@ const KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NzIzMDc4NDcsInN1Yi
 const ENDPOINT = 'https://api-dot-hanzo-staging-249116.appspot.com/'
 
 describe('Commerce', () => {
+  let analyticsArgs: any[] = []
+
+  let analytics = {
+    track: (...args) => {
+      analyticsArgs = args
+    },
+  }
+
   let client = new Api({
     key: KEY,
     endpoint: ENDPOINT,
@@ -37,5 +45,32 @@ describe('Commerce', () => {
 
     expect(cart.id).toEqual(expect.any(String))
     expect(c.cart.id).toBe(cart.id)
+  })
+
+  test('should set an item by id', async () => {
+    let order = {
+      currency: 'usd',
+    }
+
+    let c = new Commerce(client, order, analytics)
+
+    await c.set('rbcXB3Qxcv6kNy', 1)
+
+    let items = c.order.items
+
+    expect(items.length).toBe(1)
+
+    let item = items[0]
+
+    expect(item.productId).toBe('rbcXB3Qxcv6kNy')
+    expect(item.productSlug).toBe('sad-keanu-shirt')
+    expect(item.quantity).toBe(1)
+
+    expect(analyticsArgs[0]).toBe('Added Product')
+    expect(analyticsArgs[1].id).toBe('rbcXB3Qxcv6kNy')
+    expect(analyticsArgs[1].sku).toBe('sad-keanu-shirt')
+    expect(analyticsArgs[1].quantity).toBe(1)
+
+    expect(c.order.total).toBe(item.price * item.quantity)
   })
 })

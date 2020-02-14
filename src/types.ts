@@ -21,7 +21,9 @@ export interface ICartItem {
 export interface IProduct {
   id: string
   productId: string
+  slug: string
   productSlug: string
+  name: string
   productName: string
   price: number
   listPrice: number

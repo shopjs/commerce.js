@@ -1,1 +1,3 @@
-export { default as Commerce } from './Commerce'
+export {
+  default as Commerce
+} from './Commerce'
