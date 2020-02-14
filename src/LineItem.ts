@@ -1,11 +1,12 @@
 import { observable, computed } from 'mobx'
 import Product from './Product'
-import { IProductClient } from './types'
+
+import { ILineItem, IProductClient } from './types'
 
 /**
  * A combination of cart and quantity
  */
-export default class LineItem extends Product {
+export default class LineItem extends Product implements ILineItem {
   @observable
   quantity: number = 1
 
