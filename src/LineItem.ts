@@ -1,7 +1,14 @@
-import { observable, computed } from 'mobx'
+import {
+  observable,
+  computed
+} from 'mobx'
+
 import Product from './Product'
 
-import { ILineItem, IProductClient } from './types'
+import {
+  ILineItem,
+  IProductClient
+} from './types'
 
 /**
  * A combination of cart and quantity

@@ -13,7 +13,13 @@ import akasha from 'akasha'
 
 import LineItem from './LineItem'
 
-import { IOrder, IOrderClient, ICoupon, IGeoRate, IAddress } from './types'
+import {
+  IAddress,
+  ICoupon,
+  IGeoRate,
+  IOrder,
+  IOrderClient,
+} from './types'
 
 /**
  * Order contains information about what the user is buying

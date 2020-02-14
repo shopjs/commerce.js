@@ -1,4 +1,6 @@
-import { IGeoRate } from './types'
+import {
+  IGeoRate
+} from './types'
 
 /*
  * decaffeinate suggestions:
@@ -24,7 +26,6 @@ export const clean = function(str){
  * @param pc postalCode
  * @return return if it is matched and level of match
  */
-
 export const matchesGeoRate = (
   g: IGeoRate,
   country: string,
