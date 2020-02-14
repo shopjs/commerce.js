@@ -1,6 +1,5 @@
 import {
   action,
-  autorun,
   computed,
   observable,
   reaction,
@@ -46,27 +45,6 @@ class Commerce {
   updateQueue: CartUpdateRequest[] = []
 
   /**
-   * updateQueuePromise is a refernce to the promise for ongoing cart item
-   * updates
-   */
-  @observable
-  updateQueuePromise: Promise<any> | undefined
-
-  /**
-   * updateQueuePromiseResolve is a refernce to the promise resolve function
-   * for ongoing cart item updates.  It resolves when the queue is empty.
-   */
-  @observable
-  updateQueuePromiseResolve: ((items: LineItem[]) => void) | undefined
-
-  /**
-   * updateQueuePromiseResolve is a refernce to the promise reject function
-   * for ongoing cart item updates.  It rejects when errors are encountered
-   */
-  @observable
-  updateQueuePromiseReject: ((error?: Error) => void) | undefined
-
-  /**
    * order is the object for tracking the user's order/cart info
    */
   @observable
@@ -101,7 +79,7 @@ class Commerce {
     aPT: AnalyticsProductTransformFn = (v) => v,
   ) {
     this.client = client
-    this.order = order ? new Order(order) : Order.load()
+    this.order = order ? new Order(order, [], [], client) : Order.load(client)
     this.analyticsProductTransform = aPT
     // this.cartInit()
   }
@@ -129,12 +107,6 @@ class Commerce {
     return this.order.storeId
   }
 
-  @computed
-  get inItemlessMode() : boolean {
-    const mode = this.order.mode
-    return mode === 'deposit' || mode === 'contribution'
-  }
-
   /**
    * Initialize the cart system.
    * @return initialized or recovered cart instance
@@ -151,7 +123,7 @@ class Commerce {
     }
 
     runInAction(() => {
-      this.order = new Order(akasha.get('order'))
+      this.order = new Order(akasha.get('order'), [], [], this.client)
     })
 
     // Define reaction for item changes
@@ -204,7 +176,7 @@ class Commerce {
    * @param id the product id of a lineitem
    * @return lineitem or undefined if product isn't in cart
    */
-  get(id: string): LineItem | undefined {
+  async get(id: string): Promise<LineItem | undefined> {
     // Check the item on the order
     let item = this.order.get(id)
 
@@ -218,12 +190,16 @@ class Commerce {
         continue
       }
 
-      return new LineItem({
+      const li = new LineItem({
         id: request[0],
         quantity: request[1],
         locked: request[2],
         ignore: request[3],
-      })
+      }, this.client)
+
+      await li.loadProductPromise
+
+      return li
     }
   }
 
@@ -237,44 +213,27 @@ class Commerce {
    * @return promise for when all set operations are completed
    */
   @action
-  set(id, quantity, locked=false, ignore=false): Promise<LineItem[]> | undefined {
+  async set(id, quantity, locked=false, ignore=false): Promise<void> {
     this.updateQueue.push([id, quantity, locked, ignore])
 
     if (this.updateQueue.length === 1) {
-      this.updateQueuePromise = new Promise((resolve, reject) => {
-        this.updateQueuePromiseResolve = resolve
-        this.updateQueuePromiseReject = reject
-      })
-
-      this.executeUpdates()
+      await this.executeUpdates()
     }
-
-    return this.updateQueuePromise
   }
 
   @action
-  async executeUpdates(): Promise<any> {
+  async executeUpdates(): Promise<void> {
     const items = this.order.items ?? []
 
     // Resolve or escape if empty queue
     if (this.updateQueue.length === 0) {
-      // Resolve if empty queue but resolve function exists
-      if (this.updateQueuePromiseResolve != null) {
-        this.updateQueuePromiseResolve(items)
-        this.updateQueuePromiseResolve = undefined
-      }
       return
     }
 
     let [id, quantity, locked, ignore] = this.updateQueue[0]
 
     // Resolve or escape if itemless mode
-    if (this.inItemlessMode && quantity > 0) {
-      // Resolve if itemless mode resolve function exists
-      if (this.updateQueuePromiseResolve != null) {
-        this.updateQueuePromiseResolve(items)
-        this.updateQueuePromiseResolve = undefined
-      }
+    if (this.order.inItemlessMode && quantity > 0) {
       return
     }
 
@@ -285,10 +244,38 @@ class Commerce {
 
     // delete item
     if (quantity === 0) {
-      return await this.cartDeleteItem(id)
+      await this.cartDeleteItem(id)
+      return
     }
 
     // try and update item quantity
+    if (this.executeUpdateItem(id, quantity, locked, ignore) != null) {
+      return
+    }
+
+    // Fetch up to date information at time of checkout openning
+    // TODO: Think about revising so we don't report old prices if they changed after checkout is open
+
+    const li = new LineItem({
+      id,
+      quantity,
+      locked,
+      ignore
+    }, this.client)
+
+    await li.loadProductPromise
+
+    runInAction(() => {
+      items.push(li)
+    })
+
+    await this.executeUpdates()
+  }
+
+  @action
+  async executeUpdateItem(id: string, quantity: number, locked: boolean, ignore: boolean): Promise<LineItem | undefined> {
+    const items = this.order.items ?? []
+
     for (const k in items) {
       const item = items[k]
       // ignore if not a match to id
@@ -339,21 +326,12 @@ class Commerce {
       this.order.items[k].quantity =  quantity
       this.order.items[k].locked = locked
       this.order.items[k].ignore = ignore
-      this.cartSetItem(item.productId, quantity)
+
+      await this.cartSetItem(item.productId, quantity)
 
       this.updateQueue.shift()
-      return
+      return this.order.items[k]
     }
-
-    // Fetch up to date information at time of checkout openning
-    // TODO: Think about revising so we don't report old prices if they changed after checkout is open
-
-    items.push(new LineItem({
-      id,
-      quantity,
-      locked,
-      ignore
-    }))
   }
 
   @action

@@ -28,6 +28,44 @@ export interface IProduct {
   description: string
 }
 
+export interface ILineItem extends IProduct {
+  quantity: number
+  locked: boolean
+  ignore: boolean
+}
+
+export interface IOrder {
+  items: ILineItem[]
+  type: string
+  storeId: string
+  currency: string
+  mode: 'deposit' | 'contribution' | ''
+}
+
+export interface ICoupon {
+  type: 'flat' | 'percent'
+  productId: string
+  amount: number
+  once: boolean
+}
+
+export interface IGeoRate {
+  country?: string
+  state?: string
+  postalCodes?: string
+  city?: string
+
+  percent: number
+  cost: number
+}
+
+export interface IAddress {
+  country: string
+  state: string
+  city: string
+  postalCode: string
+}
+
 /**
  * Cart Client
  */
@@ -40,7 +78,7 @@ export interface ICartClient {
 }
 
 /**
- * Cart representation
+ * Product Client
  */
 export interface IProductClient {
   product: {
@@ -48,6 +86,15 @@ export interface IProductClient {
   }
 }
 
-export interface IClient extends ICartClient, IProductClient {
+/**
+ * Cart representation
+ */
+export interface IOrderClient extends IProductClient{
+  checkout: {
+    authorize: (data: any) => Promise<IOrder>
+  }
+}
+
+export interface IClient extends ICartClient, IOrderClient, IProductClient {
 
 }
