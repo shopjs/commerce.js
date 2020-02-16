@@ -2,16 +2,22 @@ import {
   IGeoRate
 } from './types'
 
-/*
- * decaffeinate suggestions:
- * DS101: Remove unnecessary use of Array.from
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
+let printLevel = 'none'
+
+export const setLogLevel = (level: string) => {
+  printLevel = level
+}
+
+export const log = (...args) => {
+  if (printLevel != 'none') {
+    console.log.apply(null, args as any)
+  }
+}
+
 // These functions need to be synced with the backend
 
 // Input sanitization for georate compared
-export const clean = function(str){
+export const clean = function(str) {
   if (str == null) { str = '' }
   return str.toUpperCase().replace(/\s/g, '')
 }

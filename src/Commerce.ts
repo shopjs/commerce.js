@@ -16,6 +16,10 @@ import {
   IClient,
 } from './types'
 
+import {
+  log
+} from './utils'
+
 export type CartUpdateRequest = [string, number, boolean, boolean]
 export type AnalyticsProductTransformFn = (v: any) => any
 
@@ -90,6 +94,14 @@ export default class Commerce {
     this.analytics = analytics
     this.analyticsProductTransform = aPT
     // this.cartInit()
+  }
+
+  /**
+   * @return the number of items on the order
+   */
+  @computed
+  get size(): number {
+    return this.order.size
   }
 
   /**
@@ -205,7 +217,12 @@ export default class Commerce {
         ignore: request[3],
       }, this.client)
 
-      await li.loadProductPromise
+      try {
+        await li.loadProductPromise
+      } catch (err) {
+        log('get error', err)
+        return
+      }
 
       return li
     }
@@ -233,21 +250,23 @@ export default class Commerce {
   async executeUpdates(): Promise<void> {
     const items = this.order.items
 
+    let updateQueueRequest = this.updateQueue.shift()
+
     // Resolve or escape if empty queue
-    if (this.updateQueue.length === 0) {
+    if (!updateQueueRequest) {
       return
     }
 
-    let [id, quantity, locked, ignore] = this.updateQueue[0]
+    let [id, quantity, locked, ignore] = updateQueueRequest
 
-    // console.log('eu', id)
+    // log('eu', id)
 
     // Resolve or escape if itemless mode
     if (this.order.inItemlessMode && quantity > 0) {
       return
     }
 
-    // console.log('eu2')
+    // log('eu2')
 
     // handle negative quantities.
     if (quantity < 0) {
@@ -260,14 +279,14 @@ export default class Commerce {
       return
     }
 
-    // console.log('eu3')
+    // log('eu3')
 
     // try and update item quantity
     if (await this.executeUpdateItem(id, quantity, locked, ignore) != null) {
       return
     }
 
-    // console.log('eu4')
+    // log('eu4')
 
     // Fetch up to date information at time of checkout openning
     // TODO: Think about revising so we don't report old prices if they changed after checkout is open
@@ -279,11 +298,16 @@ export default class Commerce {
       ignore
     }, this.client)
 
-    // console.log('eu4.5')
+    // log('eu4.5')
 
-    await li.loadProductPromise
+    try {
+      await li.loadProductPromise
+    } catch (err) {
+      log('set error', err)
+      return await this.executeUpdates()
+    }
 
-    // console.log('eu5', this.analytics)
+    // log('eu5', this.analytics)
 
     runInAction(() => {
       items.push(li)
@@ -305,12 +329,12 @@ export default class Commerce {
       }
     })
 
-    await this.executeUpdates()
+    return await this.executeUpdates()
   }
 
   @action
   async executeUpdateItem(id: string, quantity: number, locked: boolean, ignore: boolean): Promise<LineItem | undefined> {
-    // console.log('eui', id)
+    // log('eui', id)
     const items = this.order.items ?? []
 
     for (const k in items) {
@@ -367,7 +391,7 @@ export default class Commerce {
         }
       }
 
-      // console.log('order.items', this.order.items)
+      // log('order.items', this.order.items)
 
       this.order.items[k].quantity =  quantity
       this.order.items[k].locked = locked
@@ -375,7 +399,6 @@ export default class Commerce {
 
       await this.cartSetItem(item.productId, quantity)
 
-      this.updateQueue.shift()
       return this.order.items[k]
     }
   }

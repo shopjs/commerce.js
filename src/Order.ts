@@ -94,8 +94,16 @@ export default class Order implements IOrder {
     return undefined
   }
 
+  /**
+   * @return the number of items on the order
+   */
   @computed
-  get inItemlessMode() : boolean {
+  get size(): number {
+    return this.items.length
+  }
+
+  @computed
+  get inItemlessMode(): boolean {
     const mode = this.mode
     return mode === 'deposit' || mode === 'contribution'
   }
