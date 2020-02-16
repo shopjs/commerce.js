@@ -3,6 +3,7 @@ import {
   autorun,
   computed,
   observable,
+  reaction,
 } from 'mobx'
 
 import {
@@ -54,6 +55,12 @@ export default class Order implements IOrder {
 
   @observable
   shippingAddress: IAddress
+
+  /**
+   * Overwrite subtotal only available in itemless modes
+   */
+  @observable
+  _subtotal: number = 0
 
   constructor(
     raw: any = {},
@@ -181,7 +188,7 @@ export default class Order implements IOrder {
   @computed
   get subtotal(): number {
     if (this.inItemlessMode) {
-      return 0
+      return this._subtotal
     }
 
     let subtotal = 0
@@ -194,6 +201,12 @@ export default class Order implements IOrder {
     }
 
     return subtotal
+  }
+
+  set subtotal(st: number) {
+    if (this.inItemlessMode) {
+      this._subtotal = st
+    }
   }
 
   @computed

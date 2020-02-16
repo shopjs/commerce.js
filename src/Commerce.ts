@@ -51,6 +51,9 @@ export default class Commerce {
   @observable
   updateQueue: CartUpdateRequest[] = []
 
+  @observable
+  updateQueuePromise: Promise<void> = new Promise((res) => { res() })
+
   /**
    * order is the object for tracking the user's order/cart info
    */
@@ -94,6 +97,14 @@ export default class Commerce {
     this.analytics = analytics
     this.analyticsProductTransform = aPT
     // this.cartInit()
+  }
+
+  /**
+   * @return the items on the order
+   */
+  @computed
+  get items(): LineItem[] {
+    return this.order.items
   }
 
   /**
@@ -188,6 +199,16 @@ export default class Commerce {
       }
     )
 
+    // clear items when we switch to itemless mode
+    reaction(
+      () => this.order.inItemlessMode,
+      (inItemlessMode) => {
+        if (inItemlessMode) {
+          this.clear()
+        }
+      }
+    )
+
     return this.cart
   }
 
@@ -242,10 +263,30 @@ export default class Commerce {
     this.updateQueue.push([id, quantity, locked, ignore])
 
     if (this.updateQueue.length === 1) {
-      await this.executeUpdates()
+      this.updateQueuePromise = this.executeUpdates()
+      await this.updateQueuePromise
     }
   }
 
+  /**
+   * Refresh a lineitem by product id.  Add lineitem to asynchronous update queue
+   * @return return the LineItem if it exists or nothing if it doesn't.
+   */
+  @action
+  async refresh(id): Promise<LineItem | undefined> {
+    let item = await this.get(id)
+    if (item) {
+      await this.updateQueue.push([id, item.quantity, item.locked, item.ignore])
+      return await this.get(id)
+    }
+
+    return
+  }
+
+  /**
+   * Execute all queued updates
+   * @return promise for when all queued updates are done
+   */
   @action
   async executeUpdates(): Promise<void> {
     const items = this.order.items
@@ -332,6 +373,15 @@ export default class Commerce {
     return await this.executeUpdates()
   }
 
+  /**
+   * Execute update for item
+   * @param id productId
+   * @param quantity amount of productId in cart
+   * @param locked is this lineitem modifiable in the UI
+   * @param ignore is this lineitem ignored by the UI (loading in progress,
+   * freebie etc)
+   * @return LineItem if item is updated or undefined if something was invalid
+   */
   @action
   async executeUpdateItem(id: string, quantity: number, locked: boolean, ignore: boolean): Promise<LineItem | undefined> {
     // log('eui', id)
@@ -405,7 +455,7 @@ export default class Commerce {
 
   @action
   async cartDeleteItem(id: string): Promise<LineItem | undefined> {
-    const items = this.order.items ?? []
+    const items = this.order.items
     let itemToDeleteIndex: number = items.length
 
     for (const k in items) {
@@ -427,7 +477,7 @@ export default class Commerce {
     const item = items[itemToDeleteIndex]
 
     // Remove the itemToDelete from the items list
-    this.order.items = items.splice(itemToDeleteIndex, 1)
+    this.order.items.splice(itemToDeleteIndex, 1)
 
     let a: any = {
       id: item.productId,
@@ -495,12 +545,12 @@ export default class Commerce {
   }
 
   @action
-  async clear() {
+  async clear(): Promise<void>{
     this.updateQueue.length = 0
     const itemsClone = this.order.items.slice(0)
 
     await Promise.all(itemsClone.map((item) => this.set(item.productId, 0)))
 
-    return this.order.items
+    return
   }
 }
