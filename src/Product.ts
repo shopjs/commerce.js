@@ -7,6 +7,10 @@ import {
   IProductClient
 } from './types'
 
+import {
+  log
+} from './utils'
+
 /**
  * Product is something that goes in a cart, we sync these from the server but
  * only keep the fields we care about
@@ -65,7 +69,8 @@ export default class Product implements IProduct {
       this.productName = product.name
       return this
     }).catch((err) => {
-      console.log('loadProduct error', err)
+      log('loadProduct error', err)
+      throw err
     })
   }
 }

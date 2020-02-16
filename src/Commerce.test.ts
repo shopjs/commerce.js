@@ -1,6 +1,9 @@
 import Commerce from './Commerce'
 import { ICartClient } from './types'
 import Api from 'hanzo.js'
+import { setLogLevel, log } from './utils'
+
+setLogLevel('test')
 
 const KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NzIzMDc4NDcsInN1YiI6IjhBVEdFZ1owdWwiLCJqdGkiOiJGVmU0NWRyVzZPYyIsIm5hbWUiOiJ0ZXN0LXB1Ymxpc2hlZC1rZXkiLCJiaXQiOjQ1MDM2MTcwNzU2NzUxNzZ9.k82KjvI4AkRIEF5pjl_hj7nSvkNEkBctHfnbZWoEgVI'
 const ENDPOINT = 'https://api-dot-hanzo-staging-249116.appspot.com/'
@@ -131,5 +134,19 @@ describe('Commerce', () => {
 
       expect(c.order.total).toBe(item.price * item.quantity)
     }
+  })
+
+  test('should not get an item by invalid id or slug', async() => {
+    let order = {
+      currency: 'usd',
+    }
+
+    let c = new Commerce(client, order)
+
+    await c.set('84cRXBYs9jX7wzzz', 1)
+
+    let item = await c.get('84cRXBYs9jX7wzzz')
+
+    expect(item).toBeUndefined()
   })
 })
