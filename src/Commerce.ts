@@ -10,10 +10,17 @@ import akasha from 'akasha'
 
 import LineItem from './LineItem'
 import Order from './Order'
+import User from './User'
 
 import {
   ICart,
+  ICartAPI,
   IClient,
+  ICoupon,
+  IGeoRate,
+  IOrder,
+  IPayment,
+  IUser,
 } from './types'
 
 import {
@@ -26,7 +33,7 @@ export type AnalyticsProductTransformFn = (v: any) => any
 /**
  * Cart keeps track of items being added and removed from the cart/order
  */
-export default class Commerce {
+export default class Commerce implements ICartAPI {
   /**
    * id of the current cart in the system
    */
@@ -64,7 +71,7 @@ export default class Commerce {
    * user is an object for tracking the user's contact information
    */
   @observable
-  user: any = {}
+  user: any = User.load()
 
   /**
    * payment is the object for tracking the user's payment information
@@ -89,11 +96,13 @@ export default class Commerce {
   constructor(
     client: IClient,
     order = {},
+    taxRates: IGeoRate[] = [],
+    shippingRates: IGeoRate[] = [],
     analytics: any = undefined,
     aPT: AnalyticsProductTransformFn = (v) => v,
   ) {
     this.client = client
-    this.order = order ? new Order(order, [], [], client) : Order.load(client)
+    this.order = order ? new Order(order, taxRates, shippingRates, client, this) : Order.load(client, taxRates, shippingRates, this)
     this.analytics = analytics
     this.analyticsProductTransform = aPT
     // this.cartInit()
@@ -154,34 +163,8 @@ export default class Commerce {
     }
 
     runInAction(() => {
-      this.order = new Order(akasha.get('order'), [], [], this.client)
+      this.order = new Order(akasha.get('order'), [], [], this.client, this)
     })
-
-    // Define reaction for item changes
-    reaction(
-      () => this.order.items,
-      (items) => {
-        for (const item of this.order.items) {
-          this.cartSetItem(item.productId, item.quantity)
-        }
-      }
-    )
-
-    // Save order on any update
-    reaction(
-      () => this.order,
-      (order) => {
-        Order.save(order)
-      }
-    )
-
-    // Define reaction for storeid
-    reaction (
-      () => this.order.storeId,
-      (storeId) => {
-        this.cartSetStore(storeId)
-      }
-    )
 
     // Define reaction for storeid
     reaction (
@@ -196,16 +179,6 @@ export default class Commerce {
       () => this.user.firstName + ' ' + this.user.lastName,
       (name) => {
         this.cartSetName(name)
-      }
-    )
-
-    // clear items when we switch to itemless mode
-    reaction(
-      () => this.order.inItemlessMode,
-      (inItemlessMode) => {
-        if (inItemlessMode) {
-          this.clear()
-        }
       }
     )
 
@@ -316,7 +289,7 @@ export default class Commerce {
 
     // delete item
     if (quantity === 0) {
-      await this.cartDeleteItem(id)
+      await this.del(id)
       return
     }
 
@@ -369,6 +342,8 @@ export default class Commerce {
         this.analytics.track('Added Product', a)
       }
     })
+
+    await this.cartSetItem(li.productId, quantity)
 
     return await this.executeUpdates()
   }
@@ -423,6 +398,8 @@ export default class Commerce {
 
           this.analytics.track('Added Product', a)
         }
+
+        this.cartSetItem(item.productId, quantity)
       } else if (deltaQuantity < 0) {
         let a = {
           id: item.productId,
@@ -454,7 +431,7 @@ export default class Commerce {
   }
 
   @action
-  async cartDeleteItem(id: string): Promise<LineItem | undefined> {
+  async del(id: string): Promise<LineItem | undefined> {
     const items = this.order.items
     let itemToDeleteIndex: number = items.length
 
@@ -507,6 +484,7 @@ export default class Commerce {
   @action
   async cartSetItem(id: string, quantity: number): Promise<ICart | undefined> {
     if (this.cartId) {
+      console.log('cart item')
       this.cart.id = this.cartId
       return this.client.cart.set({
         id: this.cartId,
@@ -550,6 +528,63 @@ export default class Commerce {
     const itemsClone = this.order.items.slice(0)
 
     await Promise.all(itemsClone.map((item) => this.set(item.productId, 0)))
+
+    return
+  }
+
+  @action
+  async setCoupon(code?: string): Promise<ICoupon | undefined> {
+    if (code) {
+      try {
+        let coupon = await this.client.coupon.get(code)
+        if (!coupon.enabled) {
+          return
+        }
+
+        runInAction(() => {
+          this.order.coupon = coupon
+          this.order.couponCodes = [code]
+        })
+
+        if (coupon.freeProductId) {
+          await this.client.product.get(coupon.freeProductId)
+        }
+
+        return coupon
+      } catch (err) {
+        log('promoCode error', err)
+        return
+      }
+    }
+  }
+
+  @action
+  async checkout(payment: IPayment): Promise<IOrder | undefined> {
+    let order: IOrder = Object.assign({}, this.order)
+    let user: IUser = Object.assign({}, this.user)
+
+    order.items = this.order.items.filter((item) => item.ignore).map((item) => Object.assign({}, item))
+
+    let opts = {
+      order,
+      payment,
+      user,
+    }
+
+    let authorizedOrder = await this.client.checkout.authorize(opts)
+
+    if (authorizedOrder) {
+      runInAction(() => {
+        this.order.id = (authorizedOrder as IOrder).id
+        this.order.userId = (authorizedOrder as IOrder).userId
+      })
+
+      let capturedOrder = await this.client.checkout.capture({
+        orderId: order.id,
+      })
+
+      return capturedOrder
+    }
 
     return
   }
