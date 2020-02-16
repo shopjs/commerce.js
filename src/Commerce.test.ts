@@ -1,7 +1,13 @@
 import Commerce from './Commerce'
-import { ICartClient } from './types'
+import {
+  ICartClient,
+  IGeoRate,
+} from './types'
 import Api from 'hanzo.js'
-import { setLogLevel, log } from './utils'
+import {
+  log,
+  setLogLevel,
+} from './utils'
 
 // setLogLevel('test')
 
@@ -54,7 +60,7 @@ describe('Commerce', () => {
       currency: 'usd',
     }
 
-    let c = new Commerce(client, order, analytics)
+    let c = new Commerce(client, order, [], [], analytics)
 
     await c.set('rbcXB3Qxcv6kNy', 1)
 
@@ -81,7 +87,7 @@ describe('Commerce', () => {
       currency: 'usd',
     }
 
-    let c = new Commerce(client, order, analytics)
+    let c = new Commerce(client, order, [], [], analytics)
 
     await c.set('sad-keanu-shirt', 1)
 
@@ -108,7 +114,7 @@ describe('Commerce', () => {
       currency: 'usd',
     }
 
-    let c = new Commerce(client, order, analytics)
+    let c = new Commerce(client, order, [], [], analytics)
 
     await c.set('sad-keanu-shirt', 1)
 
@@ -158,7 +164,7 @@ describe('Commerce', () => {
       currency: 'usd',
     }
 
-    let c = new Commerce(client, order, analytics)
+    let c = new Commerce(client, order, [], [], analytics)
 
     await c.set('sad-keanu-shirt', 1)
 
@@ -192,7 +198,7 @@ describe('Commerce', () => {
       currency: 'usd',
     }
 
-    let c = new Commerce(client, order, analytics)
+    let c = new Commerce(client, order, [], [], analytics)
 
     await c.set('sad-keanu-shirt', 1)
     await c.set('sad-keanu-shirt', 0)
@@ -214,7 +220,7 @@ describe('Commerce', () => {
       currency: 'usd',
     }
 
-    let c = new Commerce(client, order, analytics)
+    let c = new Commerce(client, order, [], [], analytics)
 
     await c.set('sad-keanu-shirt', 1)
     await c.set('sad-keanu-shirt', -1)
@@ -238,7 +244,7 @@ describe('Commerce', () => {
       mode: 'deposit',
     }
 
-    let c = new Commerce(client, order, analytics)
+    let c = new Commerce(client, order, [], [], analytics)
 
     await c.set('sad-keanu-shirt', 1)
 
@@ -252,7 +258,7 @@ describe('Commerce', () => {
       currency: 'usd',
     }
 
-    let c = new Commerce(client, order, analytics)
+    let c = new Commerce(client, order, [], [], analytics)
 
     c.order.subtotal = 100
 
@@ -266,7 +272,7 @@ describe('Commerce', () => {
       mode: 'deposit',
     }
 
-    let c = new Commerce(client, order, analytics)
+    let c = new Commerce(client, order, [], [], analytics)
 
     c.order.subtotal = 100
 
@@ -277,10 +283,9 @@ describe('Commerce', () => {
   test('clear', async () => {
     let order = {
       currency: 'usd',
-      mode: 'deposit',
     }
 
-    let c = new Commerce(client, order, analytics)
+    let c = new Commerce(client, order, [], [], analytics)
 
     await c.set('sad-keanu-shirt', 1)
 
@@ -303,4 +308,375 @@ describe('Commerce', () => {
     expect(c.order.total).toBe(0)
   })
 
+  test('should clear when switching to an itemless mode', async () => {
+    let order = {
+      currency: 'usd',
+    }
+
+    let c = new Commerce(client, order, [], [], analytics)
+
+    await c.set('sad-keanu-shirt', 1)
+
+    expect(c.size).toBe(1)
+
+    expect(analyticsArgs[0]).toBe('Added Product')
+    expect(analyticsArgs[1].id).toBe('rbcXB3Qxcv6kNy')
+    expect(analyticsArgs[1].sku).toBe('sad-keanu-shirt')
+    expect(analyticsArgs[1].quantity).toBe(1)
+
+    c.order.mode = 'deposit'
+
+    await c.updateQueuePromise
+
+    expect(c.size).toBe(0)
+
+    expect(analyticsArgs[0]).toBe('Removed Product')
+    expect(analyticsArgs[1].id).toBe('rbcXB3Qxcv6kNy')
+    expect(analyticsArgs[1].sku).toBe('sad-keanu-shirt')
+    expect(analyticsArgs[1].quantity).toBe(1)
+
+    expect(c.order.total).toBe(0)
+  })
+
+  test('should set subtotal directly in itemless mode', async () => {
+    let order = {
+      currency: 'usd',
+    }
+
+    let c = new Commerce(client, order, [], [], analytics)
+
+    c.order.subtotal = 1111
+    // odd negative zero issue
+    expect(c.order.subtotal === 0).toBe(true)
+    expect(c.order.total).toBe(0)
+
+    c.order.mode = 'deposit'
+
+    c.order.subtotal = 2222
+
+    expect(c.order.subtotal).toBe(2222)
+    expect(c.order.total).toBe(2222)
+  })
+
+  test('should set unfiltered shippingRate', async () => {
+    let order = {
+      currency: 'usd',
+      shippingAddress: {
+        country: 'us',
+        state: 'ca',
+        city: 'los angeles'
+      },
+    }
+
+    let shippingRates: IGeoRate[] = [{
+      percent: 0,
+      cost: 1000,
+    }]
+
+    let c = new Commerce(client, order, [], shippingRates, analytics)
+
+    await c.set('sad-keanu-shirt', 1)
+
+    let item = await c.get('sad-keanu-shirt')
+
+    expect(item).toBeDefined()
+
+    if (item) {
+      expect(c.size).toBe(1)
+      expect(c.order.shipping).toBe(c.order.shippingRates[0].cost)
+      expect(c.order.total).toBe(item.price * item.quantity + c.order.shippingRates[0].cost)
+    }
+  })
+
+  test('should use shippingRates filter with shippingAddress with correct city', async () => {
+    let order = {
+      currency: 'usd',
+      shippingAddress: {
+        country: 'us',
+        state: 'ca',
+        city: 'los angeles'
+      },
+    }
+
+    let shippingRates: IGeoRate[] = [{
+      country: 'us',
+      state: 'ca',
+      city: 'los angeles',
+      percent: 0,
+      cost: 1000,
+    }, {
+      percent: 0,
+      cost: 2000,
+    }]
+
+    let c = new Commerce(client, order, [], shippingRates, analytics)
+
+    await c.set('sad-keanu-shirt', 1)
+
+    let item = await c.get('sad-keanu-shirt')
+
+    expect(item).toBeDefined()
+
+    if (item) {
+      expect(c.size).toBe(1)
+      expect(c.order.shipping).toBe(c.order.shippingRates[0].cost)
+      expect(c.order.total).toBe(item.price * item.quantity + c.order.shippingRates[0].cost)
+    }
+  })
+
+  test('should use shippingRates filter with shippingAddress with correct postal code', async () => {
+    let order = {
+      currency: 'usd',
+      shippingAddress: {
+        country: 'us',
+        state: 'ca',
+        postalCode: '123',
+        city: 'los angeles'
+      },
+    }
+
+    let shippingRates: IGeoRate[] = [{
+      country: 'us',
+      state: 'ca',
+      postalCodes: '123,234',
+      percent: 0,
+      cost: 1000,
+    }, {
+      percent: 0,
+      cost: 2000,
+    }]
+
+    let c = new Commerce(client, order, [], shippingRates, analytics)
+
+    await c.set('sad-keanu-shirt', 1)
+
+    let item = await c.get('sad-keanu-shirt')
+
+    expect(item).toBeDefined()
+
+    if (item) {
+      expect(c.size).toBe(1)
+      expect(c.order.shipping).toBe(c.order.shippingRates[0].cost)
+      expect(c.order.total).toBe(item.price * item.quantity + c.order.shippingRates[0].cost)
+    }
+  })
+
+  test('should use shippingRates filter with shippingAddress with country filter', async () => {
+    let order = {
+      currency: 'usd',
+      shippingAddress: {
+        country: 'uk',
+        state: 'ca',
+        postalCode: '123',
+        city: 'los angeles'
+      },
+    }
+
+    let shippingRates: IGeoRate[] = [{
+      country: 'us',
+      state: 'ca',
+      postalCodes: '123,234',
+      percent: 0,
+      cost: 1000,
+    }, {
+      percent: 0,
+      cost: 2000,
+    }]
+
+    let c = new Commerce(client, order, [], shippingRates, analytics)
+
+    await c.set('sad-keanu-shirt', 1)
+
+    let item = await c.get('sad-keanu-shirt')
+
+    expect(item).toBeDefined()
+
+    if (item) {
+      expect(c.size).toBe(1)
+      expect(c.order.shipping).toBe(c.order.shippingRates[1].cost)
+      expect(c.order.total).toBe(item.price * item.quantity + c.order.shippingRates[1].cost)
+    }
+  })
+
+  test('should set unfiltered taxRate', async () => {
+    let order = {
+      currency: 'usd',
+      shippingAddress: {
+        country: 'us',
+        state: 'ca',
+        city: 'los angeles'
+      },
+    }
+
+    let taxRates: IGeoRate[] = [{
+      percent: 0,
+      cost: 1000,
+    }]
+
+    let c = new Commerce(client, order, taxRates, [], analytics)
+
+    await c.set('sad-keanu-shirt', 1)
+
+    let item = await c.get('sad-keanu-shirt')
+
+    expect(item).toBeDefined()
+
+    if (item) {
+      expect(c.size).toBe(1)
+      expect(c.order.tax).toBe(c.order.taxRates[0].cost)
+      expect(c.order.total).toBe(item.price * item.quantity + c.order.taxRates[0].cost)
+    }
+  })
+
+  test('should use taxRates filter with shippingAddress with correct city', async () => {
+    let order = {
+      currency: 'usd',
+      shippingAddress: {
+        country: 'us',
+        state: 'ca',
+        city: 'los angeles'
+      },
+    }
+
+    let taxRates: IGeoRate[] = [{
+      country: 'us',
+      state: 'ca',
+      city: 'los angeles',
+      percent: 0,
+      cost: 1000,
+    }, {
+      percent: 0,
+      cost: 2000,
+    }]
+
+    let c = new Commerce(client, order, taxRates, [], analytics)
+
+    await c.set('sad-keanu-shirt', 1)
+
+    let item = await c.get('sad-keanu-shirt')
+
+    expect(item).toBeDefined()
+
+    if (item) {
+      expect(c.size).toBe(1)
+      expect(c.order.tax).toBe(c.order.taxRates[0].cost)
+      expect(c.order.total).toBe(item.price * item.quantity + c.order.taxRates[0].cost)
+    }
+  })
+
+  test('should use taxRates filter with shippingAddress with correct postal code', async () => {
+    let order = {
+      currency: 'usd',
+      shippingAddress: {
+        country: 'us',
+        state: 'ca',
+        postalCode: '123',
+        city: 'los angeles'
+      },
+    }
+
+    let taxRates: IGeoRate[] = [{
+      country: 'us',
+      state: 'ca',
+      postalCodes: '123,234',
+      percent: 0,
+      cost: 1000,
+    }, {
+      percent: 0,
+      cost: 2000,
+    }]
+
+    let c = new Commerce(client, order, taxRates, [], analytics)
+
+    await c.set('sad-keanu-shirt', 1)
+
+    let item = await c.get('sad-keanu-shirt')
+
+    expect(item).toBeDefined()
+
+    if (item) {
+      expect(c.size).toBe(1)
+      expect(c.order.tax).toBe(c.order.taxRates[0].cost)
+      expect(c.order.total).toBe(item.price * item.quantity + c.order.taxRates[0].cost)
+    }
+  })
+
+  test('should use taxRates filter with shippingAddress with country filter', async () => {
+    let order = {
+      currency: 'usd',
+      shippingAddress: {
+        country: 'uk',
+        state: 'ca',
+        postalCode: '123',
+        city: 'los angeles'
+      },
+    }
+
+    let taxRates: IGeoRate[] = [{
+      country: 'us',
+      state: 'ca',
+      postalCodes: '123,234',
+      percent: 0,
+      cost: 1000,
+    }, {
+      percent: 0,
+      cost: 2000,
+    }]
+
+    let c = new Commerce(client, order, taxRates, [], analytics)
+
+    await c.set('sad-keanu-shirt', 1)
+
+    let item = await c.get('sad-keanu-shirt')
+
+    expect(item).toBeDefined()
+
+    if (item) {
+      expect(c.size).toBe(1)
+      expect(c.order.tax).toBe(c.order.taxRates[1].cost)
+      expect(c.order.total).toBe(item.price * item.quantity + c.order.taxRates[1].cost)
+    }
+  })
+
+  test('setCoupon', async () => {
+    let order = {
+      currency: 'usd',
+    }
+
+    let c = new Commerce(client, order, [], [], analytics)
+
+    await c.set('sad-keanu-shirt', 1)
+
+    let coupon = await c.setCoupon('SUCH-COUPON')
+
+    expect(coupon).toBeDefined()
+
+    if (coupon) {
+      expect(coupon.code).toBe('SUCH-COUPON')
+      expect(coupon.amount).toBe(500)
+
+      let item = await c.get('sad-keanu-shirt')
+
+      expect(item).toBeDefined()
+
+      if (item) {
+        expect(c.size).toBe(1)
+        expect(c.order.total).toBe(item.price * item.quantity - coupon.amount)
+      }
+    }
+  })
+
+  test('setCoupon fails on invalid coupon', async () => {
+    let order = {
+      currency: 'usd',
+    }
+
+    let c = new Commerce(client, order, [], [], analytics)
+
+    await c.set('sad-keanu-shirt', 1)
+
+    let coupon = await c.setCoupon('BAD-COUPON')
+
+    expect(coupon).not.toBeDefined()
+  })
 })

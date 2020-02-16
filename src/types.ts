@@ -1,5 +1,5 @@
 /**
- * Cart representation
+ * Cart Abstraction
  */
 export interface ICart {
   id: string
@@ -9,7 +9,7 @@ export interface ICart {
 }
 
 /**
- * Cart LineItem Confirmation
+ * CartItem Abstraction
  */
 export interface ICartItem {
   id: string
@@ -18,6 +18,9 @@ export interface ICartItem {
   storeId: string
 }
 
+/**
+ * Product Abstraction
+ */
 export interface IProduct {
   id: string
   productId: string
@@ -30,27 +33,63 @@ export interface IProduct {
   description: string
 }
 
+/**
+ * LineItem Abstraction
+ */
 export interface ILineItem extends IProduct {
   quantity: number
   locked: boolean
   ignore: boolean
 }
 
+/**
+ * Order Abstraction
+ */
 export interface IOrder {
-  items: ILineItem[]
-  type: string
-  storeId: string
+  id: string
+  userId: string
   currency: string
+  items: ILineItem[]
   mode: 'deposit' | 'contribution' | ''
+  storeId: string
+  type: string
 }
 
+/**
+ * Payment Abstraction
+ */
+export interface IPayment {
+  number: string,
+  cvc: string,
+  month: string,
+  yearh: string,
+}
+
+/**
+ * User Abstraction
+ */
+export interface IUser {
+  email: string
+  firstName: string
+  lastName: string
+}
+
+/**
+ * Coupon Abstraction
+ */
 export interface ICoupon {
-  type: 'flat' | 'percent'
-  productId: string
   amount: number
+  code: string
+  enabled: boolean
+  freeProductId: string
   once: boolean
+  productId: string
+  type: 'flat' | 'percent'
 }
 
+/**
+ * GeoRate Abstraction
+ */
 export interface IGeoRate {
   country?: string
   state?: string
@@ -61,11 +100,50 @@ export interface IGeoRate {
   cost: number
 }
 
+/**
+ * Address Abstraction
+ */
 export interface IAddress {
   country: string
   state: string
   city: string
   postalCode: string
+}
+
+/**
+ * Abstraction of Cart API on the Commerce object
+ */
+export interface ICartAPI {
+  cartSetStore(storeId: string): Promise<ICart | undefined>
+  cartSetEmail(email: string): Promise<ICart | undefined>
+  cartSetName(name: string): Promise<ICart | undefined>
+  clear(): Promise<void>
+}
+
+/**
+ * Checkout Client Authorize Config
+ */
+export interface IAuthorizeConfig {
+  user: IUser
+  order: IOrder
+  payment: IPayment
+}
+
+/**
+ * Checkout Client Capture Config
+ */
+export interface ICaptureConfig {
+  orderId: string
+}
+
+/**
+ * Checkout Client
+ */
+export interface ICheckoutClient {
+  checkout: {
+    authorize(opts: IAuthorizeConfig): Promise<IOrder | undefined>
+    capture(ICaptureConfig): Promise<IOrder | undefined>
+  }
 }
 
 /**
@@ -76,6 +154,15 @@ export interface ICartClient {
     set: (cartItem: ICartItem) => Promise<ICart>
     create: () => Promise<ICart>
     update: (cart: ICart) => Promise<ICart>
+  }
+}
+
+/**
+ * Coupon Client
+ */
+export interface ICouponClient {
+  coupon: {
+    get: (code: string) => Promise<ICoupon>
   }
 }
 
@@ -92,11 +179,7 @@ export interface IProductClient {
  * Cart representation
  */
 export interface IOrderClient extends IProductClient{
-  checkout: {
-    authorize: (data: any) => Promise<IOrder>
-  }
 }
 
-export interface IClient extends ICartClient, IOrderClient, IProductClient {
-
+export interface IClient extends ICartClient, IOrderClient, IProductClient, ICouponClient, ICheckoutClient {
 }

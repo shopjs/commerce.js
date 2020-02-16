@@ -16,6 +16,7 @@ import LineItem from './LineItem'
 
 import {
   IAddress,
+  ICartAPI,
   ICoupon,
   IGeoRate,
   IOrder,
@@ -26,6 +27,12 @@ import {
  * Order contains information about what the user is buying
  */
 export default class Order implements IOrder {
+  @observable
+  id: string = ''
+
+  @observable
+  userId: string = ''
+
   @observable
   items: LineItem[]
 
@@ -43,6 +50,9 @@ export default class Order implements IOrder {
 
   @observable
   client: IOrderClient
+
+  @observable
+  couponCodes: string[] = []
 
   @observable
   coupon: ICoupon | undefined
@@ -66,7 +76,8 @@ export default class Order implements IOrder {
     raw: any = {},
     taxRates: IGeoRate[] = [],
     shippingRates: IGeoRate[] = [],
-    client: IOrderClient
+    client: IOrderClient,
+    cartAPI: ICartAPI,
   ) {
     this.client = client
     this.taxRates = taxRates
@@ -84,9 +95,28 @@ export default class Order implements IOrder {
       postalCode: '',
     }
 
+    // Save order on any update
     autorun(() => {
       Order.save(this)
     })
+
+    // Define reaction for storeid
+    reaction (
+      () => this.storeId,
+      (storeId) => {
+        cartAPI.cartSetStore(storeId)
+      }
+    )
+
+    // clear items when we switch to itemless mode
+    reaction(
+      () => this.mode,
+      () => {
+        if (this.inItemlessMode) {
+          cartAPI.clear()
+        }
+      }
+    )
   }
 
   get(id): LineItem | undefined {
@@ -115,8 +145,13 @@ export default class Order implements IOrder {
     return mode === 'deposit' || mode === 'contribution'
   }
 
-  static load(client: IOrderClient) {
-    return new Order(akasha.get('order'), [], [], client)
+  static load(
+    client: IOrderClient,
+    taxRates: IGeoRate[] = [],
+    shippingRates: IGeoRate[] = [],
+    cartAPI: ICartAPI,
+  ) {
+    return new Order(akasha.get('order'), [], [], client, cartAPI)
   }
 
   static save(order: Order) {
@@ -274,5 +309,3 @@ export default class Order implements IOrder {
     return this.subtotal + this.shipping + this.tax
   }
 }
-
-

@@ -44,30 +44,36 @@ export const matchesGeoRate = (
   const ct    = clean(city)
   const pc    = clean(postalCode)
 
+  const ctr2 = clean(g.country)
+
   // Invalid input
   if (!ctr || !st || (!ct && !pc)) {
     return [false, 0]
   }
 
   // Country is Wild Card
-  if (!g.country) {
+  if (!ctr2) {
     return [true, 0]
   }
 
-  if (g.country === ctr) {
+  if (ctr2 === ctr) {
+    const st2 = clean(g.state)
+
     // "Country Match"
-    if (!g.state) {
+    if (!st2) {
       return [true, 1]
     }
 
-    if (g.state === st) {
+    if (st2 === st) {
+      const ct2 = clean(g.city)
+
       // State Match
-      if (!g.city && !g.postalCodes) {
+      if (!ct2 && !g.postalCodes) {
         return [true, 2]
       }
 
       // City Match
-      if (g.city && (g.city === ct)) {
+      if (ct2 && (ct2 === ct)) {
         return [true, 3]
       }
 
@@ -75,7 +81,7 @@ export const matchesGeoRate = (
         const codes = g.postalCodes.split(',')
         for (let code of Array.from(codes)) {
           // Postal Code Match
-          if (code === pc) {
+          if (clean(code) === pc) {
             return [true, 3]
           }
         }
