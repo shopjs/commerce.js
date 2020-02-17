@@ -53,16 +53,25 @@ export interface IOrder {
   mode: 'deposit' | 'contribution' | ''
   storeId: string
   type: string
+
+  subtotal: number
+  total: number
+  tax: number
+  shipping: number
+  discount: number
+  couponCodes: string[]
 }
 
 /**
  * Payment Abstraction
  */
 export interface IPayment {
-  number: string,
-  cvc: string,
-  month: string,
-  yearh: string,
+  account: {
+    number: string,
+    cvc: string,
+    month: string,
+    year: string,
+  },
 }
 
 /**
@@ -130,19 +139,12 @@ export interface IAuthorizeConfig {
 }
 
 /**
- * Checkout Client Capture Config
- */
-export interface ICaptureConfig {
-  orderId: string
-}
-
-/**
  * Checkout Client
  */
 export interface ICheckoutClient {
   checkout: {
     authorize(opts: IAuthorizeConfig): Promise<IOrder | undefined>
-    capture(ICaptureConfig): Promise<IOrder | undefined>
+    capture(id: string): Promise<IOrder | undefined>
   }
 }
 
