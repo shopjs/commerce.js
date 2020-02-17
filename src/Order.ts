@@ -87,7 +87,10 @@ export default class Order implements IOrder {
     this.type = raw.type ?? 'stripe'
     this.storeId = raw.storeId ?? ''
     this.currency = (raw.currency && raw.currency.toLowerCase) ? raw.currency.toLowerCase() : 'usd'
+
     this.mode = raw.mode ?? ''
+    this.subtotal = raw.subtotal ?? 0
+
     this.shippingAddress = raw.shippingAddress ?? {
       country: '',
       state: '',
@@ -141,8 +144,7 @@ export default class Order implements IOrder {
 
   @computed
   get inItemlessMode(): boolean {
-    const mode = this.mode
-    return mode === 'deposit' || mode === 'contribution'
+    return this.mode === 'deposit' || this.mode === 'contribution'
   }
 
   static load(

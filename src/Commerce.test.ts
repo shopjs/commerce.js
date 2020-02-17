@@ -12,7 +12,7 @@ import {
 // setLogLevel('test')
 
 const KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NzIzMDc4NDcsInN1YiI6IjhBVEdFZ1owdWwiLCJqdGkiOiJGVmU0NWRyVzZPYyIsIm5hbWUiOiJ0ZXN0LXB1Ymxpc2hlZC1rZXkiLCJiaXQiOjQ1MDM2MTcwNzU2NzUxNzZ9.k82KjvI4AkRIEF5pjl_hj7nSvkNEkBctHfnbZWoEgVI'
-const ENDPOINT = 'https://api-dot-hanzo-staging-249116.appspot.com/'
+const ENDPOINT = 'https://api-dot-hanzo-staging-249116.appspot.com'
 
 describe('Commerce', () => {
   let analyticsArgs: any[] = []
@@ -679,4 +679,116 @@ describe('Commerce', () => {
 
     expect(coupon).not.toBeDefined()
   })
+
+  test('should checkout an order', async () => {
+    let order = {
+      currency: 'usd',
+      shippingAddress: {
+        line1:      'somewhere',
+        city:       'kansas city',
+        state:      'mo',
+        postalCode: '64081',
+        country:    'us',
+      },
+    }
+
+    let user = {
+      email:        'test@hanzo.io',
+      firstName:    'test',
+      lastName:     'test',
+    }
+
+    let payment = {
+      account: {
+        number: '4242424242424242',
+        cvc:    '424',
+        month:  '1',
+        year:   '2040',
+      },
+    }
+
+    let c = new Commerce(client, order, [], [], analytics)
+
+    c.user = user
+
+    await c.set('sad-keanu-shirt', 1)
+
+    let items = c.items
+
+    expect(items.length).toBe(1)
+
+    let item = items[0]
+
+    expect(item.productId).toBe('rbcXB3Qxcv6kNy')
+    expect(item.productSlug).toBe('sad-keanu-shirt')
+    expect(item.quantity).toBe(1)
+
+    expect(analyticsArgs[0]).toBe('Added Product')
+    expect(analyticsArgs[1].id).toBe('rbcXB3Qxcv6kNy')
+    expect(analyticsArgs[1].sku).toBe('sad-keanu-shirt')
+    expect(analyticsArgs[1].quantity).toBe(1)
+
+    let orderFromServer = await c.checkout(payment)
+
+    expect(orderFromServer).toBeDefined()
+
+    if (orderFromServer) {
+      expect(analyticsArgs[0]).toBe('Completed Order')
+      expect(analyticsArgs[1].total).toBe(orderFromServer.total / 100)
+      expect(analyticsArgs[1].shipping).toBe(orderFromServer.shipping / 100)
+      expect(analyticsArgs[1].tax).toBe(orderFromServer.tax / 100)
+      expect(analyticsArgs[1].discount).toBe(orderFromServer.discount /100)
+      expect(analyticsArgs[1].coupon).toBe(orderFromServer.couponCodes ? orderFromServer.couponCodes[0] : '')
+      expect(analyticsArgs[1].currency).toBe('usd')
+    }
+  }, 10000)
+
+  test('should checkout an itemless order', async () => {
+    let order = {
+      currency: 'usd',
+      mode: 'contribution',
+      subtotal: 123456,
+      shippingAddress: {
+        line1:      'somewhere',
+        city:       'kansas city',
+        state:      'mo',
+        postalCode: '64081',
+        country:    'us',
+      },
+    }
+
+    let user = {
+      email:        'test@hanzo.io',
+      firstName:    'test',
+      lastName:     'test',
+    }
+
+    let payment = {
+      account: {
+        number: '4242424242424242',
+        cvc:    '424',
+        month:  '1',
+        year:   '2040',
+      },
+    }
+
+    let c = new Commerce(client, order, [], [], analytics)
+    expect(c.order.subtotal).toBe(123456)
+
+    c.user = user
+
+    let orderFromServer = await c.checkout(payment)
+
+    expect(orderFromServer).toBeDefined()
+
+    if (orderFromServer) {
+      expect(analyticsArgs[0]).toBe('Completed Order')
+      expect(analyticsArgs[1].total).toBe(orderFromServer.total / 100)
+      expect(analyticsArgs[1].shipping).toBe(orderFromServer.shipping / 100)
+      expect(analyticsArgs[1].tax).toBe(orderFromServer.tax / 100)
+      expect(analyticsArgs[1].discount).toBe(orderFromServer.discount /100)
+      expect(analyticsArgs[1].coupon).toBe(orderFromServer.couponCodes ? orderFromServer.couponCodes[0] : '')
+      expect(analyticsArgs[1].currency).toBe('usd')
+    }
+  }, 10000)
 })

@@ -113,7 +113,7 @@ export default class Commerce implements ICartAPI {
    */
   @computed
   get items(): LineItem[] {
-    return this.order.items
+    return this.order.items ?? []
   }
 
   /**
@@ -262,7 +262,7 @@ export default class Commerce implements ICartAPI {
    */
   @action
   async executeUpdates(): Promise<void> {
-    const items = this.order.items
+    const items = this.items
 
     let updateQueueRequest = this.updateQueue.shift()
 
@@ -360,7 +360,7 @@ export default class Commerce implements ICartAPI {
   @action
   async executeUpdateItem(id: string, quantity: number, locked: boolean, ignore: boolean): Promise<LineItem | undefined> {
     // log('eui', id)
-    const items = this.order.items ?? []
+    const items = this.items
 
     for (const k in items) {
       const item = items[k]
@@ -418,21 +418,19 @@ export default class Commerce implements ICartAPI {
         }
       }
 
-      // log('order.items', this.order.items)
-
-      this.order.items[k].quantity =  quantity
-      this.order.items[k].locked = locked
-      this.order.items[k].ignore = ignore
+      this.items[k].quantity =  quantity
+      this.items[k].locked = locked
+      this.items[k].ignore = ignore
 
       await this.cartSetItem(item.productId, quantity)
 
-      return this.order.items[k]
+      return this.items[k]
     }
   }
 
   @action
   async del(id: string): Promise<LineItem | undefined> {
-    const items = this.order.items
+    const items = this.items
     let itemToDeleteIndex: number = items.length
 
     for (const k in items) {
@@ -454,7 +452,7 @@ export default class Commerce implements ICartAPI {
     const item = items[itemToDeleteIndex]
 
     // Remove the itemToDelete from the items list
-    this.order.items.splice(itemToDeleteIndex, 1)
+    this.items.splice(itemToDeleteIndex, 1)
 
     let a: any = {
       id: item.productId,
@@ -525,7 +523,7 @@ export default class Commerce implements ICartAPI {
   @action
   async clear(): Promise<void>{
     this.updateQueue.length = 0
-    const itemsClone = this.order.items.slice(0)
+    const itemsClone = this.items.slice(0)
 
     await Promise.all(itemsClone.map((item) => this.set(item.productId, 0)))
 
@@ -561,9 +559,10 @@ export default class Commerce implements ICartAPI {
   @action
   async checkout(payment: IPayment): Promise<IOrder | undefined> {
     let order: IOrder = Object.assign({}, this.order)
-    let user: IUser = Object.assign({}, this.user)
+    order.subtotal = this.order.subtotal
+    order.items = this.items.filter((item) => !item.ignore).map((item) => Object.assign({}, item))
 
-    order.items = this.order.items.filter((item) => item.ignore).map((item) => Object.assign({}, item))
+    let user: IUser = Object.assign({}, this.user)
 
     let opts = {
       order,
@@ -571,19 +570,58 @@ export default class Commerce implements ICartAPI {
       user,
     }
 
-    let authorizedOrder = await this.client.checkout.authorize(opts)
+    try {
+      let authorizedOrder = await this.client.checkout.authorize(opts)
 
-    if (authorizedOrder) {
-      runInAction(() => {
-        this.order.id = (authorizedOrder as IOrder).id
-        this.order.userId = (authorizedOrder as IOrder).userId
-      })
+      if (authorizedOrder) {
+        runInAction(() => {
+          this.order.id = (authorizedOrder as IOrder).id
+          this.order.userId = (authorizedOrder as IOrder).userId
+        })
 
-      let capturedOrder = await this.client.checkout.capture({
-        orderId: order.id,
-      })
+        let capturedOrder = await this.client.checkout.capture(this.order.id)
 
-      return capturedOrder
+        if (!capturedOrder) {
+          return
+        }
+
+        let options = {
+          orderId:  capturedOrder.id,
+          total:    capturedOrder.total / 100,
+          // revenue: parseFloat(order.total/100),
+          shipping: capturedOrder.shipping / 100,
+          tax:      capturedOrder.tax / 100,
+          discount: capturedOrder.discount / 100,
+          coupon:   capturedOrder.couponCodes ? capturedOrder.couponCodes[0] : '',
+          currency: capturedOrder.currency,
+          products: [] as any[],
+        };
+
+        for (const item of this.items) {
+          let a = {
+            id: item.productId,
+            sku: item.productSlug,
+            name: item.productName,
+            quantity: item.quantity,
+            price: item.price / 100,
+          };
+
+          if (this.analytics)  {
+            if (this.analyticsProductTransform != null) {
+              a = this.analyticsProductTransform(a)
+            }
+
+          }
+          options.products.push(a)
+        }
+
+        this.analytics.track('Completed Order', options);
+
+
+        return capturedOrder
+      }
+    } catch (err) {
+      console.log('checkout error', err)
     }
 
     return
