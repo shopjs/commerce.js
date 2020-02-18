@@ -30,9 +30,9 @@ export default class User implements IUser {
     this.lastName = raw.lastName ?? ''
 
     // Save order on any update
-    autorun(() => {
-      User.save(this)
-    })
+    // autorun(() => {
+    //   User.save(this)
+    // })
 
     // Define reaction for storeid
     reaction (
@@ -51,15 +51,15 @@ export default class User implements IUser {
     )
   }
 
-  static load(cartAPI: ICartAPI) {
-    return new User(akasha.get('user'), cartAPI)
-  }
+  // static load(cartAPI: ICartAPI) {
+  //   return new User(akasha.get('user'), cartAPI)
+  // }
 
-  static save(user: User) {
-    akasha.set('user', user)
-  }
+  // static save(user: User) {
+  //   akasha.set('user', user)
+  // }
 
-  static clear(user: User) {
-    akasha.remove('user')
-  }
+  // static clear(user: User) {
+  //   akasha.remove('user')
+  // }
 }
