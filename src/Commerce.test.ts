@@ -775,7 +775,7 @@ describe('Commerce', () => {
     let c = new Commerce(client, order, [], [], analytics)
     expect(c.order.subtotal).toBe(123456)
 
-    c.user = user
+    c.user = Object.assign(c.user, user)
 
     let orderFromServer = await c.checkout(payment)
 
