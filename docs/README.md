@@ -1,6 +1,6 @@
-[@ecomv3/document](README.md) › [Globals](globals.md)
+[@hanzo/commercejs](README.md) › [Globals](globals.md)
 
-# @ecomv3/document
+# @hanzo/commercejs
 
 # `Document`
 

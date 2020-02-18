@@ -160,6 +160,10 @@ export default class Order implements IOrder {
     akasha.set('order', order)
   }
 
+  static clear(order: Order) {
+    akasha.remove('order')
+  }
+
   @computed
   get discount(): number {
     const coupon = this.coupon
