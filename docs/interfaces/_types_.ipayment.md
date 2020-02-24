@@ -1,4 +1,4 @@
-[@hanzo/commercejs](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [IPayment](_types_.ipayment.md)
+[commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [IPayment](_types_.ipayment.md)
 
 # Interface: IPayment
 
@@ -20,7 +20,7 @@ Payment Abstraction
 
 • **account**: *object*
 
-*Defined in [types.ts:69](https://github.com/shopjs/commerce.js/blob/180f42a/src/types.ts#L69)*
+*Defined in [types.ts:69](https://github.com/shopjs/commerce.js/blob/b80a6c7/src/types.ts#L69)*
 
 #### Type declaration:
 

@@ -1,4 +1,4 @@
-[@hanzo/commercejs](../README.md) › [Globals](../globals.md) › ["User"](_user_.md)
+[commerce.js](../README.md) › [Globals](../globals.md) › ["User"](_user_.md)
 
 # External module: "User"
 

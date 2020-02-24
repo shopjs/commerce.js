@@ -1,4 +1,4 @@
-[@hanzo/commercejs](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [IProductClient](_types_.iproductclient.md)
+[commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [IProductClient](_types_.iproductclient.md)
 
 # Interface: IProductClient
 
@@ -24,7 +24,7 @@ Product Client
 
 • **product**: *object*
 
-*Defined in [types.ts:175](https://github.com/shopjs/commerce.js/blob/180f42a/src/types.ts#L175)*
+*Defined in [types.ts:175](https://github.com/shopjs/commerce.js/blob/b80a6c7/src/types.ts#L175)*
 
 #### Type declaration:
 

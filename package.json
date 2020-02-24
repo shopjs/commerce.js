@@ -1,5 +1,5 @@
 {
-  "name": "@hanzo/commercejs",
+  "name": "commerce.js",
   "version": "2.0.0",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -11,25 +11,25 @@
     "url": "https://github.com/shopjs/commerce.js"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "11.0.0",
-    "@rollup/plugin-json": "4.0.0",
-    "@rollup/plugin-node-resolve": "6.0.0",
-    "@rollup/plugin-typescript": "2.0.1",
-    "@types/jest": "24.0.25",
-    "babel-jest": "24.9.0",
-    "jest": "24.9.0",
-    "rollup": "1.23.0",
+    "@rollup/plugin-commonjs": "11.0.2",
+    "@rollup/plugin-json": "4.0.2",
+    "@rollup/plugin-node-resolve": "7.1.1",
+    "@types/jest": "25.1.3",
+    "babel-jest": "25.1.0",
+    "jest": "25.1.0",
+    "rollup": "1.31.1",
     "rollup-plugin-filesize": "6.2.1",
-    "rollup-plugin-peer-deps-external": "2.2.0",
+    "rollup-plugin-peer-deps-external": "2.2.2",
+    "rollup-plugin-typescript2": "0.26.0",
     "rollup-plugin-visualizer": "3.3.1",
-    "source-map-explorer": "2.1.0",
+    "source-map-explorer": "2.3.1",
     "source-map-support": "0.5.16",
-    "ts-jest": "24.1.0",
-    "ts-node": "8.5.0",
-    "tslib": "1.10.0",
+    "ts-jest": "25.2.1",
+    "ts-node": "8.6.2",
+    "tslib": "1.11.0",
     "typedoc": "github:TypeStrong/typedoc#5704bf5",
-    "typedoc-plugin-markdown": "2.2.11",
-    "typescript": "3.7.2"
+    "typedoc-plugin-markdown": "2.2.16",
+    "typescript": "3.8.2"
   },
   "scripts": {
     "audit": "node_modules/.bin/source-map-explorer dist/index.js",
@@ -39,7 +39,7 @@
     "build": "npm run clean:js && npm run build:js && npm run build:types && npm run build:docs",
     "build:js": "npm run clean:js && node_modules/.bin/rollup -c",
     "build:docs": "npm run clean:docs && node_modules/.bin/typedoc --out docs --exclude '**/*+(test).ts' src",
-    "build:types": "tsc --emitDeclarationOnly",
+    "build:types": "tsc -p ./tsconfig.docs.json --emitDeclarationOnly",
     "build:watch": "node_modules/.bin/rollup -c -w",
     "lint": "tslint -t stylish --project \"tsconfig.json\"",
     "lint:watch": "npm run lint -- --watch",
@@ -71,7 +71,7 @@
   ],
   "dependencies": {
     "akasha": "0.1.13",
-    "mobx": "5.15.1"
+    "mobx": "5.15.4"
   },
   "peerDependencies": {
     "hanzo.js": "2.5.13"
