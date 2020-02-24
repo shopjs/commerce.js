@@ -26,7 +26,7 @@ Cart representation
 
 *Inherited from [IProductClient](_types_.iproductclient.md).[product](_types_.iproductclient.md#product)*
 
-*Defined in [types.ts:175](https://github.com/shopjs/commerce.js/blob/b80a6c7/src/types.ts#L175)*
+*Defined in [types.ts:175](https://github.com/shopjs/commerce.js/blob/3242f16/src/types.ts#L175)*
 
 #### Type declaration:
 
