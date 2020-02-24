@@ -1,14 +1,14 @@
 import {
-  observable
+  observable,
 } from 'mobx'
 
 import {
   IProduct,
-  IProductClient
+  IProductClient,
 } from './types'
 
 import {
-  log
+  log,
 } from './utils'
 
 /**

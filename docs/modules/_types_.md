@@ -1,4 +1,4 @@
-[@hanzo/commercejs](../README.md) › [Globals](../globals.md) › ["types"](_types_.md)
+[commerce.js](../README.md) › [Globals](../globals.md) › ["types"](_types_.md)
 
 # External module: "types"
 

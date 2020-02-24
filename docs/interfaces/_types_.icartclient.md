@@ -1,4 +1,4 @@
-[@hanzo/commercejs](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [ICartClient](_types_.icartclient.md)
+[commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [ICartClient](_types_.icartclient.md)
 
 # Interface: ICartClient
 
@@ -22,7 +22,7 @@ Cart Client
 
 • **cart**: *object*
 
-*Defined in [types.ts:155](https://github.com/shopjs/commerce.js/blob/180f42a/src/types.ts#L155)*
+*Defined in [types.ts:155](https://github.com/shopjs/commerce.js/blob/b80a6c7/src/types.ts#L155)*
 
 #### Type declaration:
 

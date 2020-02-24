@@ -1,6 +1,6 @@
-[@hanzo/commercejs](README.md) › [Globals](globals.md)
+[commerce.js](README.md) › [Globals](globals.md)
 
-# @hanzo/commercejs
+# commerce.js
 
 ## Index
 

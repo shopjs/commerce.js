@@ -1,4 +1,4 @@
-[@hanzo/commercejs](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [ICheckoutClient](_types_.icheckoutclient.md)
+[commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [ICheckoutClient](_types_.icheckoutclient.md)
 
 # Interface: ICheckoutClient
 
@@ -22,7 +22,7 @@ Checkout Client
 
 • **checkout**: *object*
 
-*Defined in [types.ts:145](https://github.com/shopjs/commerce.js/blob/180f42a/src/types.ts#L145)*
+*Defined in [types.ts:145](https://github.com/shopjs/commerce.js/blob/b80a6c7/src/types.ts#L145)*
 
 #### Type declaration:
 

@@ -1,4 +1,4 @@
-[@hanzo/commercejs](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [IOrderClient](_types_.iorderclient.md)
+[commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [IOrderClient](_types_.iorderclient.md)
 
 # Interface: IOrderClient
 
@@ -26,7 +26,7 @@ Cart representation
 
 *Inherited from [IProductClient](_types_.iproductclient.md).[product](_types_.iproductclient.md#product)*
 
-*Defined in [types.ts:175](https://github.com/shopjs/commerce.js/blob/180f42a/src/types.ts#L175)*
+*Defined in [types.ts:175](https://github.com/shopjs/commerce.js/blob/b80a6c7/src/types.ts#L175)*
 
 #### Type declaration:
 

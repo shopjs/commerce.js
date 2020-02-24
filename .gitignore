@@ -5,3 +5,4 @@ phantomjsdriver.log
 npm-debug.log
 .sake
 .package-lock.json
+dist/
