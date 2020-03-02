@@ -50,7 +50,7 @@ A combination of cart and quantity
 
 *Overrides [Product](_product_.product.md).[constructor](_product_.product.md#constructor)*
 
-*Defined in [LineItem.ts:24](https://github.com/shopjs/commerce.js/blob/eb9b867/src/LineItem.ts#L24)*
+*Defined in [LineItem.ts:24](https://github.com/shopjs/commerce.js/blob/fc65891/src/LineItem.ts#L24)*
 
 **Parameters:**
 
@@ -69,7 +69,7 @@ Name | Type |
 
 *Inherited from [Product](_product_.product.md).[client](_product_.product.md#client)*
 
-*Defined in [Product.ts:50](https://github.com/shopjs/commerce.js/blob/eb9b867/src/Product.ts#L50)*
+*Defined in [Product.ts:50](https://github.com/shopjs/commerce.js/blob/fc65891/src/Product.ts#L50)*
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 *Inherited from [Product](_product_.product.md).[description](_product_.product.md#description)*
 
-*Defined in [Product.ts:44](https://github.com/shopjs/commerce.js/blob/eb9b867/src/Product.ts#L44)*
+*Defined in [Product.ts:44](https://github.com/shopjs/commerce.js/blob/fc65891/src/Product.ts#L44)*
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 *Inherited from [Product](_product_.product.md).[id](_product_.product.md#id)*
 
-*Defined in [Product.ts:20](https://github.com/shopjs/commerce.js/blob/eb9b867/src/Product.ts#L20)*
+*Defined in [Product.ts:20](https://github.com/shopjs/commerce.js/blob/fc65891/src/Product.ts#L20)*
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 *Implementation of [ILineItem](../interfaces/_types_.ilineitem.md).[ignore](../interfaces/_types_.ilineitem.md#ignore)*
 
-*Defined in [LineItem.ts:24](https://github.com/shopjs/commerce.js/blob/eb9b867/src/LineItem.ts#L24)*
+*Defined in [LineItem.ts:24](https://github.com/shopjs/commerce.js/blob/fc65891/src/LineItem.ts#L24)*
 
 ___
 
@@ -115,7 +115,7 @@ ___
 
 *Inherited from [Product](_product_.product.md).[listPrice](_product_.product.md#listprice)*
 
-*Defined in [Product.ts:41](https://github.com/shopjs/commerce.js/blob/eb9b867/src/Product.ts#L41)*
+*Defined in [Product.ts:41](https://github.com/shopjs/commerce.js/blob/fc65891/src/Product.ts#L41)*
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 *Inherited from [Product](_product_.product.md).[loadProductPromise](_product_.product.md#loadproductpromise)*
 
-*Defined in [Product.ts:47](https://github.com/shopjs/commerce.js/blob/eb9b867/src/Product.ts#L47)*
+*Defined in [Product.ts:47](https://github.com/shopjs/commerce.js/blob/fc65891/src/Product.ts#L47)*
 
 ___
 
@@ -135,7 +135,7 @@ ___
 
 *Implementation of [ILineItem](../interfaces/_types_.ilineitem.md).[locked](../interfaces/_types_.ilineitem.md#locked)*
 
-*Defined in [LineItem.ts:21](https://github.com/shopjs/commerce.js/blob/eb9b867/src/LineItem.ts#L21)*
+*Defined in [LineItem.ts:21](https://github.com/shopjs/commerce.js/blob/fc65891/src/LineItem.ts#L21)*
 
 ___
 
@@ -147,7 +147,7 @@ ___
 
 *Inherited from [Product](_product_.product.md).[name](_product_.product.md#name)*
 
-*Defined in [Product.ts:32](https://github.com/shopjs/commerce.js/blob/eb9b867/src/Product.ts#L32)*
+*Defined in [Product.ts:32](https://github.com/shopjs/commerce.js/blob/fc65891/src/Product.ts#L32)*
 
 ___
 
@@ -159,7 +159,7 @@ ___
 
 *Inherited from [Product](_product_.product.md).[price](_product_.product.md#price)*
 
-*Defined in [Product.ts:38](https://github.com/shopjs/commerce.js/blob/eb9b867/src/Product.ts#L38)*
+*Defined in [Product.ts:38](https://github.com/shopjs/commerce.js/blob/fc65891/src/Product.ts#L38)*
 
 ___
 
@@ -171,7 +171,7 @@ ___
 
 *Inherited from [Product](_product_.product.md).[productId](_product_.product.md#productid)*
 
-*Defined in [Product.ts:23](https://github.com/shopjs/commerce.js/blob/eb9b867/src/Product.ts#L23)*
+*Defined in [Product.ts:23](https://github.com/shopjs/commerce.js/blob/fc65891/src/Product.ts#L23)*
 
 ___
 
@@ -183,7 +183,7 @@ ___
 
 *Inherited from [Product](_product_.product.md).[productName](_product_.product.md#productname)*
 
-*Defined in [Product.ts:35](https://github.com/shopjs/commerce.js/blob/eb9b867/src/Product.ts#L35)*
+*Defined in [Product.ts:35](https://github.com/shopjs/commerce.js/blob/fc65891/src/Product.ts#L35)*
 
 ___
 
@@ -195,7 +195,7 @@ ___
 
 *Inherited from [Product](_product_.product.md).[productSlug](_product_.product.md#productslug)*
 
-*Defined in [Product.ts:29](https://github.com/shopjs/commerce.js/blob/eb9b867/src/Product.ts#L29)*
+*Defined in [Product.ts:29](https://github.com/shopjs/commerce.js/blob/fc65891/src/Product.ts#L29)*
 
 ___
 
@@ -205,7 +205,7 @@ ___
 
 *Implementation of [ILineItem](../interfaces/_types_.ilineitem.md).[quantity](../interfaces/_types_.ilineitem.md#quantity)*
 
-*Defined in [LineItem.ts:18](https://github.com/shopjs/commerce.js/blob/eb9b867/src/LineItem.ts#L18)*
+*Defined in [LineItem.ts:18](https://github.com/shopjs/commerce.js/blob/fc65891/src/LineItem.ts#L18)*
 
 ___
 
@@ -217,7 +217,7 @@ ___
 
 *Inherited from [Product](_product_.product.md).[slug](_product_.product.md#slug)*
 
-*Defined in [Product.ts:26](https://github.com/shopjs/commerce.js/blob/eb9b867/src/Product.ts#L26)*
+*Defined in [Product.ts:26](https://github.com/shopjs/commerce.js/blob/fc65891/src/Product.ts#L26)*
 
 ## Accessors
 
@@ -225,6 +225,6 @@ ___
 
 • **get total**(): *number*
 
-*Defined in [LineItem.ts:35](https://github.com/shopjs/commerce.js/blob/eb9b867/src/LineItem.ts#L35)*
+*Defined in [LineItem.ts:35](https://github.com/shopjs/commerce.js/blob/fc65891/src/LineItem.ts#L35)*
 
 **Returns:** *number*
