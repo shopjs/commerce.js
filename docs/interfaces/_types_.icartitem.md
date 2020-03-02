@@ -23,7 +23,7 @@ CartItem Abstraction
 
 • **id**: *string*
 
-*Defined in [types.ts:15](https://github.com/shopjs/commerce.js/blob/eb9b867/src/types.ts#L15)*
+*Defined in [types.ts:15](https://github.com/shopjs/commerce.js/blob/fc65891/src/types.ts#L15)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **productId**: *string*
 
-*Defined in [types.ts:16](https://github.com/shopjs/commerce.js/blob/eb9b867/src/types.ts#L16)*
+*Defined in [types.ts:16](https://github.com/shopjs/commerce.js/blob/fc65891/src/types.ts#L16)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • **quantity**: *number*
 
-*Defined in [types.ts:17](https://github.com/shopjs/commerce.js/blob/eb9b867/src/types.ts#L17)*
+*Defined in [types.ts:17](https://github.com/shopjs/commerce.js/blob/fc65891/src/types.ts#L17)*
 
 ___
 
@@ -47,4 +47,4 @@ ___
 
 • **storeId**: *string*
 
-*Defined in [types.ts:18](https://github.com/shopjs/commerce.js/blob/eb9b867/src/types.ts#L18)*
+*Defined in [types.ts:18](https://github.com/shopjs/commerce.js/blob/fc65891/src/types.ts#L18)*
