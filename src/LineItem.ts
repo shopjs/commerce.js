@@ -35,5 +35,23 @@ export default class LineItem extends Product implements ILineItem {
   get total() {
     return this.quantity * this.price
   }
+
+  @computed
+  get data(): ILineItem {
+    return {
+      id: this.id,
+      productId: this.productId,
+      slug: this.slug,
+      productSlug: this.productSlug,
+      name: this.name,
+      productName: this.name,
+      price: this.price,
+      listPrice: this.listPrice,
+      description: this.description,
+      quantity: this.quantity,
+      locked: this.locked,
+      ignore: this.ignore,
+    }
+  }
 }
 
