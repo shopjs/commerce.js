@@ -22,6 +22,7 @@ Cart keeps track of items being added and removed from the cart/order
 
 * [analytics](_commerce_.commerce.md#analytics)
 * [analyticsProductTransform](_commerce_.commerce.md#analyticsproducttransform)
+* [bootstrapPromise](_commerce_.commerce.md#bootstrappromise)
 * [client](_commerce_.commerce.md#client)
 * [order](_commerce_.commerce.md#order)
 * [payment](_commerce_.commerce.md#payment)
@@ -62,9 +63,9 @@ Cart keeps track of items being added and removed from the cart/order
 
 ###  constructor
 
-\+ **new Commerce**(`client`: [IClient](../interfaces/_types_.iclient.md), `order`: object, `taxRates`: [IGeoRate](../interfaces/_types_.igeorate.md)[], `shippingRates`: [IGeoRate](../interfaces/_types_.igeorate.md)[], `analytics`: any, `aPT`: [AnalyticsProductTransformFn](../modules/_commerce_.md#analyticsproducttransformfn)): *[Commerce](_commerce_.commerce.md)*
+\+ **new Commerce**(`client`: [IClient](../interfaces/_types_.iclient.md), `order?`: any, `taxRates`: [IGeoRate](../interfaces/_types_.igeorate.md)[], `shippingRates`: [IGeoRate](../interfaces/_types_.igeorate.md)[], `analytics`: any, `aPT`: [AnalyticsProductTransformFn](../modules/_commerce_.md#analyticsproducttransformfn)): *[Commerce](_commerce_.commerce.md)*
 
-*Defined in [Commerce.ts:97](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L97)*
+*Defined in [Commerce.ts:103](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L103)*
 
 Create an instance of Commerce
 
@@ -73,7 +74,7 @@ Create an instance of Commerce
 Name | Type | Default | Description |
 ------ | ------ | ------ | ------ |
 `client` | [IClient](../interfaces/_types_.iclient.md) | - | is the http client for talking to carts |
-`order` | object |  {} | is the default order configuration |
+`order?` | any | - | is the default order configuration |
 `taxRates` | [IGeoRate](../interfaces/_types_.igeorate.md)[] |  [] | is an array of IGeoRates for taxes |
 `shippingRates` | [IGeoRate](../interfaces/_types_.igeorate.md)[] |  [] | is an array of IGeoRates for taxes |
 `analytics` | any |  undefined | is the call to the analytics library |
@@ -87,7 +88,7 @@ Name | Type | Default | Description |
 
 • **analytics**: *any*
 
-*Defined in [Commerce.ts:90](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L90)*
+*Defined in [Commerce.ts:90](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L90)*
 
 payment is the object for tracking the user's payment information
 
@@ -97,10 +98,20 @@ ___
 
 • **analyticsProductTransform**: *[AnalyticsProductTransformFn](../modules/_commerce_.md#analyticsproducttransformfn)*
 
-*Defined in [Commerce.ts:97](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L97)*
+*Defined in [Commerce.ts:97](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L97)*
 
 analyticsProductTransform is a function for transforming analytics objects
 before sending them
+
+___
+
+###  bootstrapPromise
+
+• **bootstrapPromise**: *Promise‹any›*
+
+*Defined in [Commerce.ts:103](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L103)*
+
+bootstrapPromise executes after contructor completes any bootstrap
 
 ___
 
@@ -108,7 +119,7 @@ ___
 
 • **client**: *[IClient](../interfaces/_types_.iclient.md)*
 
-*Defined in [Commerce.ts:52](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L52)*
+*Defined in [Commerce.ts:52](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L52)*
 
 client is reference to a IClient
 
@@ -118,7 +129,7 @@ ___
 
 • **order**: *[Order](_order_.order.md)*
 
-*Defined in [Commerce.ts:72](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L72)*
+*Defined in [Commerce.ts:72](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L72)*
 
 order is the object for tracking the user's order/cart info
 
@@ -128,7 +139,7 @@ ___
 
 • **payment**: *any*
 
-*Defined in [Commerce.ts:84](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L84)*
+*Defined in [Commerce.ts:84](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L84)*
 
 payment is the object for tracking the user's payment information
 
@@ -138,7 +149,7 @@ ___
 
 • **updateQueue**: *[CartUpdateRequest](../modules/_commerce_.md#cartupdaterequest)[]* =  []
 
-*Defined in [Commerce.ts:59](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L59)*
+*Defined in [Commerce.ts:59](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L59)*
 
 updateQueue contains the list of cart item updates so we can ensure
 updates are pushed fifo
@@ -149,7 +160,7 @@ ___
 
 • **updateQueuePromise**: *Promise‹void›* =  new Promise((res) => { res() })
 
-*Defined in [Commerce.ts:66](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L66)*
+*Defined in [Commerce.ts:66](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L66)*
 
 updateQueuePromise is a reference to the promise generated by the
 updateQueue for the purposes of awaiting outside of the direct call
@@ -160,7 +171,7 @@ ___
 
 • **user**: *[User](_user_.user.md)*
 
-*Defined in [Commerce.ts:78](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L78)*
+*Defined in [Commerce.ts:78](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L78)*
 
 user is an object for tracking the user's contact information
 
@@ -170,7 +181,7 @@ user is an object for tracking the user's contact information
 
 • **get cartId**(): *string*
 
-*Defined in [Commerce.ts:147](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L147)*
+*Defined in [Commerce.ts:155](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L155)*
 
 Get the cart id
 
@@ -185,7 +196,7 @@ ___
 
 • **get isCartInit**(): *boolean*
 
-*Defined in [Commerce.ts:155](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L155)*
+*Defined in [Commerce.ts:163](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L163)*
 
 Get the cart id
 
@@ -197,7 +208,7 @@ ___
 
 • **get items**(): *[LineItem](_lineitem_.lineitem.md)[]*
 
-*Defined in [Commerce.ts:129](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L129)*
+*Defined in [Commerce.ts:137](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L137)*
 
 **Returns:** *[LineItem](_lineitem_.lineitem.md)[]*
 
@@ -209,7 +220,7 @@ ___
 
 • **get size**(): *number*
 
-*Defined in [Commerce.ts:137](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L137)*
+*Defined in [Commerce.ts:145](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L145)*
 
 **Returns:** *number*
 
@@ -221,7 +232,7 @@ ___
 
 • **get storeId**(): *string*
 
-*Defined in [Commerce.ts:160](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L160)*
+*Defined in [Commerce.ts:168](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L168)*
 
 **Returns:** *string*
 
@@ -231,7 +242,7 @@ ___
 
 ▸ **cartInit**(): *Promise‹[ICart](../interfaces/_types_.icart.md)›*
 
-*Defined in [Commerce.ts:169](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L169)*
+*Defined in [Commerce.ts:177](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L177)*
 
 Initialize the cart system.
 
@@ -247,7 +258,7 @@ ___
 
 *Implementation of [ICartAPI](../interfaces/_types_.icartapi.md)*
 
-*Defined in [Commerce.ts:528](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L528)*
+*Defined in [Commerce.ts:536](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L536)*
 
 Set the cart's email directly on the server (shouldn't be used directly in high level
 operations)
@@ -268,7 +279,7 @@ ___
 
 ▸ **cartSetItem**(`id`: string, `quantity`: number): *Promise‹[ICart](../interfaces/_types_.icart.md) | undefined›*
 
-*Defined in [Commerce.ts:493](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L493)*
+*Defined in [Commerce.ts:501](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L501)*
 
 Set the cart's items directly on the server (shouldn't be used directly in high level
 operations)
@@ -292,7 +303,7 @@ ___
 
 *Implementation of [ICartAPI](../interfaces/_types_.icartapi.md)*
 
-*Defined in [Commerce.ts:543](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L543)*
+*Defined in [Commerce.ts:551](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L551)*
 
 Set the cart's user name directly on the server (shouldn't be used directly in high level
 operations)
@@ -315,7 +326,7 @@ ___
 
 *Implementation of [ICartAPI](../interfaces/_types_.icartapi.md)*
 
-*Defined in [Commerce.ts:513](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L513)*
+*Defined in [Commerce.ts:521](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L521)*
 
 Set the cart's store directly on the server (shouldn't be used directly in high level
 operations)
@@ -336,7 +347,7 @@ ___
 
 ▸ **checkout**(`payment`: [IPayment](../interfaces/_types_.ipayment.md)): *Promise‹[IOrder](../interfaces/_types_.iorder.md) | undefined›*
 
-*Defined in [Commerce.ts:604](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L604)*
+*Defined in [Commerce.ts:612](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L612)*
 
 Checkout the order
 
@@ -358,7 +369,7 @@ ___
 
 *Implementation of [ICartAPI](../interfaces/_types_.icartapi.md)*
 
-*Defined in [Commerce.ts:558](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L558)*
+*Defined in [Commerce.ts:566](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L566)*
 
 Set the cart's user name directly on the server (shouldn't be used directly in high level
 operations)
@@ -373,7 +384,7 @@ ___
 
 ▸ **del**(`id`: string): *Promise‹[LineItem](_lineitem_.lineitem.md) | undefined›*
 
-*Defined in [Commerce.ts:435](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L435)*
+*Defined in [Commerce.ts:443](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L443)*
 
 Delete an item
 
@@ -393,7 +404,7 @@ ___
 
 ▸ **executeUpdateItem**(`id`: string, `quantity`: number, `locked`: boolean, `ignore`: boolean): *Promise‹[LineItem](_lineitem_.lineitem.md) | undefined›*
 
-*Defined in [Commerce.ts:359](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L359)*
+*Defined in [Commerce.ts:367](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L367)*
 
 Execute update for item
 
@@ -416,7 +427,7 @@ ___
 
 ▸ **executeUpdates**(): *Promise‹void›*
 
-*Defined in [Commerce.ts:262](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L262)*
+*Defined in [Commerce.ts:270](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L270)*
 
 Execute all queued updates
 
@@ -430,7 +441,7 @@ ___
 
 ▸ **get**(`id`: string): *Promise‹[LineItem](_lineitem_.lineitem.md) | undefined›*
 
-*Defined in [Commerce.ts:191](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L191)*
+*Defined in [Commerce.ts:199](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L199)*
 
 Get the current state of a specific lineitem
 
@@ -450,7 +461,7 @@ ___
 
 ▸ **refresh**(`id`: any): *Promise‹[LineItem](_lineitem_.lineitem.md) | undefined›*
 
-*Defined in [Commerce.ts:247](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L247)*
+*Defined in [Commerce.ts:255](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L255)*
 
 Refresh a lineitem by product id.  Add lineitem to asynchronous update queue
 
@@ -470,7 +481,7 @@ ___
 
 ▸ **set**(`id`: any, `quantity`: any, `locked`: boolean, `ignore`: boolean): *Promise‹void›*
 
-*Defined in [Commerce.ts:233](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L233)*
+*Defined in [Commerce.ts:241](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L241)*
 
 Set a lineitem by product id.  Add lineitem to asynchronous update queue
 
@@ -495,7 +506,7 @@ ___
 
 *Implementation of [ICartAPI](../interfaces/_types_.icartapi.md)*
 
-*Defined in [Commerce.ts:573](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L573)*
+*Defined in [Commerce.ts:581](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L581)*
 
 Apply a coupon/promoCode
 
@@ -515,7 +526,7 @@ ICoupon returned from server
 
 ### ▪ **cart**: *object*
 
-*Defined in [Commerce.ts:41](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L41)*
+*Defined in [Commerce.ts:41](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L41)*
 
 metadata of the current cart
 
@@ -523,22 +534,22 @@ metadata of the current cart
 
 • **email**: *string* = ""
 
-*Defined in [Commerce.ts:44](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L44)*
+*Defined in [Commerce.ts:44](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L44)*
 
 ###  id
 
 • **id**: *string* = ""
 
-*Defined in [Commerce.ts:42](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L42)*
+*Defined in [Commerce.ts:42](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L42)*
 
 ###  name
 
 • **name**: *string* = ""
 
-*Defined in [Commerce.ts:45](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L45)*
+*Defined in [Commerce.ts:45](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L45)*
 
 ###  storeId
 
 • **storeId**: *string* = ""
 
-*Defined in [Commerce.ts:43](https://github.com/shopjs/commerce.js/blob/91f7495/src/Commerce.ts#L43)*
+*Defined in [Commerce.ts:43](https://github.com/shopjs/commerce.js/blob/7322797/src/Commerce.ts#L43)*

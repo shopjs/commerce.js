@@ -72,6 +72,12 @@ export default class Order implements IOrder {
   @observable
   _subtotal: number = 0
 
+  /**
+   * bootstrapPromise executes after contructo completes any bootstrapp (mostly coupon and lineitems in this case)
+   */
+  @observable
+  bootstrapPromise: Promise<any>
+
   constructor(
     raw: any = {},
     taxRates: IGeoRate[] = [],
@@ -84,6 +90,8 @@ export default class Order implements IOrder {
     this.shippingRates = shippingRates
 
     this.items = raw.items ? raw.items.map((x) => new LineItem(x, client)): []
+    this.bootstrapPromise = Promise.all(this.items.map((x) => x.bootstrapPromise))
+
     this.type = raw.type ?? 'stripe'
     this.storeId = raw.storeId ?? ''
     this.currency = (raw.currency && raw.currency.toLowerCase) ? raw.currency.toLowerCase() : 'usd'
@@ -99,7 +107,7 @@ export default class Order implements IOrder {
     }
 
     if (raw.couponCodes && raw.couponCodes.length > 0) {
-      cartAPI.setCoupon(raw.couponCodes[0])
+      this.bootstrapPromise = Promise.all([cartAPI.setCoupon(raw.couponCodes[0]), this.bootstrapPromise])
     }
 
     // Save order on any update

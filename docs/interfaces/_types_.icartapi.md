@@ -28,7 +28,7 @@ Abstraction of Cart API on the Commerce object
 
 ▸ **cartSetEmail**(`email`: string): *Promise‹[ICart](_types_.icart.md) | undefined›*
 
-*Defined in [types.ts:127](https://github.com/shopjs/commerce.js/blob/91f7495/src/types.ts#L127)*
+*Defined in [types.ts:127](https://github.com/shopjs/commerce.js/blob/7322797/src/types.ts#L127)*
 
 **Parameters:**
 
@@ -44,7 +44,7 @@ ___
 
 ▸ **cartSetName**(`name`: string): *Promise‹[ICart](_types_.icart.md) | undefined›*
 
-*Defined in [types.ts:128](https://github.com/shopjs/commerce.js/blob/91f7495/src/types.ts#L128)*
+*Defined in [types.ts:128](https://github.com/shopjs/commerce.js/blob/7322797/src/types.ts#L128)*
 
 **Parameters:**
 
@@ -60,7 +60,7 @@ ___
 
 ▸ **cartSetStore**(`storeId`: string): *Promise‹[ICart](_types_.icart.md) | undefined›*
 
-*Defined in [types.ts:126](https://github.com/shopjs/commerce.js/blob/91f7495/src/types.ts#L126)*
+*Defined in [types.ts:126](https://github.com/shopjs/commerce.js/blob/7322797/src/types.ts#L126)*
 
 **Parameters:**
 
@@ -76,7 +76,7 @@ ___
 
 ▸ **clear**(): *Promise‹void›*
 
-*Defined in [types.ts:130](https://github.com/shopjs/commerce.js/blob/91f7495/src/types.ts#L130)*
+*Defined in [types.ts:130](https://github.com/shopjs/commerce.js/blob/7322797/src/types.ts#L130)*
 
 **Returns:** *Promise‹void›*
 
@@ -86,7 +86,7 @@ ___
 
 ▸ **setCoupon**(`code?`: undefined | string): *Promise‹[ICoupon](_types_.icoupon.md) | undefined›*
 
-*Defined in [types.ts:129](https://github.com/shopjs/commerce.js/blob/91f7495/src/types.ts#L129)*
+*Defined in [types.ts:129](https://github.com/shopjs/commerce.js/blob/7322797/src/types.ts#L129)*
 
 **Parameters:**
 

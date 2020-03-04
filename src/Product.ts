@@ -44,7 +44,7 @@ export default class Product implements IProduct {
   description: string
 
   @observable
-  loadProductPromise: Promise<IProduct | void>
+  bootstrapPromise: Promise<IProduct | void>
 
   @observable
   client: IProductClient
@@ -62,7 +62,7 @@ export default class Product implements IProduct {
     this.listPrice = raw.listPrice ?? 0
     this.description = raw.description ?? ''
 
-    this.loadProductPromise = client.product.get(this.id).then((product: IProduct): IProduct => {
+    this.bootstrapPromise = client.product.get(this.id).then((product: IProduct): IProduct => {
       Object.assign(this, product)
       this.productId = product.id
       this.productSlug = product.slug
