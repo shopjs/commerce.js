@@ -61,7 +61,7 @@ Order contains information about what the user is buying
 
 \+ **new Order**(`raw`: any, `taxRates`: [IGeoRate](../interfaces/_types_.igeorate.md)[], `shippingRates`: [IGeoRate](../interfaces/_types_.igeorate.md)[], `client`: [IOrderClient](../interfaces/_types_.iorderclient.md), `cartAPI`: [ICartAPI](../interfaces/_types_.icartapi.md)): *[Order](_order_.order.md)*
 
-*Defined in [Order.ts:73](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L73)*
+*Defined in [Order.ts:73](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L73)*
 
 **Parameters:**
 
@@ -81,7 +81,7 @@ Name | Type | Default |
 
 • **_subtotal**: *number* = 0
 
-*Defined in [Order.ts:73](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L73)*
+*Defined in [Order.ts:73](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L73)*
 
 Overwrite subtotal only available in itemless modes
 
@@ -91,7 +91,7 @@ ___
 
 • **client**: *[IOrderClient](../interfaces/_types_.iorderclient.md)*
 
-*Defined in [Order.ts:52](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L52)*
+*Defined in [Order.ts:52](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L52)*
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 • **coupon**: *[ICoupon](../interfaces/_types_.icoupon.md) | undefined*
 
-*Defined in [Order.ts:58](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L58)*
+*Defined in [Order.ts:58](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L58)*
 
 ___
 
@@ -109,7 +109,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[couponCodes](../interfaces/_types_.iorder.md#couponcodes)*
 
-*Defined in [Order.ts:55](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L55)*
+*Defined in [Order.ts:55](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L55)*
 
 ___
 
@@ -119,7 +119,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[currency](../interfaces/_types_.iorder.md#currency)*
 
-*Defined in [Order.ts:46](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L46)*
+*Defined in [Order.ts:46](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L46)*
 
 ___
 
@@ -129,7 +129,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[id](../interfaces/_types_.iorder.md#id)*
 
-*Defined in [Order.ts:31](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L31)*
+*Defined in [Order.ts:31](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L31)*
 
 ___
 
@@ -139,7 +139,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[items](../interfaces/_types_.iorder.md#items)*
 
-*Defined in [Order.ts:37](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L37)*
+*Defined in [Order.ts:37](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L37)*
 
 ___
 
@@ -149,7 +149,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[mode](../interfaces/_types_.iorder.md#mode)*
 
-*Defined in [Order.ts:49](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L49)*
+*Defined in [Order.ts:49](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L49)*
 
 ___
 
@@ -157,7 +157,7 @@ ___
 
 • **shippingAddress**: *[IAddress](../interfaces/_types_.iaddress.md)*
 
-*Defined in [Order.ts:67](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L67)*
+*Defined in [Order.ts:67](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L67)*
 
 ___
 
@@ -165,7 +165,7 @@ ___
 
 • **shippingRates**: *[IGeoRate](../interfaces/_types_.igeorate.md)[]*
 
-*Defined in [Order.ts:64](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L64)*
+*Defined in [Order.ts:64](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L64)*
 
 ___
 
@@ -175,7 +175,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[storeId](../interfaces/_types_.iorder.md#storeid)*
 
-*Defined in [Order.ts:43](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L43)*
+*Defined in [Order.ts:43](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L43)*
 
 ___
 
@@ -183,7 +183,7 @@ ___
 
 • **taxRates**: *[IGeoRate](../interfaces/_types_.igeorate.md)[]*
 
-*Defined in [Order.ts:61](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L61)*
+*Defined in [Order.ts:61](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L61)*
 
 ___
 
@@ -193,7 +193,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[type](../interfaces/_types_.iorder.md#type)*
 
-*Defined in [Order.ts:40](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L40)*
+*Defined in [Order.ts:40](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L40)*
 
 ___
 
@@ -203,7 +203,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[userId](../interfaces/_types_.iorder.md#userid)*
 
-*Defined in [Order.ts:34](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L34)*
+*Defined in [Order.ts:34](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L34)*
 
 ## Accessors
 
@@ -211,7 +211,7 @@ ___
 
 • **get data**(): *[IOrder](../interfaces/_types_.iorder.md)*
 
-*Defined in [Order.ts:317](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L317)*
+*Defined in [Order.ts:321](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L321)*
 
 **Returns:** *[IOrder](../interfaces/_types_.iorder.md)*
 
@@ -221,7 +221,7 @@ ___
 
 • **get discount**(): *number*
 
-*Defined in [Order.ts:168](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L168)*
+*Defined in [Order.ts:172](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L172)*
 
 **Returns:** *number*
 
@@ -231,7 +231,7 @@ ___
 
 • **get inItemlessMode**(): *boolean*
 
-*Defined in [Order.ts:146](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L146)*
+*Defined in [Order.ts:150](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L150)*
 
 **Returns:** *boolean*
 
@@ -241,7 +241,7 @@ ___
 
 • **get shipping**(): *number*
 
-*Defined in [Order.ts:305](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L305)*
+*Defined in [Order.ts:309](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L309)*
 
 **Returns:** *number*
 
@@ -251,7 +251,7 @@ ___
 
 • **get shippingRate**(): *[IGeoRate](../interfaces/_types_.igeorate.md)*
 
-*Defined in [Order.ts:282](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L282)*
+*Defined in [Order.ts:286](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L286)*
 
 **Returns:** *[IGeoRate](../interfaces/_types_.igeorate.md)*
 
@@ -261,7 +261,7 @@ ___
 
 • **get size**(): *number*
 
-*Defined in [Order.ts:141](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L141)*
+*Defined in [Order.ts:145](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L145)*
 
 **Returns:** *number*
 
@@ -273,13 +273,13 @@ ___
 
 • **get subtotal**(): *number*
 
-*Defined in [Order.ts:230](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L230)*
+*Defined in [Order.ts:234](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L234)*
 
 **Returns:** *number*
 
 • **set subtotal**(`st`: number): *void*
 
-*Defined in [Order.ts:245](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L245)*
+*Defined in [Order.ts:249](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L249)*
 
 **Parameters:**
 
@@ -295,7 +295,7 @@ ___
 
 • **get tax**(): *number*
 
-*Defined in [Order.ts:275](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L275)*
+*Defined in [Order.ts:279](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L279)*
 
 **Returns:** *number*
 
@@ -305,7 +305,7 @@ ___
 
 • **get taxRate**(): *[IGeoRate](../interfaces/_types_.igeorate.md)*
 
-*Defined in [Order.ts:252](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L252)*
+*Defined in [Order.ts:256](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L256)*
 
 **Returns:** *[IGeoRate](../interfaces/_types_.igeorate.md)*
 
@@ -315,7 +315,7 @@ ___
 
 • **get total**(): *number*
 
-*Defined in [Order.ts:312](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L312)*
+*Defined in [Order.ts:316](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L316)*
 
 **Returns:** *number*
 
@@ -325,7 +325,7 @@ ___
 
 ▸ **get**(`id`: any): *[LineItem](_lineitem_.lineitem.md) | undefined*
 
-*Defined in [Order.ts:125](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L125)*
+*Defined in [Order.ts:129](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L129)*
 
 **Parameters:**
 
@@ -341,7 +341,7 @@ ___
 
 ▸ **clear**(): *void*
 
-*Defined in [Order.ts:163](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L163)*
+*Defined in [Order.ts:167](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L167)*
 
 **Returns:** *void*
 
@@ -351,7 +351,7 @@ ___
 
 ▸ **load**(`client`: [IOrderClient](../interfaces/_types_.iorderclient.md), `taxRates`: [IGeoRate](../interfaces/_types_.igeorate.md)[], `shippingRates`: [IGeoRate](../interfaces/_types_.igeorate.md)[], `cartAPI`: [ICartAPI](../interfaces/_types_.icartapi.md)): *[Order](_order_.order.md)‹›*
 
-*Defined in [Order.ts:150](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L150)*
+*Defined in [Order.ts:154](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L154)*
 
 **Parameters:**
 
@@ -370,7 +370,7 @@ ___
 
 ▸ **save**(`order`: [Order](_order_.order.md)): *void*
 
-*Defined in [Order.ts:159](https://github.com/shopjs/commerce.js/blob/92c4cb8/src/Order.ts#L159)*
+*Defined in [Order.ts:163](https://github.com/shopjs/commerce.js/blob/91f7495/src/Order.ts#L163)*
 
 **Parameters:**
 
