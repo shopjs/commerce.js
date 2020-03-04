@@ -661,6 +661,7 @@ describe('Commerce', () => {
 
       if (item) {
         expect(c.size).toBe(1)
+        expect(c.order.subtotal).toBe(item.price * item.quantity)
         expect(c.order.total).toBe(item.price * item.quantity - coupon.amount)
       }
     }

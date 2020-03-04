@@ -235,8 +235,6 @@ export default class Order implements IOrder {
     let subtotal = 0
     let items = this.items
 
-    subtotal = -this.discount
-
     for (const item of items) {
       subtotal += item.price * item.quantity
     }
@@ -312,7 +310,7 @@ export default class Order implements IOrder {
 
   @computed
   get total(): number {
-    return this.subtotal + this.shipping + this.tax
+    return this.subtotal + this.shipping + this.tax - this.discount
   }
 
   @computed
