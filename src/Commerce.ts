@@ -97,6 +97,12 @@ export default class Commerce implements ICartAPI {
   analyticsProductTransform: AnalyticsProductTransformFn
 
   /**
+   * bootstrapPromise executes after contructor completes any bootstrap
+   */
+  @observable
+  bootstrapPromise: Promise<any>
+
+  /**
    * Create an instance of Commerce
    * @param client is the http client for talking to carts
    * @param order is the default order configuration
@@ -108,7 +114,7 @@ export default class Commerce implements ICartAPI {
    */
   constructor(
     client: IClient,
-    order = {},
+    order?: any,
     taxRates: IGeoRate[] = [],
     shippingRates: IGeoRate[] = [],
     analytics: any = undefined,
@@ -119,6 +125,8 @@ export default class Commerce implements ICartAPI {
     this.user = new User({}, this)
     this.analytics = analytics
     this.analyticsProductTransform = aPT
+
+    this.bootstrapPromise = this.order.bootstrapPromise
     // this.cartInit()
   }
 
@@ -210,7 +218,7 @@ export default class Commerce implements ICartAPI {
       }, this.client)
 
       try {
-        await li.loadProductPromise
+        await li.bootstrapPromise
       } catch (err) {
         log('get error', err)
         return
@@ -313,7 +321,7 @@ export default class Commerce implements ICartAPI {
     // log('eu4.5')
 
     try {
-      await li.loadProductPromise
+      await li.bootstrapPromise
     } catch (err) {
       log('set error', err)
       return await this.executeUpdates()

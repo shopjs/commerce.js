@@ -1,4 +1,5 @@
 import Commerce from './Commerce'
+import Order from './Order'
 import {
   ICartClient,
   IGeoRate,
@@ -14,20 +15,28 @@ import {
 const KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NzIzMDc4NDcsInN1YiI6IjhBVEdFZ1owdWwiLCJqdGkiOiJGVmU0NWRyVzZPYyIsIm5hbWUiOiJ0ZXN0LXB1Ymxpc2hlZC1rZXkiLCJiaXQiOjQ1MDM2MTcwNzU2NzUxNzZ9.k82KjvI4AkRIEF5pjl_hj7nSvkNEkBctHfnbZWoEgVI'
 const ENDPOINT = 'https://api-dot-hanzo-staging-249116.appspot.com'
 
-describe('Commerce', () => {
-  let analyticsArgs: any[] = []
+let analyticsArgs: any[] = []
+let analytics: any
+let client: any
 
-  let analytics = {
+beforeEach(() => {
+  analytics = {
     track: (...args) => {
       analyticsArgs = args
     },
   }
 
-  let client = new Api({
+  client = new Api({
     key: KEY,
     endpoint: ENDPOINT,
   })
+})
 
+afterEach(() => {
+  Order.clear()
+})
+
+describe('Commerce Bootstrapping', () => {
   test('default constructor', () => {
     let order = {
       currency: 'usd',
@@ -54,7 +63,9 @@ describe('Commerce', () => {
     expect(cart.id).toEqual(expect.any(String))
     expect(c.cart.id).toBe(cart.id)
   })
+})
 
+describe('Commerce Add Item', () => {
   test('should set an item by id', async () => {
     let order = {
       currency: 'usd',
@@ -357,7 +368,9 @@ describe('Commerce', () => {
     expect(c.order.subtotal).toBe(2222)
     expect(c.order.total).toBe(2222)
   })
+})
 
+describe('Commerce Rates', () => {
   test('should set unfiltered shippingRate', async () => {
     let order = {
       currency: 'usd',
@@ -637,7 +650,9 @@ describe('Commerce', () => {
       expect(c.order.total).toBe(item.price * item.quantity + c.order.taxRates[1].cost)
     }
   })
+})
 
+describe('Commerce Coupons', () => {
   test('setCoupon', async () => {
     let order = {
       currency: 'usd',
@@ -680,7 +695,9 @@ describe('Commerce', () => {
 
     expect(coupon).not.toBeDefined()
   })
+})
 
+describe('Commerce Checkout', () => {
   test('should checkout an order', async () => {
     let order = {
       currency: 'usd',
@@ -792,4 +809,51 @@ describe('Commerce', () => {
       expect(analyticsArgs[1].currency).toBe('usd')
     }
   }, 10000)
+})
+
+describe('Commerce Persistence', () => {
+  test('should persist order products', async () => {
+    let c = new Commerce(client, {})
+
+    expect(c.order).toBeDefined()
+
+    await c.set('sad-keanu-shirt', 1)
+
+    let items = c.items
+
+    expect(items.length).toBe(1)
+
+    let c2 = new Commerce(client)
+
+    await c2.bootstrapPromise
+
+    expect(c2.order).toBeDefined()
+
+    let items2 = c2.items
+
+    expect(items2.length).toBe(1)
+  })
+
+  test('should persist order coupons', async () => {
+    let c = new Commerce(client, {})
+
+    expect(c.order).toBeDefined()
+
+    await c.set('sad-keanu-shirt', 1)
+    await c.setCoupon('SUCH-COUPON')
+
+    let coupon = c.order.couponCodes[0]
+
+    expect(coupon).toBe('SUCH-COUPON')
+
+    let c2 = new Commerce(client)
+
+    await c2.bootstrapPromise
+
+    expect(c2.order).toBeDefined()
+
+    let coupon2 = c2.order.couponCodes[0]
+
+    expect(coupon2).toBe('SUCH-COUPON')
+  })
 })
