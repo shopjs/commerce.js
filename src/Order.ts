@@ -98,6 +98,10 @@ export default class Order implements IOrder {
       postalCode: '',
     }
 
+    if (raw.couponCodes && raw.couponCodes.length > 0) {
+      cartAPI.setCoupon(raw.couponCodes[0])
+    }
+
     // Save order on any update
     autorun(() => {
       Order.save(this)

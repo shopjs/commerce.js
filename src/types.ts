@@ -126,6 +126,7 @@ export interface ICartAPI {
   cartSetStore(storeId: string): Promise<ICart | undefined>
   cartSetEmail(email: string): Promise<ICart | undefined>
   cartSetName(name: string): Promise<ICart | undefined>
+  setCoupon(code?: string): Promise<ICoupon | undefined>
   clear(): Promise<void>
 }
 
