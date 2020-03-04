@@ -157,10 +157,10 @@ export default class Order implements IOrder {
   }
 
   static save(order: Order) {
-    akasha.set('order', order)
+    akasha.set('order', order.data)
   }
 
-  static clear(order: Order) {
+  static clear() {
     akasha.remove('order')
   }
 
@@ -313,5 +313,24 @@ export default class Order implements IOrder {
   @computed
   get total(): number {
     return this.subtotal + this.shipping + this.tax
+  }
+
+  @computed
+  get data(): IOrder {
+    return {
+      id: this.id,
+      userId: this.userId,
+      currency: this.currency,
+      items: this.items.map((item) => item.data),
+      mode: this.mode,
+      storeId: this.storeId,
+      type: this.type,
+      subtotal: this.subtotal,
+      total: this.total,
+      tax: this.tax,
+      shipping: this.shipping,
+      discount: this.discount,
+      couponCodes: this.couponCodes,
+    }
   }
 }
