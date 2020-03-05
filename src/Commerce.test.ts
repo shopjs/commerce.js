@@ -718,6 +718,7 @@ describe('Commerce Checkout', () => {
 
     let payment = {
       account: {
+        name:   'test',
         number: '4242424242424242',
         cvc:    '424',
         month:  '1',
@@ -783,6 +784,7 @@ describe('Commerce Checkout', () => {
 
     let payment = {
       account: {
+        name:   'test',
         number: '4242424242424242',
         cvc:    '424',
         month:  '1',
