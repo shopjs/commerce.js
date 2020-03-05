@@ -22,7 +22,7 @@ Checkout Client
 
 • **checkout**: *object*
 
-*Defined in [types.ts:146](https://github.com/shopjs/commerce.js/blob/7322797/src/types.ts#L146)*
+*Defined in [types.ts:146](https://github.com/shopjs/commerce.js/blob/5aef636/src/types.ts#L146)*
 
 #### Type declaration:
 
