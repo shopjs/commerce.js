@@ -165,7 +165,7 @@ export default class Order implements IOrder {
     shippingRates: IGeoRate[] = [],
     cartAPI: ICartAPI,
   ) {
-    return new Order(akasha.get('order'), [], [], client, cartAPI)
+    return new Order(akasha.get('order') ?? {}, [], [], client, cartAPI)
   }
 
   static save(order: Order) {
