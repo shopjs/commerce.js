@@ -20,13 +20,15 @@ Payment Abstraction
 
 • **account**: *object*
 
-*Defined in [types.ts:69](https://github.com/shopjs/commerce.js/blob/5aef636/src/types.ts#L69)*
+*Defined in [types.ts:69](https://github.com/shopjs/commerce.js/blob/54ea778/src/types.ts#L69)*
 
 #### Type declaration:
 
 * **cvc**: *string*
 
 * **month**: *string*
+
+* **name**: *string*
 
 * **number**: *string*
 

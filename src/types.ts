@@ -67,6 +67,7 @@ export interface IOrder {
  */
 export interface IPayment {
   account: {
+    name: string,
     number: string,
     cvc: string,
     month: string,
