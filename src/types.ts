@@ -49,6 +49,7 @@ export interface IOrder {
   id: string
   userId: string
   currency: string
+  shippingAddress: IAddress
   items: ILineItem[]
   mode: 'deposit' | 'contribution' | ''
   storeId: string
