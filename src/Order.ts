@@ -66,6 +66,9 @@ export default class Order implements IOrder {
   @observable
   shippingAddress: IAddress
 
+  @observable
+  number?: number
+
   /**
    * Overwrite subtotal only available in itemless modes
    */

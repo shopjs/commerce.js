@@ -759,6 +759,7 @@ describe('Commerce Checkout', () => {
       expect(analyticsArgs[1].discount).toBe(orderFromServer.discount /100)
       expect(analyticsArgs[1].coupon).toBe(orderFromServer.couponCodes ? orderFromServer.couponCodes[0] : '')
       expect(analyticsArgs[1].currency).toBe('usd')
+      expect(c.order.number).toBeDefined()
     }
   }, 10000)
 
@@ -809,6 +810,7 @@ describe('Commerce Checkout', () => {
       expect(analyticsArgs[1].discount).toBe(orderFromServer.discount /100)
       expect(analyticsArgs[1].coupon).toBe(orderFromServer.couponCodes ? orderFromServer.couponCodes[0] : '')
       expect(analyticsArgs[1].currency).toBe('usd')
+      expect(c.order.number).toBeDefined()
     }
   }, 10000)
 })

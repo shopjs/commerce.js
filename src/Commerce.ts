@@ -635,6 +635,10 @@ export default class Commerce implements ICartAPI {
           return
         }
 
+        runInAction(() => {
+          this.order.number = (capturedOrder as IOrder).number
+        })
+
         let options = {
           orderId:  capturedOrder.id,
           total:    capturedOrder.total / 100,

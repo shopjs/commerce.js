@@ -54,6 +54,7 @@ export interface IOrder {
   mode: 'deposit' | 'contribution' | ''
   storeId: string
   type: string
+  number?: number
 
   subtotal: number
   total: number
