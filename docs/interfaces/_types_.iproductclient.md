@@ -24,7 +24,7 @@ Product Client
 
 • **product**: *object*
 
-*Defined in [types.ts:177](https://github.com/shopjs/commerce.js/blob/f15f62d/src/types.ts#L177)*
+*Defined in [types.ts:178](https://github.com/shopjs/commerce.js/blob/883aa69/src/types.ts#L178)*
 
 #### Type declaration:
 

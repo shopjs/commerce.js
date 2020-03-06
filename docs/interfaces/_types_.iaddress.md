@@ -23,7 +23,7 @@ Address Abstraction
 
 • **city**: *string*
 
-*Defined in [types.ts:119](https://github.com/shopjs/commerce.js/blob/f15f62d/src/types.ts#L119)*
+*Defined in [types.ts:120](https://github.com/shopjs/commerce.js/blob/883aa69/src/types.ts#L120)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **country**: *string*
 
-*Defined in [types.ts:117](https://github.com/shopjs/commerce.js/blob/f15f62d/src/types.ts#L117)*
+*Defined in [types.ts:118](https://github.com/shopjs/commerce.js/blob/883aa69/src/types.ts#L118)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • **postalCode**: *string*
 
-*Defined in [types.ts:120](https://github.com/shopjs/commerce.js/blob/f15f62d/src/types.ts#L120)*
+*Defined in [types.ts:121](https://github.com/shopjs/commerce.js/blob/883aa69/src/types.ts#L121)*
 
 ___
 
@@ -47,4 +47,4 @@ ___
 
 • **state**: *string*
 
-*Defined in [types.ts:118](https://github.com/shopjs/commerce.js/blob/f15f62d/src/types.ts#L118)*
+*Defined in [types.ts:119](https://github.com/shopjs/commerce.js/blob/883aa69/src/types.ts#L119)*
