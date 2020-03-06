@@ -665,8 +665,9 @@ export default class Commerce implements ICartAPI {
           options.products.push(a)
         }
 
-        this.analytics.track('Completed Order', options);
-
+        if (this.analytics)  {
+          this.analytics.track('Completed Order', options);
+        }
 
         return capturedOrder
       }
