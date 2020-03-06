@@ -332,6 +332,7 @@ export default class Order implements IOrder {
       userId: this.userId,
       currency: this.currency,
       items: this.items.map((item) => item.data),
+      shippingAddress: this.shippingAddress,
       mode: this.mode,
       storeId: this.storeId,
       type: this.type,
