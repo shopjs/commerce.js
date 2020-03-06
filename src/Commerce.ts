@@ -612,9 +612,6 @@ export default class Commerce implements ICartAPI {
   async checkout(payment: IPayment): Promise<IOrder | undefined> {
     // TODO: Add support for referral programs back
     let order: IOrder = Object.assign({}, this.order.data)
-    order.subtotal = this.order.subtotal
-    order.items = this.items.filter((item) => !item.ignore).map((item) => Object.assign({}, item))
-
     let user: IUser = Object.assign({}, this.user)
 
     let opts = {
