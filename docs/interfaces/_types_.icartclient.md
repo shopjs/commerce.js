@@ -22,7 +22,7 @@ Cart Client
 
 • **cart**: *object*
 
-*Defined in [types.ts:157](https://github.com/shopjs/commerce.js/blob/54ea778/src/types.ts#L157)*
+*Defined in [types.ts:157](https://github.com/shopjs/commerce.js/blob/1a136bb/src/types.ts#L157)*
 
 #### Type declaration:
 

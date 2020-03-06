@@ -33,7 +33,7 @@
 
 *Inherited from [ICartClient](_types_.icartclient.md).[cart](_types_.icartclient.md#cart)*
 
-*Defined in [types.ts:157](https://github.com/shopjs/commerce.js/blob/54ea778/src/types.ts#L157)*
+*Defined in [types.ts:157](https://github.com/shopjs/commerce.js/blob/1a136bb/src/types.ts#L157)*
 
 #### Type declaration:
 
@@ -57,7 +57,7 @@ ___
 
 *Inherited from [ICheckoutClient](_types_.icheckoutclient.md).[checkout](_types_.icheckoutclient.md#checkout)*
 
-*Defined in [types.ts:147](https://github.com/shopjs/commerce.js/blob/54ea778/src/types.ts#L147)*
+*Defined in [types.ts:147](https://github.com/shopjs/commerce.js/blob/1a136bb/src/types.ts#L147)*
 
 #### Type declaration:
 
@@ -73,7 +73,7 @@ ___
 
 *Inherited from [ICouponClient](_types_.icouponclient.md).[coupon](_types_.icouponclient.md#coupon)*
 
-*Defined in [types.ts:168](https://github.com/shopjs/commerce.js/blob/54ea778/src/types.ts#L168)*
+*Defined in [types.ts:168](https://github.com/shopjs/commerce.js/blob/1a136bb/src/types.ts#L168)*
 
 #### Type declaration:
 
@@ -91,7 +91,7 @@ ___
 
 *Overrides [IProductClient](_types_.iproductclient.md).[product](_types_.iproductclient.md#product)*
 
-*Defined in [types.ts:177](https://github.com/shopjs/commerce.js/blob/54ea778/src/types.ts#L177)*
+*Defined in [types.ts:177](https://github.com/shopjs/commerce.js/blob/1a136bb/src/types.ts#L177)*
 
 #### Type declaration:
 
