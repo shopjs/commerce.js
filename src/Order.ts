@@ -69,6 +69,9 @@ export default class Order implements IOrder {
   @observable
   number?: number
 
+  @observable
+  metadata: any
+
   /**
    * Overwrite subtotal only available in itemless modes
    */
@@ -345,6 +348,7 @@ export default class Order implements IOrder {
       shipping: this.shipping,
       discount: this.discount,
       couponCodes: this.couponCodes,
+      metadata: this.metadata,
     }
   }
 }
