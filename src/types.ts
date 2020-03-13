@@ -55,6 +55,7 @@ export interface IOrder {
   storeId: string
   type: string
   number?: number
+  metadata?: any
 
   subtotal: number
   total: number
