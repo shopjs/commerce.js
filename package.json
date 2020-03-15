@@ -1,6 +1,6 @@
 {
   "name": "commerce.js",
-  "version": "2.0.13",
+  "version": "2.0.14",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "browser": "dist/index.umd.js",
