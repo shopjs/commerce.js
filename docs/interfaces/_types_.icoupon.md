@@ -26,7 +26,7 @@ Coupon Abstraction
 
 • **amount**: *number*
 
-*Defined in [types.ts:93](https://github.com/shopjs/commerce.js/blob/2ed3fd9/src/types.ts#L93)*
+*Defined in [types.ts:94](https://github.com/shopjs/commerce.js/blob/6cb235d/src/types.ts#L94)*
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 • **code**: *string*
 
-*Defined in [types.ts:94](https://github.com/shopjs/commerce.js/blob/2ed3fd9/src/types.ts#L94)*
+*Defined in [types.ts:95](https://github.com/shopjs/commerce.js/blob/6cb235d/src/types.ts#L95)*
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 • **enabled**: *boolean*
 
-*Defined in [types.ts:95](https://github.com/shopjs/commerce.js/blob/2ed3fd9/src/types.ts#L95)*
+*Defined in [types.ts:96](https://github.com/shopjs/commerce.js/blob/6cb235d/src/types.ts#L96)*
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 • **freeProductId**: *string*
 
-*Defined in [types.ts:96](https://github.com/shopjs/commerce.js/blob/2ed3fd9/src/types.ts#L96)*
+*Defined in [types.ts:97](https://github.com/shopjs/commerce.js/blob/6cb235d/src/types.ts#L97)*
 
 ___
 
@@ -58,7 +58,7 @@ ___
 
 • **once**: *boolean*
 
-*Defined in [types.ts:97](https://github.com/shopjs/commerce.js/blob/2ed3fd9/src/types.ts#L97)*
+*Defined in [types.ts:98](https://github.com/shopjs/commerce.js/blob/6cb235d/src/types.ts#L98)*
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 • **productId**: *string*
 
-*Defined in [types.ts:98](https://github.com/shopjs/commerce.js/blob/2ed3fd9/src/types.ts#L98)*
+*Defined in [types.ts:99](https://github.com/shopjs/commerce.js/blob/6cb235d/src/types.ts#L99)*
 
 ___
 
@@ -74,4 +74,4 @@ ___
 
 • **type**: *"flat" | "percent"*
 
-*Defined in [types.ts:99](https://github.com/shopjs/commerce.js/blob/2ed3fd9/src/types.ts#L99)*
+*Defined in [types.ts:100](https://github.com/shopjs/commerce.js/blob/6cb235d/src/types.ts#L100)*

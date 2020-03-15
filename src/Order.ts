@@ -112,6 +112,8 @@ export default class Order implements IOrder {
       postalCode: '',
     }
 
+    this.metadata = raw.metadata
+
     if (raw.couponCodes && raw.couponCodes.length > 0) {
       this.bootstrapPromise = Promise.all([cartAPI.setCoupon(raw.couponCodes[0]), this.bootstrapPromise])
     }
