@@ -697,7 +697,7 @@ describe('Commerce Coupons', () => {
   })
 })
 
-fdescribe('Commerce Checkout', () => {
+describe('Commerce Checkout', () => {
   test('should checkout an order', async () => {
     let order = {
       currency: 'usd',
