@@ -869,6 +869,123 @@ describe('Commerce Checkout', () => {
       expect(c.order.number).toBeDefined()
     }
   }, 10000)
+
+  test('checkouts using the same email should have the same userId', async () => {
+    let order = {
+      currency: 'usd',
+      mode: 'contribution',
+      subtotal: 123456,
+      shippingAddress: {
+        line1:      'somewhere',
+        city:       'kansas city',
+        state:      'mo',
+        postalCode: '64081',
+        country:    'us',
+      },
+      metadata: {
+        data1: 1,
+        data2: 'test',
+        data3: ['a', 'b', 'c']
+      },
+    }
+
+    let user = {
+      email:        'test@hanzo.io',
+      firstName:    'test',
+      lastName:     'test',
+    }
+
+    let payment = {
+      account: {
+        name:   'test',
+        number: '4242424242424242',
+        cvc:    '424',
+        month:  '1',
+        year:   '2040',
+      },
+    }
+
+    let c = new Commerce(client, order, [], [], analytics)
+    expect(c.order.subtotal).toBe(123456)
+
+    c.user = Object.assign(c.user, user)
+
+    let orderFromServer = await c.checkout(payment)
+
+    expect(orderFromServer).toBeDefined()
+
+    let c2 = new Commerce(client, order, [], [], analytics)
+    expect(c2.order.subtotal).toBe(123456)
+
+    c2.user = Object.assign(c2.user, user)
+
+    let orderFromServer2 = await c2.checkout(payment)
+
+    expect(orderFromServer2).toBeDefined()
+
+    if (orderFromServer && orderFromServer2) {
+      expect(orderFromServer.userId).toBe(orderFromServer2.userId)
+    }
+  }, 20000)
+
+  test('checkouts not using the same email should have different userId', async () => {
+    let order = {
+      currency: 'usd',
+      mode: 'contribution',
+      subtotal: 123456,
+      shippingAddress: {
+        line1:      'somewhere',
+        city:       'kansas city',
+        state:      'mo',
+        postalCode: '64081',
+        country:    'us',
+      },
+      metadata: {
+        data1: 1,
+        data2: 'test',
+        data3: ['a', 'b', 'c']
+      },
+    }
+
+    let user = {
+      email:        'test@hanzo.io',
+      firstName:    'test',
+      lastName:     'test',
+    }
+
+    let payment = {
+      account: {
+        name:   'test',
+        number: '4242424242424242',
+        cvc:    '424',
+        month:  '1',
+        year:   '2040',
+      },
+    }
+
+    let c = new Commerce(client, order, [], [], analytics)
+    expect(c.order.subtotal).toBe(123456)
+
+    c.user = Object.assign(c.user, user)
+
+    let orderFromServer = await c.checkout(payment)
+
+    expect(orderFromServer).toBeDefined()
+
+    let c2 = new Commerce(client, order, [], [], analytics)
+    expect(c2.order.subtotal).toBe(123456)
+
+    c2.user = Object.assign(c2.user, user)
+    c2.user.email = 'test2@hanzo.io'
+
+    let orderFromServer2 = await c2.checkout(payment)
+
+    expect(orderFromServer2).toBeDefined()
+
+    if (orderFromServer && orderFromServer2) {
+      expect(orderFromServer.userId).not.toBe(orderFromServer2.userId)
+    }
+  }, 20000)
 })
 
 describe('Commerce Persistence', () => {
