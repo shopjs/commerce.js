@@ -72,6 +72,9 @@ export default class Order implements IOrder {
   @observable
   metadata: any
 
+  @observable
+  referrerId: string = ''
+
   /**
    * Overwrite subtotal only available in itemless modes
    */
@@ -351,6 +354,7 @@ export default class Order implements IOrder {
       discount: this.discount,
       couponCodes: this.couponCodes,
       metadata: this.metadata,
+      referrerId: this.referrerId,
     }
   }
 }

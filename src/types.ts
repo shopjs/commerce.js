@@ -56,6 +56,7 @@ export interface IOrder {
   type: string
   number?: number
   metadata?: any
+  referrerId: string
 
   subtotal: number
   total: number
