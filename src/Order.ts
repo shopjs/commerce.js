@@ -105,6 +105,7 @@ export default class Order implements IOrder {
     this.storeId = raw.storeId ?? ''
     this.currency = (raw.currency && raw.currency.toLowerCase) ? raw.currency.toLowerCase() : 'usd'
 
+    this.referrerId = raw.referrerId
     this.mode = raw.mode ?? ''
     this.subtotal = raw.subtotal ?? 0
 
