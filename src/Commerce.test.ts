@@ -868,8 +868,8 @@ describe('Commerce Checkout', () => {
       expect(analyticsArgs[1].coupon).toBe(orderFromServer.couponCodes ? orderFromServer.couponCodes[0] : '')
       expect(analyticsArgs[1].currency).toBe('usd')
       expect(c.order.number).toBeDefined()
-      expect(c.order.metadata).toBeDefined()
-      expect(c.order.templateId).toBe('test')
+      expect(orderFromServer.metadata).toBeDefined()
+      expect(orderFromServer.templateId).toBe('test')
     }
   }, 10000)
 
@@ -884,11 +884,6 @@ describe('Commerce Checkout', () => {
         state:      'mo',
         postalCode: '64081',
         country:    'us',
-      },
-      metadata: {
-        data1: 1,
-        data2: 'test',
-        data3: ['a', 'b', 'c']
       },
     }
 
