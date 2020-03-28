@@ -814,7 +814,7 @@ describe('Commerce Checkout', () => {
     }
   }, 10000)
 
-  test('should checkout an order with metadata', async () => {
+  test('should checkout an order with metadata and templateId', async () => {
     let order = {
       currency: 'usd',
       mode: 'contribution',
@@ -826,6 +826,7 @@ describe('Commerce Checkout', () => {
         postalCode: '64081',
         country:    'us',
       },
+      templateId: 'test',
       metadata: {
         data1: 1,
         data2: 'test',
@@ -867,6 +868,8 @@ describe('Commerce Checkout', () => {
       expect(analyticsArgs[1].coupon).toBe(orderFromServer.couponCodes ? orderFromServer.couponCodes[0] : '')
       expect(analyticsArgs[1].currency).toBe('usd')
       expect(c.order.number).toBeDefined()
+      expect(c.order.metadata).toBeDefined()
+      expect(c.order.templateId).toBe('test')
     }
   }, 10000)
 

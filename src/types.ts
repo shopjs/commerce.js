@@ -57,6 +57,7 @@ export interface IOrder {
   number?: number
   metadata?: any
   referrerId: string
+  templateId: string
 
   subtotal: number
   total: number
