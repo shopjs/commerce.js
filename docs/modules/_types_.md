@@ -1,6 +1,6 @@
 [commerce.js](../README.md) › [Globals](../globals.md) › ["types"](_types_.md)
 
-# External module: "types"
+# Module: "types"
 
 ## Index
 

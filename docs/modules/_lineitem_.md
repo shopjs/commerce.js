@@ -1,6 +1,6 @@
 [commerce.js](../README.md) › [Globals](../globals.md) › ["LineItem"](_lineitem_.md)
 
-# External module: "LineItem"
+# Module: "LineItem"
 
 ## Index
 

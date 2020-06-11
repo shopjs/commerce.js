@@ -1,6 +1,6 @@
 [commerce.js](../README.md) › [Globals](../globals.md) › ["Product"](_product_.md)
 
-# External module: "Product"
+# Module: "Product"
 
 ## Index
 
