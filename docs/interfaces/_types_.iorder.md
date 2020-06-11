@@ -41,7 +41,7 @@ Order Abstraction
 
 • **couponCodes**: *string[]*
 
-*Defined in [types.ts:67](https://github.com/shopjs/commerce.js/blob/63ccf4a/src/types.ts#L67)*
+*Defined in [types.ts:67](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L67)*
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 • **currency**: *string*
 
-*Defined in [types.ts:51](https://github.com/shopjs/commerce.js/blob/63ccf4a/src/types.ts#L51)*
+*Defined in [types.ts:51](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L51)*
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 • **discount**: *number*
 
-*Defined in [types.ts:66](https://github.com/shopjs/commerce.js/blob/63ccf4a/src/types.ts#L66)*
+*Defined in [types.ts:66](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L66)*
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 • **id**: *string*
 
-*Defined in [types.ts:49](https://github.com/shopjs/commerce.js/blob/63ccf4a/src/types.ts#L49)*
+*Defined in [types.ts:49](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L49)*
 
 ___
 
@@ -73,7 +73,7 @@ ___
 
 • **items**: *[ILineItem](_types_.ilineitem.md)[]*
 
-*Defined in [types.ts:53](https://github.com/shopjs/commerce.js/blob/63ccf4a/src/types.ts#L53)*
+*Defined in [types.ts:53](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L53)*
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 • **metadata**? : *any*
 
-*Defined in [types.ts:58](https://github.com/shopjs/commerce.js/blob/63ccf4a/src/types.ts#L58)*
+*Defined in [types.ts:58](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L58)*
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 • **mode**: *"deposit" | "contribution" | ""*
 
-*Defined in [types.ts:54](https://github.com/shopjs/commerce.js/blob/63ccf4a/src/types.ts#L54)*
+*Defined in [types.ts:54](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L54)*
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 • **number**? : *undefined | number*
 
-*Defined in [types.ts:57](https://github.com/shopjs/commerce.js/blob/63ccf4a/src/types.ts#L57)*
+*Defined in [types.ts:57](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L57)*
 
 ___
 
@@ -105,7 +105,7 @@ ___
 
 • **referrerId**: *string*
 
-*Defined in [types.ts:59](https://github.com/shopjs/commerce.js/blob/63ccf4a/src/types.ts#L59)*
+*Defined in [types.ts:59](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L59)*
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 • **shipping**: *number*
 
-*Defined in [types.ts:65](https://github.com/shopjs/commerce.js/blob/63ccf4a/src/types.ts#L65)*
+*Defined in [types.ts:65](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L65)*
 
 ___
 
@@ -121,7 +121,7 @@ ___
 
 • **shippingAddress**: *[IAddress](_types_.iaddress.md)*
 
-*Defined in [types.ts:52](https://github.com/shopjs/commerce.js/blob/63ccf4a/src/types.ts#L52)*
+*Defined in [types.ts:52](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L52)*
 
 ___
 
@@ -129,7 +129,7 @@ ___
 
 • **storeId**: *string*
 
-*Defined in [types.ts:55](https://github.com/shopjs/commerce.js/blob/63ccf4a/src/types.ts#L55)*
+*Defined in [types.ts:55](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L55)*
 
 ___
 
@@ -137,7 +137,7 @@ ___
 
 • **subtotal**: *number*
 
-*Defined in [types.ts:62](https://github.com/shopjs/commerce.js/blob/63ccf4a/src/types.ts#L62)*
+*Defined in [types.ts:62](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L62)*
 
 ___
 
@@ -145,7 +145,7 @@ ___
 
 • **tax**: *number*
 
-*Defined in [types.ts:64](https://github.com/shopjs/commerce.js/blob/63ccf4a/src/types.ts#L64)*
+*Defined in [types.ts:64](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L64)*
 
 ___
 
@@ -153,7 +153,7 @@ ___
 
 • **templateId**: *string*
 
-*Defined in [types.ts:60](https://github.com/shopjs/commerce.js/blob/63ccf4a/src/types.ts#L60)*
+*Defined in [types.ts:60](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L60)*
 
 ___
 
@@ -161,7 +161,7 @@ ___
 
 • **total**: *number*
 
-*Defined in [types.ts:63](https://github.com/shopjs/commerce.js/blob/63ccf4a/src/types.ts#L63)*
+*Defined in [types.ts:63](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L63)*
 
 ___
 
@@ -169,7 +169,7 @@ ___
 
 • **type**: *string*
 
-*Defined in [types.ts:56](https://github.com/shopjs/commerce.js/blob/63ccf4a/src/types.ts#L56)*
+*Defined in [types.ts:56](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L56)*
 
 ___
 
@@ -177,4 +177,4 @@ ___
 
 • **userId**: *string*
 
-*Defined in [types.ts:50](https://github.com/shopjs/commerce.js/blob/63ccf4a/src/types.ts#L50)*
+*Defined in [types.ts:50](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L50)*

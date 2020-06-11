@@ -4,7 +4,7 @@
 
 ## Index
 
-### External modules
+### Modules
 
 * ["Commerce"](modules/_commerce_.md)
 * ["LineItem"](modules/_lineitem_.md)
