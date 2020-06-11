@@ -25,7 +25,7 @@ GeoRate Abstraction
 
 • **city**? : *undefined | string*
 
-*Defined in [types.ts:112](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L112)*
+*Defined in [types.ts:112](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L112)*
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 • **cost**: *number*
 
-*Defined in [types.ts:115](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L115)*
+*Defined in [types.ts:115](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L115)*
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 • **country**? : *undefined | string*
 
-*Defined in [types.ts:109](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L109)*
+*Defined in [types.ts:109](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L109)*
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 • **percent**: *number*
 
-*Defined in [types.ts:114](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L114)*
+*Defined in [types.ts:114](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L114)*
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 • **postalCodes**? : *undefined | string*
 
-*Defined in [types.ts:111](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L111)*
+*Defined in [types.ts:111](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L111)*
 
 ___
 
@@ -65,4 +65,4 @@ ___
 
 • **state**? : *undefined | string*
 
-*Defined in [types.ts:110](https://github.com/shopjs/commerce.js/blob/6dd814b/src/types.ts#L110)*
+*Defined in [types.ts:110](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L110)*
