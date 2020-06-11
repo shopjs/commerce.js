@@ -120,6 +120,35 @@ describe('Commerce Add Item', () => {
     expect(c.order.total).toBe(item.price * item.quantity)
   })
 
+  test('should dedupe an item', async () => {
+    let order = {
+      currency: 'usd',
+    }
+
+    let c = new Commerce(client, order, [], [], analytics)
+
+    c.set('sad-keanu-shirt', 1)
+    c.set('sad-keanu-shirt', 1)
+    await c.set('sad-keanu-shirt', 1)
+
+    let items = c.items
+
+    expect(items.length).toBe(1)
+
+    let item = items[0]
+
+    expect(item.productId).toBe('rbcXB3Qxcv6kNy')
+    expect(item.productSlug).toBe('sad-keanu-shirt')
+    expect(item.quantity).toBe(1)
+
+    expect(analyticsArgs[0]).toBe('Added Product')
+    expect(analyticsArgs[1].id).toBe('rbcXB3Qxcv6kNy')
+    expect(analyticsArgs[1].sku).toBe('sad-keanu-shirt')
+    expect(analyticsArgs[1].quantity).toBe(1)
+
+    expect(c.order.total).toBe(item.price * item.quantity)
+  })
+
   test('should set and get an item by item or slug', async () => {
     let order = {
       currency: 'usd',

@@ -153,7 +153,7 @@ export default class Commerce implements ICartAPI {
    */
   @computed
   get cartId(): string {
-    return akasha.get('cartId') ?? ''
+    return akasha.get('cart.id') ?? ''
   }
 
   /**
@@ -239,10 +239,12 @@ export default class Commerce implements ICartAPI {
    */
   @action
   async set(id, quantity, locked=false, ignore=false): Promise<void> {
-    this.updateQueue.push([id, quantity, locked, ignore])
-
-    if (this.updateQueue.length === 1) {
+    if (this.updateQueue.length === 0) {
+      this.updateQueue.push([id, quantity, locked, ignore])
       this.updateQueuePromise = this.executeUpdates()
+      await this.updateQueuePromise
+    } else {
+      this.updateQueue.push([id, quantity, locked, ignore])
       await this.updateQueuePromise
     }
   }
@@ -270,10 +272,15 @@ export default class Commerce implements ICartAPI {
   async executeUpdates(): Promise<void> {
     const items = this.items
 
-    let updateQueueRequest = this.updateQueue.shift()
+    if (!this.updateQueue.length) {
+      return
+    }
+
+    let updateQueueRequest = this.updateQueue[0]
 
     // Resolve or escape if empty queue
     if (!updateQueueRequest) {
+      this.updateQueue.shift()
       return
     }
 
@@ -283,27 +290,31 @@ export default class Commerce implements ICartAPI {
 
     // Resolve or escape if itemless mode
     if (this.order.inItemlessMode && quantity > 0) {
-      return
+      this.updateQueue.shift()
+      return await this.executeUpdates()
     }
 
     // log('eu2')
 
     // handle negative quantities.
     if (quantity < 0) {
+      this.updateQueue.shift()
       quantity = 0
     }
 
     // delete item
     if (quantity === 0) {
       await this.del(id)
-      return
+      this.updateQueue.shift()
+      return await this.executeUpdates()
     }
 
     // log('eu3')
 
     // try and update item quantity
     if (await this.executeUpdateItem(id, quantity, locked, ignore) != null) {
-      return
+      this.updateQueue.shift()
+      return await this.executeUpdates()
     }
 
     // log('eu4')
@@ -324,6 +335,7 @@ export default class Commerce implements ICartAPI {
       await li.bootstrapPromise
     } catch (err) {
       log('set error', err)
+      this.updateQueue.shift()
       return await this.executeUpdates()
     }
 
@@ -351,7 +363,8 @@ export default class Commerce implements ICartAPI {
 
     await this.cartSetItem(li.productId, quantity)
 
-    return await this.executeUpdates()
+    this.updateQueue.shift()
+    return this.executeUpdates()
   }
 
   /**
@@ -365,7 +378,7 @@ export default class Commerce implements ICartAPI {
    */
   @action
   async executeUpdateItem(id: string, quantity: number, locked: boolean, ignore: boolean): Promise<LineItem | undefined> {
-    // log('eui', id)
+    log('eui', id)
     const items = this.items
 
     for (const k in items) {
@@ -632,7 +645,7 @@ export default class Commerce implements ICartAPI {
         let capturedOrder = await this.client.checkout.capture(this.order.id)
 
         if (!capturedOrder) {
-          return
+          throw new Error('Checkout failed for unknown reasons, please try again later.')
         }
 
         runInAction(() => {
