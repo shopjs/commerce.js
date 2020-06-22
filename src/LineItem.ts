@@ -48,6 +48,10 @@ export default class LineItem extends Product implements ILineItem {
       price: this.price,
       listPrice: this.listPrice,
       description: this.description,
+      imageURL: this.imageURL,
+      image: {
+        url: this.imageURL,
+      },
       quantity: this.quantity,
       locked: this.locked,
       ignore: this.ignore,
