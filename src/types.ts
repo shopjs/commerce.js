@@ -31,6 +31,10 @@ export interface IProduct {
   price: number
   listPrice: number
   description: string
+  image: {
+    url: string,
+  },
+  imageURL: string
 }
 
 /**

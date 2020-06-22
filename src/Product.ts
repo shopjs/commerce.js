@@ -49,6 +49,14 @@ export default class Product implements IProduct {
   @observable
   client: IProductClient
 
+  @observable
+  imageURL: string
+
+  @observable
+  image: {
+    url: string,
+  }
+
   constructor(raw: any, client: IProductClient) {
     this.client = client
 
@@ -61,12 +69,23 @@ export default class Product implements IProduct {
     this.price = raw.price ?? 0
     this.listPrice = raw.listPrice ?? 0
     this.description = raw.description ?? ''
+    this.imageURL = raw.imageURL ?? ''
+    if (raw && raw.image) {
+      this.image = {
+        url: raw.image.url,
+      }
+    } else {
+      this.image = {
+        url: '',
+      }
+    }
 
     this.bootstrapPromise = client.product.get(this.id).then((product: IProduct): IProduct => {
       Object.assign(this, product)
       this.productId = product.id
       this.productSlug = product.slug
       this.productName = product.name
+      this.imageURL = product.image.url
       return this
     }).catch((err) => {
       log('loadProduct error', err)
