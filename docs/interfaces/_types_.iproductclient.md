@@ -17,6 +17,7 @@ Product Client
 ### Properties
 
 * [client](_types_.iproductclient.md#client)
+* [fetch](_types_.iproductclient.md#optional-fetch)
 * [product](_types_.iproductclient.md#product)
 
 ## Properties
@@ -25,7 +26,7 @@ Product Client
 
 • **client**: *object*
 
-*Defined in [types.ts:191](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/types.ts#L191)*
+*Defined in [types.ts:191](https://github.com/shopjs/commerce.js/blob/e02bd83/src/types.ts#L191)*
 
 #### Type declaration:
 
@@ -39,11 +40,19 @@ Product Client
 
 ___
 
+### `Optional` fetch
+
+• **fetch**? : *undefined | function*
+
+*Defined in [types.ts:195](https://github.com/shopjs/commerce.js/blob/e02bd83/src/types.ts#L195)*
+
+___
+
 ###  product
 
 • **product**: *object*
 
-*Defined in [types.ts:188](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/types.ts#L188)*
+*Defined in [types.ts:188](https://github.com/shopjs/commerce.js/blob/e02bd83/src/types.ts#L188)*
 
 #### Type declaration:
 
