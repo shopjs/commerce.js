@@ -22,7 +22,7 @@ Coupon Client
 
 • **coupon**: *object*
 
-*Defined in [types.ts:179](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/types.ts#L179)*
+*Defined in [types.ts:179](https://github.com/shopjs/commerce.js/blob/e02bd83/src/types.ts#L179)*
 
 #### Type declaration:
 

@@ -60,7 +60,7 @@ export const matchesGeoRate = (
   }
 
   // Invalid input
-  if (!ctr || !st || (!ct && !pc)) {
+  if (!ctr && !ct && !pc) {
     return [false, 0]
   }
 

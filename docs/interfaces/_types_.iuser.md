@@ -26,7 +26,7 @@ User Abstraction
 
 • **email**: *string*
 
-*Defined in [types.ts:91](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/types.ts#L91)*
+*Defined in [types.ts:91](https://github.com/shopjs/commerce.js/blob/e02bd83/src/types.ts#L91)*
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 • **firstName**: *string*
 
-*Defined in [types.ts:92](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/types.ts#L92)*
+*Defined in [types.ts:92](https://github.com/shopjs/commerce.js/blob/e02bd83/src/types.ts#L92)*
 
 ___
 
@@ -42,4 +42,4 @@ ___
 
 • **lastName**: *string*
 
-*Defined in [types.ts:93](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/types.ts#L93)*
+*Defined in [types.ts:93](https://github.com/shopjs/commerce.js/blob/e02bd83/src/types.ts#L93)*
