@@ -114,6 +114,8 @@ export interface IGeoRate {
   state?: string
   postalCodes?: string
   city?: string
+  above?: number
+  below?: number
 
   percent: number
   cost: number
@@ -185,6 +187,10 @@ export interface ICouponClient {
 export interface IProductClient {
   product: {
     get: (id: string) => Promise<IProduct>
+  }
+  client: {
+    getKey: () => string
+    url: (path: string) => string
   }
 }
 

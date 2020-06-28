@@ -27,7 +27,7 @@ import {
   log
 } from './utils'
 
-export type CartUpdateRequest = [string, number, boolean, boolean]
+export type CartUpdateRequest = [string, number, boolean, boolean, boolean]
 export type AnalyticsProductTransformFn = (v: any) => any
 
 /**
@@ -103,6 +103,12 @@ export default class Commerce implements ICartAPI {
   bootstrapPromise: Promise<any>
 
   /**
+   * the current storeId
+   */
+  @observable
+  _storeId: string
+
+  /**
    * Create an instance of Commerce
    * @param client is the http client for talking to carts
    * @param order is the default order configuration
@@ -122,6 +128,7 @@ export default class Commerce implements ICartAPI {
   ) {
     this.client = client
     this.order = order ? new Order(order, taxRates, shippingRates, client, this) : Order.load(client, taxRates, shippingRates, this)
+    this._storeId = order ? order.storeId : ''
     this.user = new User({}, this)
     this.analytics = analytics
     this.analyticsProductTransform = aPT
@@ -164,9 +171,24 @@ export default class Commerce implements ICartAPI {
     return !!this.cartId
   }
 
+  @observable
+  async setStoreId(sId): Promise<void> {
+    this._storeId = sId
+    this.order.storeId = sId
+
+    // refresh all items
+    const ps = this.items.map((li) => {
+      return this.refresh(li.id)
+    })
+
+    this.cartSetStore(sId)
+
+    await Promise.all(ps)
+  }
+
   @computed
   get storeId() : string {
-    return this.order.storeId
+    return this._storeId
   }
 
   /**
@@ -196,7 +218,7 @@ export default class Commerce implements ICartAPI {
    * @param id the product id of a lineitem
    * @return lineitem or undefined if product isn't in cart
    */
-  async get(id: string): Promise<LineItem | undefined> {
+  async get(id: string, ): Promise<LineItem | undefined> {
     // Check the item on the order
     let item = this.order.get(id)
 
@@ -210,11 +232,13 @@ export default class Commerce implements ICartAPI {
         continue
       }
 
+      // TODO: we should await the update queue and await instead
       const li = new LineItem({
         id: request[0],
         quantity: request[1],
         locked: request[2],
         ignore: request[3],
+        storeId: this.storeId,
       }, this.client)
 
       try {
@@ -238,13 +262,13 @@ export default class Commerce implements ICartAPI {
    * @return promise for when all set operations are completed
    */
   @action
-  async set(id, quantity, locked=false, ignore=false): Promise<void> {
+  async set(id, quantity, locked=false, ignore=false, force=false): Promise<void> {
     if (this.updateQueue.length === 0) {
-      this.updateQueue.push([id, quantity, locked, ignore])
+      this.updateQueue.push([id, quantity, locked, ignore, force])
       this.updateQueuePromise = this.executeUpdates()
       await this.updateQueuePromise
     } else {
-      this.updateQueue.push([id, quantity, locked, ignore])
+      this.updateQueue.push([id, quantity, locked, ignore, force])
       await this.updateQueuePromise
     }
   }
@@ -255,13 +279,13 @@ export default class Commerce implements ICartAPI {
    */
   @action
   async refresh(id): Promise<LineItem | undefined> {
+    // console.log('refresh', id)
     let item = await this.get(id)
     if (item) {
-      await this.updateQueue.push([id, item.quantity, item.locked, item.ignore])
+      await this.set(id, item.quantity, item.locked, item.ignore, true)
+      // console.log('refresh2', id)
       return await this.get(id)
     }
-
-    return
   }
 
   /**
@@ -284,12 +308,11 @@ export default class Commerce implements ICartAPI {
       return
     }
 
-    let [id, quantity, locked, ignore] = updateQueueRequest
-
+    let [id, quantity, locked, ignore, force] = updateQueueRequest
     // log('eu', id)
 
     // Resolve or escape if itemless mode
-    if (this.order.inItemlessMode && quantity > 0) {
+    if (this.order.inItemlessMode && quantity > 0 && !force) {
       this.updateQueue.shift()
       return await this.executeUpdates()
     }
@@ -311,6 +334,8 @@ export default class Commerce implements ICartAPI {
 
     // log('eu3')
 
+    // console.log('eu', updateQueueRequest)
+
     // try and update item quantity
     if (await this.executeUpdateItem(id, quantity, locked, ignore) != null) {
       this.updateQueue.shift()
@@ -326,7 +351,8 @@ export default class Commerce implements ICartAPI {
       id,
       quantity,
       locked,
-      ignore
+      ignore,
+      storeId: this.storeId,
     }, this.client)
 
     // log('eu4.5')
@@ -378,19 +404,44 @@ export default class Commerce implements ICartAPI {
    */
   @action
   async executeUpdateItem(id: string, quantity: number, locked: boolean, ignore: boolean): Promise<LineItem | undefined> {
+    // console.log('eui', id)
+
     log('eui', id)
     const items = this.items
 
     for (const k in items) {
-      const item = items[k]
+      let item = items[k]
       // ignore if not a match to id
       if (
         item.id !== id &&
         item.productId !== id &&
-        item.productSlug !== id
+        item.productSlug !== id &&
+        item.storeId === this.storeId
       ) {
         continue
       }
+
+      if (item.storeId !== this.storeId) {
+        // console.log('eui2', item.storeId, this.storeId)
+
+        item = new LineItem({
+          id,
+          quantity,
+          locked,
+          ignore,
+          storeId: this.storeId,
+        }, this.client)
+
+        items[k] = item
+
+        try {
+          await item.bootstrapPromise
+        } catch (err) {
+          log('setItem storeId update error', err)
+        }
+      }
+
+      // log('eu4.5')
 
       const oldValue = item.quantity
 
@@ -513,7 +564,7 @@ export default class Commerce implements ICartAPI {
   @action
   async cartSetItem(id: string, quantity: number): Promise<ICart | undefined> {
     if (this.isCartInit) {
-      console.log('cart item')
+      // console.log('cart item')
       this.cart.id = this.cartId
       return this.client.cart.set({
         id: this.cartId,

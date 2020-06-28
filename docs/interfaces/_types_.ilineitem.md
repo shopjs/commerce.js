@@ -21,6 +21,8 @@ LineItem Abstraction
 * [description](_types_.ilineitem.md#description)
 * [id](_types_.ilineitem.md#id)
 * [ignore](_types_.ilineitem.md#ignore)
+* [image](_types_.ilineitem.md#image)
+* [imageURL](_types_.ilineitem.md#imageurl)
 * [listPrice](_types_.ilineitem.md#listprice)
 * [locked](_types_.ilineitem.md#locked)
 * [name](_types_.ilineitem.md#name)
@@ -39,7 +41,7 @@ LineItem Abstraction
 
 *Inherited from [IProduct](_types_.iproduct.md).[description](_types_.iproduct.md#description)*
 
-*Defined in [types.ts:33](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L33)*
+*Defined in [types.ts:33](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L33)*
 
 ___
 
@@ -49,7 +51,7 @@ ___
 
 *Inherited from [IProduct](_types_.iproduct.md).[id](_types_.iproduct.md#id)*
 
-*Defined in [types.ts:25](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L25)*
+*Defined in [types.ts:25](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L25)*
 
 ___
 
@@ -57,7 +59,31 @@ ___
 
 • **ignore**: *boolean*
 
-*Defined in [types.ts:42](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L42)*
+*Defined in [types.ts:46](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L46)*
+
+___
+
+###  image
+
+• **image**: *object*
+
+*Inherited from [IProduct](_types_.iproduct.md).[image](_types_.iproduct.md#image)*
+
+*Defined in [types.ts:34](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L34)*
+
+#### Type declaration:
+
+* **url**: *string*
+
+___
+
+###  imageURL
+
+• **imageURL**: *string*
+
+*Inherited from [IProduct](_types_.iproduct.md).[imageURL](_types_.iproduct.md#imageurl)*
+
+*Defined in [types.ts:37](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L37)*
 
 ___
 
@@ -67,7 +93,7 @@ ___
 
 *Inherited from [IProduct](_types_.iproduct.md).[listPrice](_types_.iproduct.md#listprice)*
 
-*Defined in [types.ts:32](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L32)*
+*Defined in [types.ts:32](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L32)*
 
 ___
 
@@ -75,7 +101,7 @@ ___
 
 • **locked**: *boolean*
 
-*Defined in [types.ts:41](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L41)*
+*Defined in [types.ts:45](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L45)*
 
 ___
 
@@ -85,7 +111,7 @@ ___
 
 *Inherited from [IProduct](_types_.iproduct.md).[name](_types_.iproduct.md#name)*
 
-*Defined in [types.ts:29](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L29)*
+*Defined in [types.ts:29](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L29)*
 
 ___
 
@@ -95,7 +121,7 @@ ___
 
 *Inherited from [IProduct](_types_.iproduct.md).[price](_types_.iproduct.md#price)*
 
-*Defined in [types.ts:31](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L31)*
+*Defined in [types.ts:31](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L31)*
 
 ___
 
@@ -105,7 +131,7 @@ ___
 
 *Inherited from [IProduct](_types_.iproduct.md).[productId](_types_.iproduct.md#productid)*
 
-*Defined in [types.ts:26](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L26)*
+*Defined in [types.ts:26](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L26)*
 
 ___
 
@@ -115,7 +141,7 @@ ___
 
 *Inherited from [IProduct](_types_.iproduct.md).[productName](_types_.iproduct.md#productname)*
 
-*Defined in [types.ts:30](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L30)*
+*Defined in [types.ts:30](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L30)*
 
 ___
 
@@ -125,7 +151,7 @@ ___
 
 *Inherited from [IProduct](_types_.iproduct.md).[productSlug](_types_.iproduct.md#productslug)*
 
-*Defined in [types.ts:28](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L28)*
+*Defined in [types.ts:28](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L28)*
 
 ___
 
@@ -133,7 +159,7 @@ ___
 
 • **quantity**: *number*
 
-*Defined in [types.ts:40](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L40)*
+*Defined in [types.ts:44](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L44)*
 
 ___
 
@@ -143,4 +169,4 @@ ___
 
 *Inherited from [IProduct](_types_.iproduct.md).[slug](_types_.iproduct.md#slug)*
 
-*Defined in [types.ts:27](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L27)*
+*Defined in [types.ts:27](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L27)*

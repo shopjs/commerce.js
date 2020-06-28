@@ -72,6 +72,7 @@
   ],
   "dependencies": {
     "akasha": "0.1.13",
+    "cross-fetch": "^3.0.5",
     "mobx": "5.15.4",
     "npm-check-updates": "7.0.1"
   },

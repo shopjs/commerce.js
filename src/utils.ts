@@ -37,7 +37,8 @@ export const matchesGeoRate = (
   country: string,
   state: string,
   city: string,
-  postalCode: string
+  postalCode: string,
+  price: number,
 ): [boolean, number] => {
   const ctr   = clean(country)
   const st    = clean(state)
@@ -45,6 +46,18 @@ export const matchesGeoRate = (
   const pc    = clean(postalCode)
 
   const ctr2 = clean(g.country)
+
+  if (g.above) {
+    // above reject
+    if (price < g.above) {
+      return [false, -1]
+    }
+  } else if (g.below) {
+    // below reject
+    if (price >= g.below) {
+      return [false, -1]
+    }
+  }
 
   // Invalid input
   if (!ctr || !st || (!ct && !pc)) {
@@ -114,15 +127,16 @@ export const closestGeoRate = (
   st: string,
   ct: string,
   pc: string,
+  c: number,
 ): [IGeoRate | undefined, number, number] => {
   let retGr: IGeoRate | undefined
-  let currentLevel = -1
+  let currentLevel = -2
   let idx = -1
 
   for (let i in grs) {
     const gr = grs[i]
 
-    const [isMatch, level] = matchesGeoRate(gr, ctr, st, ct, pc)
+    const [isMatch, level] = matchesGeoRate(gr, ctr, st, ct, pc, c)
 
     if (isMatch && (level > currentLevel)) {
       if (level === 3) {
