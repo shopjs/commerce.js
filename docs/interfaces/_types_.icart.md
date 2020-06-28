@@ -23,7 +23,7 @@ Cart Abstraction
 
 • **email**: *string*
 
-*Defined in [types.ts:6](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L6)*
+*Defined in [types.ts:6](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/types.ts#L6)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **id**: *string*
 
-*Defined in [types.ts:5](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L5)*
+*Defined in [types.ts:5](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/types.ts#L5)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [types.ts:7](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L7)*
+*Defined in [types.ts:7](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/types.ts#L7)*
 
 ___
 
@@ -47,4 +47,4 @@ ___
 
 • **storeId**: *string*
 
-*Defined in [types.ts:8](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L8)*
+*Defined in [types.ts:8](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/types.ts#L8)*

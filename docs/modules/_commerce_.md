@@ -19,7 +19,7 @@
 
 Ƭ **AnalyticsProductTransformFn**: *function*
 
-*Defined in [Commerce.ts:31](https://github.com/shopjs/commerce.js/blob/98f86b0/src/Commerce.ts#L31)*
+*Defined in [Commerce.ts:31](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/Commerce.ts#L31)*
 
 #### Type declaration:
 
@@ -35,6 +35,6 @@ ___
 
 ###  CartUpdateRequest
 
-Ƭ **CartUpdateRequest**: *[string, number, boolean, boolean]*
+Ƭ **CartUpdateRequest**: *[string, number, boolean, boolean, boolean]*
 
-*Defined in [Commerce.ts:30](https://github.com/shopjs/commerce.js/blob/98f86b0/src/Commerce.ts#L30)*
+*Defined in [Commerce.ts:30](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/Commerce.ts#L30)*

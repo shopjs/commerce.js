@@ -16,15 +16,34 @@ Product Client
 
 ### Properties
 
+* [client](_types_.iproductclient.md#client)
 * [product](_types_.iproductclient.md#product)
 
 ## Properties
+
+###  client
+
+• **client**: *object*
+
+*Defined in [types.ts:191](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/types.ts#L191)*
+
+#### Type declaration:
+
+* **getKey**(): *function*
+
+  * (): *string*
+
+* **url**(): *function*
+
+  * (`path`: string): *string*
+
+___
 
 ###  product
 
 • **product**: *object*
 
-*Defined in [types.ts:186](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L186)*
+*Defined in [types.ts:188](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/types.ts#L188)*
 
 #### Type declaration:
 

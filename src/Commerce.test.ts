@@ -1,5 +1,6 @@
 import Commerce from './Commerce'
 import Order from './Order'
+import fetch from 'cross-fetch'
 import {
   ICartClient,
   IGeoRate,
@@ -30,6 +31,8 @@ beforeEach(() => {
     key: KEY,
     endpoint: ENDPOINT,
   })
+
+  client.fetch = fetch
 })
 
 afterEach(() => {

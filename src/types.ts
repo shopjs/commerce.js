@@ -192,6 +192,7 @@ export interface IProductClient {
     getKey: () => string
     url: (path: string) => string
   }
+  fetch?: (path: string) => Promise<any>
 }
 
 /**
