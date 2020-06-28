@@ -93,6 +93,56 @@ describe('Commerce Add Item', () => {
     expect(c.order.total).toBe(item.price * item.quantity)
   })
 
+  test('should set an item by id and storeId', async () => {
+    let order = {
+      storeId: 'Pkt8119gfdNGoQ',
+      currency: 'jpy',
+    }
+
+    let c = new Commerce(client, order, [], [], analytics)
+
+    await c.set('rbcXB3Qxcv6kNy', 1)
+
+    let items = c.items
+
+    expect(items.length).toBe(1)
+
+    let item = items[0]
+
+    expect(item.price).toBe(30000)
+    expect(c.order.total).toBe(item.price * item.quantity)
+  })
+
+  test('should set an item by id and swithc betweens', async () => {
+    let order = {
+      currency: 'usd',
+    }
+
+    let c = new Commerce(client, order, [], [], analytics)
+
+    await c.set('rbcXB3Qxcv6kNy', 1)
+
+    let items = c.items
+
+    expect(items.length).toBe(1)
+
+    let item = items[0]
+
+    expect(item.price).toBe(2500)
+    expect(c.order.total).toBe(item.price * item.quantity)
+
+    await c.setStoreId('Pkt8119gfdNGoQ')
+
+    items = c.items
+
+    expect(items.length).toBe(1)
+
+    item = items[0]
+
+    expect(item.price).toBe(30000)
+    expect(c.order.total).toBe(item.price * item.quantity)
+  })
+
   test('should set an item by slug', async () => {
     let order = {
       currency: 'usd',

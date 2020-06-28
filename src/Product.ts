@@ -11,6 +11,8 @@ import {
   log,
 } from './utils'
 
+import fetch from 'cross-fetch'
+
 /**
  * Product is something that goes in a cart, we sync these from the server but
  * only keep the fields we care about
@@ -57,6 +59,9 @@ export default class Product implements IProduct {
     url: string,
   }
 
+  @observable
+  storeId: string
+
   constructor(raw: any, client: IProductClient) {
     this.client = client
 
@@ -79,18 +84,39 @@ export default class Product implements IProduct {
         url: '',
       }
     }
+    this.storeId = raw.storeId ?? ''
 
-    this.bootstrapPromise = client.product.get(this.id).then((product: IProduct): IProduct => {
-      Object.assign(this, product)
-      this.productId = product.id
-      this.productSlug = product.slug
-      this.productName = product.name
-      this.imageURL = product.image.url
-      return this
-    }).catch((err) => {
-      log('loadProduct error', err)
-      throw err
-    })
+    if (this.storeId) {
+      this.bootstrapPromise = (async (self) => {
+        try {
+          let path = client.client.url(`/store/${self.storeId}/product/${self.id}`)
+          let res = await fetch(`${path}?token=${client.client.getKey()}`)
+          let product = await res.json()
+
+          Object.assign(self, product)
+          self.productId = product.id
+          self.productSlug = product.slug
+          self.productName = product.name
+          self.imageURL = product.image.url
+          return self
+        } catch(err) {
+          log('loadProduct error', err)
+          throw err
+        }
+      })(this)
+    } else {
+      this.bootstrapPromise = client.product.get(this.id).then((product: IProduct): IProduct => {
+        Object.assign(this, product)
+        this.productId = product.id
+        this.productSlug = product.slug
+        this.productName = product.name
+        this.imageURL = product.image.url
+        return this
+      }).catch((err) => {
+        log('loadProduct error', err)
+        throw err
+      })
+    }
   }
 }
 

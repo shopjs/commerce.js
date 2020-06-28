@@ -21,6 +21,8 @@ Product Abstraction
 
 * [description](_types_.iproduct.md#description)
 * [id](_types_.iproduct.md#id)
+* [image](_types_.iproduct.md#image)
+* [imageURL](_types_.iproduct.md#imageurl)
 * [listPrice](_types_.iproduct.md#listprice)
 * [name](_types_.iproduct.md#name)
 * [price](_types_.iproduct.md#price)
@@ -35,7 +37,7 @@ Product Abstraction
 
 • **description**: *string*
 
-*Defined in [types.ts:33](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L33)*
+*Defined in [types.ts:33](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L33)*
 
 ___
 
@@ -43,7 +45,27 @@ ___
 
 • **id**: *string*
 
-*Defined in [types.ts:25](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L25)*
+*Defined in [types.ts:25](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L25)*
+
+___
+
+###  image
+
+• **image**: *object*
+
+*Defined in [types.ts:34](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L34)*
+
+#### Type declaration:
+
+* **url**: *string*
+
+___
+
+###  imageURL
+
+• **imageURL**: *string*
+
+*Defined in [types.ts:37](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L37)*
 
 ___
 
@@ -51,7 +73,7 @@ ___
 
 • **listPrice**: *number*
 
-*Defined in [types.ts:32](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L32)*
+*Defined in [types.ts:32](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L32)*
 
 ___
 
@@ -59,7 +81,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [types.ts:29](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L29)*
+*Defined in [types.ts:29](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L29)*
 
 ___
 
@@ -67,7 +89,7 @@ ___
 
 • **price**: *number*
 
-*Defined in [types.ts:31](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L31)*
+*Defined in [types.ts:31](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L31)*
 
 ___
 
@@ -75,7 +97,7 @@ ___
 
 • **productId**: *string*
 
-*Defined in [types.ts:26](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L26)*
+*Defined in [types.ts:26](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L26)*
 
 ___
 
@@ -83,7 +105,7 @@ ___
 
 • **productName**: *string*
 
-*Defined in [types.ts:30](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L30)*
+*Defined in [types.ts:30](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L30)*
 
 ___
 
@@ -91,7 +113,7 @@ ___
 
 • **productSlug**: *string*
 
-*Defined in [types.ts:28](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L28)*
+*Defined in [types.ts:28](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L28)*
 
 ___
 
@@ -99,4 +121,4 @@ ___
 
 • **slug**: *string*
 
-*Defined in [types.ts:27](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L27)*
+*Defined in [types.ts:27](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L27)*

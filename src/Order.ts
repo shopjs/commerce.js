@@ -131,14 +131,6 @@ export default class Order implements IOrder {
       Order.save(this)
     })
 
-    // Define reaction for storeid
-    reaction (
-      () => this.storeId,
-      (storeId) => {
-        cartAPI.cartSetStore(storeId)
-      }
-    )
-
     // clear items when we switch to itemless mode
     reaction(
       () => this.mode,
@@ -293,7 +285,8 @@ export default class Order implements IOrder {
       country,
       state,
       city,
-      postalCode
+      postalCode,
+      this.subtotal,
     )
 
     return gr ?? rate
@@ -323,7 +316,8 @@ export default class Order implements IOrder {
       country,
       state,
       city,
-      postalCode
+      postalCode,
+      this.subtotal,
     )
 
     return gr ?? rate

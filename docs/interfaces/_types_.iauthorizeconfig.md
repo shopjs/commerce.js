@@ -22,7 +22,7 @@ Checkout Client Authorize Config
 
 • **order**: *[IOrder](_types_.iorder.md)*
 
-*Defined in [types.ts:144](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L144)*
+*Defined in [types.ts:148](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L148)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **payment**: *[IPayment](_types_.ipayment.md)*
 
-*Defined in [types.ts:145](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L145)*
+*Defined in [types.ts:149](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L149)*
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 • **user**: *[IUser](_types_.iuser.md)*
 
-*Defined in [types.ts:143](https://github.com/shopjs/commerce.js/blob/772e922/src/types.ts#L143)*
+*Defined in [types.ts:147](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L147)*
