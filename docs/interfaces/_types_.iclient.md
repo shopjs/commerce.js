@@ -22,6 +22,7 @@
 
 * [cart](_types_.iclient.md#cart)
 * [checkout](_types_.iclient.md#checkout)
+* [client](_types_.iclient.md#client)
 * [coupon](_types_.iclient.md#coupon)
 * [product](_types_.iclient.md#product)
 
@@ -33,7 +34,7 @@
 
 *Inherited from [ICartClient](_types_.icartclient.md).[cart](_types_.icartclient.md#cart)*
 
-*Defined in [types.ts:166](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L166)*
+*Defined in [types.ts:168](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/types.ts#L168)*
 
 #### Type declaration:
 
@@ -57,7 +58,7 @@ ___
 
 *Inherited from [ICheckoutClient](_types_.icheckoutclient.md).[checkout](_types_.icheckoutclient.md#checkout)*
 
-*Defined in [types.ts:156](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L156)*
+*Defined in [types.ts:158](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/types.ts#L158)*
 
 #### Type declaration:
 
@@ -67,13 +68,35 @@ ___
 
 ___
 
+###  client
+
+• **client**: *object*
+
+*Inherited from [IProductClient](_types_.iproductclient.md).[client](_types_.iproductclient.md#client)*
+
+*Overrides [IProductClient](_types_.iproductclient.md).[client](_types_.iproductclient.md#client)*
+
+*Defined in [types.ts:191](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/types.ts#L191)*
+
+#### Type declaration:
+
+* **getKey**(): *function*
+
+  * (): *string*
+
+* **url**(): *function*
+
+  * (`path`: string): *string*
+
+___
+
 ###  coupon
 
 • **coupon**: *object*
 
 *Inherited from [ICouponClient](_types_.icouponclient.md).[coupon](_types_.icouponclient.md#coupon)*
 
-*Defined in [types.ts:177](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L177)*
+*Defined in [types.ts:179](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/types.ts#L179)*
 
 #### Type declaration:
 
@@ -91,7 +114,7 @@ ___
 
 *Overrides [IProductClient](_types_.iproductclient.md).[product](_types_.iproductclient.md#product)*
 
-*Defined in [types.ts:186](https://github.com/shopjs/commerce.js/blob/98f86b0/src/types.ts#L186)*
+*Defined in [types.ts:188](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/types.ts#L188)*
 
 #### Type declaration:
 

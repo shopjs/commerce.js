@@ -22,7 +22,7 @@
 
 • **printLevel**: *string* = "none"
 
-*Defined in [utils.ts:5](https://github.com/shopjs/commerce.js/blob/98f86b0/src/utils.ts#L5)*
+*Defined in [utils.ts:5](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/utils.ts#L5)*
 
 ## Functions
 
@@ -30,7 +30,7 @@
 
 ▸ **clean**(`str`: any): *any*
 
-*Defined in [utils.ts:20](https://github.com/shopjs/commerce.js/blob/98f86b0/src/utils.ts#L20)*
+*Defined in [utils.ts:20](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/utils.ts#L20)*
 
 **Parameters:**
 
@@ -44,9 +44,9 @@ ___
 
 ### `Const` closestGeoRate
 
-▸ **closestGeoRate**(`grs`: [IGeoRate](../interfaces/_types_.igeorate.md)[], `ctr`: string, `st`: string, `ct`: string, `pc`: string): *[[IGeoRate](../interfaces/_types_.igeorate.md) | undefined, number, number]*
+▸ **closestGeoRate**(`grs`: [IGeoRate](../interfaces/_types_.igeorate.md)[], `ctr`: string, `st`: string, `ct`: string, `pc`: string, `c`: number): *[[IGeoRate](../interfaces/_types_.igeorate.md) | undefined, number, number]*
 
-*Defined in [utils.ts:111](https://github.com/shopjs/commerce.js/blob/98f86b0/src/utils.ts#L111)*
+*Defined in [utils.ts:124](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/utils.ts#L124)*
 
 Get the closest georate from a set of georates
 
@@ -59,6 +59,7 @@ Name | Type | Description |
 `st` | string | state |
 `ct` | string | city |
 `pc` | string | postalCode |
+`c` | number | - |
 
 **Returns:** *[[IGeoRate](../interfaces/_types_.igeorate.md) | undefined, number, number]*
 
@@ -70,7 +71,7 @@ ___
 
 ▸ **log**(...`args`: any[]): *void*
 
-*Defined in [utils.ts:11](https://github.com/shopjs/commerce.js/blob/98f86b0/src/utils.ts#L11)*
+*Defined in [utils.ts:11](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/utils.ts#L11)*
 
 **Parameters:**
 
@@ -84,9 +85,9 @@ ___
 
 ### `Const` matchesGeoRate
 
-▸ **matchesGeoRate**(`g`: [IGeoRate](../interfaces/_types_.igeorate.md), `country`: string, `state`: string, `city`: string, `postalCode`: string): *[boolean, number]*
+▸ **matchesGeoRate**(`g`: [IGeoRate](../interfaces/_types_.igeorate.md), `country`: string, `state`: string, `city`: string, `postalCode`: string, `price`: number): *[boolean, number]*
 
-*Defined in [utils.ts:35](https://github.com/shopjs/commerce.js/blob/98f86b0/src/utils.ts#L35)*
+*Defined in [utils.ts:35](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/utils.ts#L35)*
 
 Check if georate matches country + state + city/postalCode
 We assume that georates are built correctly (they are pulled from server)
@@ -100,6 +101,7 @@ Name | Type |
 `state` | string |
 `city` | string |
 `postalCode` | string |
+`price` | number |
 
 **Returns:** *[boolean, number]*
 
@@ -111,7 +113,7 @@ ___
 
 ▸ **setLogLevel**(`level`: string): *void*
 
-*Defined in [utils.ts:7](https://github.com/shopjs/commerce.js/blob/98f86b0/src/utils.ts#L7)*
+*Defined in [utils.ts:7](https://github.com/shopjs/commerce.js/blob/bdc45b5/src/utils.ts#L7)*
 
 **Parameters:**
 

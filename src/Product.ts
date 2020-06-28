@@ -11,8 +11,6 @@ import {
   log,
 } from './utils'
 
-import fetch from 'cross-fetch'
-
 /**
  * Product is something that goes in a cart, we sync these from the server but
  * only keep the fields we care about
@@ -90,7 +88,12 @@ export default class Product implements IProduct {
       this.bootstrapPromise = (async (self) => {
         try {
           let path = client.client.url(`/store/${self.storeId}/product/${self.id}`)
-          let res = await fetch(`${path}?token=${client.client.getKey()}`)
+          let res
+          if (client.fetch) {
+            res = await client.fetch(`${path}?token=${client.client.getKey()}`)
+          } else {
+            res = await fetch(`${path}?token=${client.client.getKey()}`)
+          }
           let product = await res.json()
 
           Object.assign(self, product)
