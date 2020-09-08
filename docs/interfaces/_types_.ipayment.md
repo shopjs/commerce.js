@@ -20,7 +20,7 @@ Payment Abstraction
 
 • **account**: *object*
 
-*Defined in [types.ts:78](https://github.com/shopjs/commerce.js/blob/e02bd83/src/types.ts#L78)*
+*Defined in [types.ts:78](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/types.ts#L78)*
 
 #### Type declaration:
 
