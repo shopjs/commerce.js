@@ -770,10 +770,13 @@ describe('Commerce Coupons', () => {
     }
 
     let c = new Commerce(client, order, [], [], analytics)
-
     await c.set('sad-keanu-shirt', 1)
 
-    let coupon = await c.setCoupon('BAD-COUPON')
+    let coupon
+    try {
+      coupon = await c.setCoupon('BAD-COUPON')
+    } catch (e) {
+    }
 
     expect(coupon).not.toBeDefined()
   })

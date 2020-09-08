@@ -662,7 +662,8 @@ export default class Commerce implements ICartAPI {
         return coupon
       } catch (err) {
         log('promoCode error', err)
-        return
+
+        throw err
       }
     }
   }
@@ -744,7 +745,5 @@ export default class Commerce implements ICartAPI {
 
       throw err
     }
-
-    return
   }
 }
