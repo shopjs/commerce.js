@@ -1,4 +1,4 @@
-[commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [ICoupon](_types_.icoupon.md)
+[@hanzo/commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [ICoupon](_types_.icoupon.md)
 
 # Interface: ICoupon
 
@@ -26,7 +26,7 @@ Coupon Abstraction
 
 • **amount**: *number*
 
-*Defined in [types.ts:100](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/types.ts#L100)*
+*Defined in [types.ts:100](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L100)*
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 • **code**: *string*
 
-*Defined in [types.ts:101](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/types.ts#L101)*
+*Defined in [types.ts:101](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L101)*
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 • **enabled**: *boolean*
 
-*Defined in [types.ts:102](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/types.ts#L102)*
+*Defined in [types.ts:102](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L102)*
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 • **freeProductId**: *string*
 
-*Defined in [types.ts:103](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/types.ts#L103)*
+*Defined in [types.ts:103](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L103)*
 
 ___
 
@@ -58,7 +58,7 @@ ___
 
 • **once**: *boolean*
 
-*Defined in [types.ts:104](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/types.ts#L104)*
+*Defined in [types.ts:104](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L104)*
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 • **productId**: *string*
 
-*Defined in [types.ts:105](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/types.ts#L105)*
+*Defined in [types.ts:105](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L105)*
 
 ___
 
@@ -74,4 +74,4 @@ ___
 
 • **type**: *"flat" | "percent"*
 
-*Defined in [types.ts:106](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/types.ts#L106)*
+*Defined in [types.ts:106](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L106)*

@@ -1,6 +1,5 @@
-import {
-  observable,
-} from 'mobx'
+  // @ts-ignore
+import { observable } from 'mobx'
 
 import {
   IProduct,

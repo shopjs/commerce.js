@@ -1,4 +1,4 @@
-[commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [IAddress](_types_.iaddress.md)
+[@hanzo/commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [IAddress](_types_.iaddress.md)
 
 # Interface: IAddress
 
@@ -23,7 +23,7 @@ Address Abstraction
 
 • **city**: *string*
 
-*Defined in [types.ts:130](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/types.ts#L130)*
+*Defined in [types.ts:130](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L130)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **country**: *string*
 
-*Defined in [types.ts:128](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/types.ts#L128)*
+*Defined in [types.ts:128](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L128)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • **postalCode**: *string*
 
-*Defined in [types.ts:131](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/types.ts#L131)*
+*Defined in [types.ts:131](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L131)*
 
 ___
 
@@ -47,4 +47,4 @@ ___
 
 • **state**: *string*
 
-*Defined in [types.ts:129](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/types.ts#L129)*
+*Defined in [types.ts:129](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L129)*

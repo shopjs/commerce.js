@@ -1,4 +1,4 @@
-[commerce.js](../README.md) › [Globals](../globals.md) › ["LineItem"](_lineitem_.md)
+[@hanzo/commerce.js](../README.md) › [Globals](../globals.md) › ["LineItem"](_lineitem_.md)
 
 # Module: "LineItem"
 

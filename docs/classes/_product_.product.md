@@ -1,4 +1,4 @@
-[commerce.js](../README.md) › [Globals](../globals.md) › ["Product"](../modules/_product_.md) › [Product](_product_.product.md)
+[@hanzo/commerce.js](../README.md) › [Globals](../globals.md) › ["Product"](../modules/_product_.md) › [Product](_product_.product.md)
 
 # Class: Product
 
@@ -44,7 +44,7 @@ only keep the fields we care about
 
 \+ **new Product**(`raw`: any, `client`: [IProductClient](../interfaces/_types_.iproductclient.md)): *[Product](_product_.product.md)*
 
-*Defined in [Product.ts:61](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Product.ts#L61)*
+*Defined in [Product.ts:60](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Product.ts#L60)*
 
 **Parameters:**
 
@@ -61,7 +61,7 @@ Name | Type |
 
 • **bootstrapPromise**: *Promise‹[IProduct](../interfaces/_types_.iproduct.md) | void›*
 
-*Defined in [Product.ts:47](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Product.ts#L47)*
+*Defined in [Product.ts:46](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Product.ts#L46)*
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 • **client**: *[IProductClient](../interfaces/_types_.iproductclient.md)*
 
-*Defined in [Product.ts:50](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Product.ts#L50)*
+*Defined in [Product.ts:49](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Product.ts#L49)*
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 *Implementation of [IProduct](../interfaces/_types_.iproduct.md).[description](../interfaces/_types_.iproduct.md#description)*
 
-*Defined in [Product.ts:44](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Product.ts#L44)*
+*Defined in [Product.ts:43](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Product.ts#L43)*
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 *Implementation of [IProduct](../interfaces/_types_.iproduct.md).[id](../interfaces/_types_.iproduct.md#id)*
 
-*Defined in [Product.ts:20](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Product.ts#L20)*
+*Defined in [Product.ts:19](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Product.ts#L19)*
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 *Implementation of [IProduct](../interfaces/_types_.iproduct.md).[image](../interfaces/_types_.iproduct.md#image)*
 
-*Defined in [Product.ts:56](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Product.ts#L56)*
+*Defined in [Product.ts:55](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Product.ts#L55)*
 
 #### Type declaration:
 
@@ -113,7 +113,7 @@ ___
 
 *Implementation of [IProduct](../interfaces/_types_.iproduct.md).[imageURL](../interfaces/_types_.iproduct.md#imageurl)*
 
-*Defined in [Product.ts:53](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Product.ts#L53)*
+*Defined in [Product.ts:52](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Product.ts#L52)*
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 *Implementation of [IProduct](../interfaces/_types_.iproduct.md).[listPrice](../interfaces/_types_.iproduct.md#listprice)*
 
-*Defined in [Product.ts:41](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Product.ts#L41)*
+*Defined in [Product.ts:40](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Product.ts#L40)*
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 *Implementation of [IProduct](../interfaces/_types_.iproduct.md).[name](../interfaces/_types_.iproduct.md#name)*
 
-*Defined in [Product.ts:32](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Product.ts#L32)*
+*Defined in [Product.ts:31](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Product.ts#L31)*
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 *Implementation of [IProduct](../interfaces/_types_.iproduct.md).[price](../interfaces/_types_.iproduct.md#price)*
 
-*Defined in [Product.ts:38](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Product.ts#L38)*
+*Defined in [Product.ts:37](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Product.ts#L37)*
 
 ___
 
@@ -153,7 +153,7 @@ ___
 
 *Implementation of [IProduct](../interfaces/_types_.iproduct.md).[productId](../interfaces/_types_.iproduct.md#productid)*
 
-*Defined in [Product.ts:23](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Product.ts#L23)*
+*Defined in [Product.ts:22](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Product.ts#L22)*
 
 ___
 
@@ -163,7 +163,7 @@ ___
 
 *Implementation of [IProduct](../interfaces/_types_.iproduct.md).[productName](../interfaces/_types_.iproduct.md#productname)*
 
-*Defined in [Product.ts:35](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Product.ts#L35)*
+*Defined in [Product.ts:34](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Product.ts#L34)*
 
 ___
 
@@ -173,7 +173,7 @@ ___
 
 *Implementation of [IProduct](../interfaces/_types_.iproduct.md).[productSlug](../interfaces/_types_.iproduct.md#productslug)*
 
-*Defined in [Product.ts:29](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Product.ts#L29)*
+*Defined in [Product.ts:28](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Product.ts#L28)*
 
 ___
 
@@ -183,7 +183,7 @@ ___
 
 *Implementation of [IProduct](../interfaces/_types_.iproduct.md).[slug](../interfaces/_types_.iproduct.md#slug)*
 
-*Defined in [Product.ts:26](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Product.ts#L26)*
+*Defined in [Product.ts:25](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Product.ts#L25)*
 
 ___
 
@@ -191,4 +191,4 @@ ___
 
 • **storeId**: *string*
 
-*Defined in [Product.ts:61](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Product.ts#L61)*
+*Defined in [Product.ts:60](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Product.ts#L60)*

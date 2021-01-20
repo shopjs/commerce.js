@@ -4,6 +4,7 @@ import {
   computed,
   observable,
   reaction,
+  // @ts-ignore
 } from 'mobx'
 
 import {

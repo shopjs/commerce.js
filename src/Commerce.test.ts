@@ -5,6 +5,7 @@ import {
   ICartClient,
   IGeoRate,
 } from './types'
+  // @ts-ignore
 import Api from 'hanzo.js'
 import {
   log,

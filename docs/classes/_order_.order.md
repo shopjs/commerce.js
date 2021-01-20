@@ -1,4 +1,4 @@
-[commerce.js](../README.md) › [Globals](../globals.md) › ["Order"](../modules/_order_.md) › [Order](_order_.order.md)
+[@hanzo/commerce.js](../README.md) › [Globals](../globals.md) › ["Order"](../modules/_order_.md) › [Order](_order_.order.md)
 
 # Class: Order
 
@@ -66,7 +66,7 @@ Order contains information about what the user is buying
 
 \+ **new Order**(`raw`: any, `taxRates`: [IGeoRate](../interfaces/_types_.igeorate.md)[], `shippingRates`: [IGeoRate](../interfaces/_types_.igeorate.md)[], `client`: [IOrderClient](../interfaces/_types_.iorderclient.md), `cartAPI`: [ICartAPI](../interfaces/_types_.icartapi.md)): *[Order](_order_.order.md)*
 
-*Defined in [Order.ts:91](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L91)*
+*Defined in [Order.ts:92](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L92)*
 
 **Parameters:**
 
@@ -86,7 +86,7 @@ Name | Type | Default |
 
 • **_subtotal**: *number* = 0
 
-*Defined in [Order.ts:85](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L85)*
+*Defined in [Order.ts:86](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L86)*
 
 Overwrite subtotal only available in itemless modes
 
@@ -96,7 +96,7 @@ ___
 
 • **bootstrapPromise**: *Promise‹any›*
 
-*Defined in [Order.ts:91](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L91)*
+*Defined in [Order.ts:92](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L92)*
 
 bootstrapPromise executes after contructo completes any bootstrapp (mostly coupon and lineitems in this case)
 
@@ -106,7 +106,7 @@ ___
 
 • **client**: *[IOrderClient](../interfaces/_types_.iorderclient.md)*
 
-*Defined in [Order.ts:52](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L52)*
+*Defined in [Order.ts:53](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L53)*
 
 ___
 
@@ -114,7 +114,7 @@ ___
 
 • **coupon**: *[ICoupon](../interfaces/_types_.icoupon.md) | undefined*
 
-*Defined in [Order.ts:58](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L58)*
+*Defined in [Order.ts:59](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L59)*
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[couponCodes](../interfaces/_types_.iorder.md#couponcodes)*
 
-*Defined in [Order.ts:55](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L55)*
+*Defined in [Order.ts:56](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L56)*
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[currency](../interfaces/_types_.iorder.md#currency)*
 
-*Defined in [Order.ts:46](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L46)*
+*Defined in [Order.ts:47](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L47)*
 
 ___
 
@@ -144,7 +144,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[id](../interfaces/_types_.iorder.md#id)*
 
-*Defined in [Order.ts:31](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L31)*
+*Defined in [Order.ts:32](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L32)*
 
 ___
 
@@ -154,7 +154,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[items](../interfaces/_types_.iorder.md#items)*
 
-*Defined in [Order.ts:37](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L37)*
+*Defined in [Order.ts:38](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L38)*
 
 ___
 
@@ -164,7 +164,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[metadata](../interfaces/_types_.iorder.md#optional-metadata)*
 
-*Defined in [Order.ts:73](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L73)*
+*Defined in [Order.ts:74](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L74)*
 
 ___
 
@@ -174,7 +174,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[mode](../interfaces/_types_.iorder.md#mode)*
 
-*Defined in [Order.ts:49](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L49)*
+*Defined in [Order.ts:50](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L50)*
 
 ___
 
@@ -184,7 +184,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[number](../interfaces/_types_.iorder.md#optional-number)*
 
-*Defined in [Order.ts:70](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L70)*
+*Defined in [Order.ts:71](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L71)*
 
 ___
 
@@ -194,7 +194,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[referrerId](../interfaces/_types_.iorder.md#referrerid)*
 
-*Defined in [Order.ts:76](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L76)*
+*Defined in [Order.ts:77](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L77)*
 
 ___
 
@@ -204,7 +204,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[shippingAddress](../interfaces/_types_.iorder.md#shippingaddress)*
 
-*Defined in [Order.ts:67](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L67)*
+*Defined in [Order.ts:68](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L68)*
 
 ___
 
@@ -212,7 +212,7 @@ ___
 
 • **shippingRates**: *[IGeoRate](../interfaces/_types_.igeorate.md)[]*
 
-*Defined in [Order.ts:64](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L64)*
+*Defined in [Order.ts:65](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L65)*
 
 ___
 
@@ -222,7 +222,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[storeId](../interfaces/_types_.iorder.md#storeid)*
 
-*Defined in [Order.ts:43](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L43)*
+*Defined in [Order.ts:44](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L44)*
 
 ___
 
@@ -230,7 +230,7 @@ ___
 
 • **taxRates**: *[IGeoRate](../interfaces/_types_.igeorate.md)[]*
 
-*Defined in [Order.ts:61](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L61)*
+*Defined in [Order.ts:62](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L62)*
 
 ___
 
@@ -240,7 +240,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[templateId](../interfaces/_types_.iorder.md#templateid)*
 
-*Defined in [Order.ts:79](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L79)*
+*Defined in [Order.ts:80](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L80)*
 
 ___
 
@@ -250,7 +250,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[type](../interfaces/_types_.iorder.md#type)*
 
-*Defined in [Order.ts:40](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L40)*
+*Defined in [Order.ts:41](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L41)*
 
 ___
 
@@ -260,7 +260,7 @@ ___
 
 *Implementation of [IOrder](../interfaces/_types_.iorder.md).[userId](../interfaces/_types_.iorder.md#userid)*
 
-*Defined in [Order.ts:34](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L34)*
+*Defined in [Order.ts:35](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L35)*
 
 ## Accessors
 
@@ -268,7 +268,7 @@ ___
 
 • **get data**(): *[IOrder](../interfaces/_types_.iorder.md)*
 
-*Defined in [Order.ts:339](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L339)*
+*Defined in [Order.ts:340](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L340)*
 
 **Returns:** *[IOrder](../interfaces/_types_.iorder.md)*
 
@@ -278,7 +278,7 @@ ___
 
 • **get discount**(): *number*
 
-*Defined in [Order.ts:188](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L188)*
+*Defined in [Order.ts:189](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L189)*
 
 **Returns:** *number*
 
@@ -288,7 +288,7 @@ ___
 
 • **get inItemlessMode**(): *boolean*
 
-*Defined in [Order.ts:166](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L166)*
+*Defined in [Order.ts:167](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L167)*
 
 **Returns:** *boolean*
 
@@ -298,7 +298,7 @@ ___
 
 • **get shipping**(): *number*
 
-*Defined in [Order.ts:327](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L327)*
+*Defined in [Order.ts:328](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L328)*
 
 **Returns:** *number*
 
@@ -308,7 +308,7 @@ ___
 
 • **get shippingRate**(): *[IGeoRate](../interfaces/_types_.igeorate.md)*
 
-*Defined in [Order.ts:303](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L303)*
+*Defined in [Order.ts:304](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L304)*
 
 **Returns:** *[IGeoRate](../interfaces/_types_.igeorate.md)*
 
@@ -318,7 +318,7 @@ ___
 
 • **get size**(): *number*
 
-*Defined in [Order.ts:161](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L161)*
+*Defined in [Order.ts:162](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L162)*
 
 **Returns:** *number*
 
@@ -330,13 +330,13 @@ ___
 
 • **get subtotal**(): *number*
 
-*Defined in [Order.ts:250](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L250)*
+*Defined in [Order.ts:251](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L251)*
 
 **Returns:** *number*
 
 • **set subtotal**(`st`: number): *void*
 
-*Defined in [Order.ts:265](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L265)*
+*Defined in [Order.ts:266](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L266)*
 
 **Parameters:**
 
@@ -352,7 +352,7 @@ ___
 
 • **get tax**(): *number*
 
-*Defined in [Order.ts:296](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L296)*
+*Defined in [Order.ts:297](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L297)*
 
 **Returns:** *number*
 
@@ -362,7 +362,7 @@ ___
 
 • **get taxRate**(): *[IGeoRate](../interfaces/_types_.igeorate.md)*
 
-*Defined in [Order.ts:272](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L272)*
+*Defined in [Order.ts:273](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L273)*
 
 **Returns:** *[IGeoRate](../interfaces/_types_.igeorate.md)*
 
@@ -372,7 +372,7 @@ ___
 
 • **get total**(): *number*
 
-*Defined in [Order.ts:334](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L334)*
+*Defined in [Order.ts:335](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L335)*
 
 **Returns:** *number*
 
@@ -382,7 +382,7 @@ ___
 
 ▸ **get**(`id`: any): *[LineItem](_lineitem_.lineitem.md) | undefined*
 
-*Defined in [Order.ts:145](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L145)*
+*Defined in [Order.ts:146](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L146)*
 
 **Parameters:**
 
@@ -398,7 +398,7 @@ ___
 
 ▸ **clear**(): *void*
 
-*Defined in [Order.ts:183](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L183)*
+*Defined in [Order.ts:184](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L184)*
 
 **Returns:** *void*
 
@@ -408,7 +408,7 @@ ___
 
 ▸ **load**(`client`: [IOrderClient](../interfaces/_types_.iorderclient.md), `taxRates`: [IGeoRate](../interfaces/_types_.igeorate.md)[], `shippingRates`: [IGeoRate](../interfaces/_types_.igeorate.md)[], `cartAPI`: [ICartAPI](../interfaces/_types_.icartapi.md)): *[Order](_order_.order.md)‹›*
 
-*Defined in [Order.ts:170](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L170)*
+*Defined in [Order.ts:171](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L171)*
 
 **Parameters:**
 
@@ -427,7 +427,7 @@ ___
 
 ▸ **save**(`order`: [Order](_order_.order.md)): *void*
 
-*Defined in [Order.ts:179](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/Order.ts#L179)*
+*Defined in [Order.ts:180](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/Order.ts#L180)*
 
 **Parameters:**
 

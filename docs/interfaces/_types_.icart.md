@@ -1,4 +1,4 @@
-[commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [ICart](_types_.icart.md)
+[@hanzo/commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [ICart](_types_.icart.md)
 
 # Interface: ICart
 
@@ -23,7 +23,7 @@ Cart Abstraction
 
 • **email**: *string*
 
-*Defined in [types.ts:6](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/types.ts#L6)*
+*Defined in [types.ts:6](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L6)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **id**: *string*
 
-*Defined in [types.ts:5](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/types.ts#L5)*
+*Defined in [types.ts:5](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L5)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [types.ts:7](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/types.ts#L7)*
+*Defined in [types.ts:7](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L7)*
 
 ___
 
@@ -47,4 +47,4 @@ ___
 
 • **storeId**: *string*
 
-*Defined in [types.ts:8](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/types.ts#L8)*
+*Defined in [types.ts:8](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L8)*

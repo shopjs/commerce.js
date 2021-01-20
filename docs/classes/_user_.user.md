@@ -1,4 +1,4 @@
-[commerce.js](../README.md) › [Globals](../globals.md) › ["User"](../modules/_user_.md) › [User](_user_.user.md)
+[@hanzo/commerce.js](../README.md) › [Globals](../globals.md) › ["User"](../modules/_user_.md) › [User](_user_.user.md)
 
 # Class: User
 
@@ -28,7 +28,7 @@
 
 \+ **new User**(`raw`: any, `cartAPI`: [ICartAPI](../interfaces/_types_.icartapi.md)): *[User](_user_.user.md)*
 
-*Defined in [User.ts:22](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/User.ts#L22)*
+*Defined in [User.ts:23](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/User.ts#L23)*
 
 **Parameters:**
 
@@ -47,7 +47,7 @@ Name | Type | Default |
 
 *Implementation of [IUser](../interfaces/_types_.iuser.md).[email](../interfaces/_types_.iuser.md#email)*
 
-*Defined in [User.ts:16](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/User.ts#L16)*
+*Defined in [User.ts:17](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/User.ts#L17)*
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 *Implementation of [IUser](../interfaces/_types_.iuser.md).[firstName](../interfaces/_types_.iuser.md#firstname)*
 
-*Defined in [User.ts:19](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/User.ts#L19)*
+*Defined in [User.ts:20](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/User.ts#L20)*
 
 ___
 
@@ -67,4 +67,4 @@ ___
 
 *Implementation of [IUser](../interfaces/_types_.iuser.md).[lastName](../interfaces/_types_.iuser.md#lastname)*
 
-*Defined in [User.ts:22](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/User.ts#L22)*
+*Defined in [User.ts:23](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/User.ts#L23)*

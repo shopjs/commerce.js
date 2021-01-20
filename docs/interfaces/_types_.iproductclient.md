@@ -1,4 +1,4 @@
-[commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [IProductClient](_types_.iproductclient.md)
+[@hanzo/commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [IProductClient](_types_.iproductclient.md)
 
 # Interface: IProductClient
 
@@ -26,7 +26,7 @@ Product Client
 
 • **client**: *object*
 
-*Defined in [types.ts:191](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/types.ts#L191)*
+*Defined in [types.ts:191](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L191)*
 
 #### Type declaration:
 
@@ -44,7 +44,7 @@ ___
 
 • **fetch**? : *undefined | function*
 
-*Defined in [types.ts:195](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/types.ts#L195)*
+*Defined in [types.ts:195](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L195)*
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 • **product**: *object*
 
-*Defined in [types.ts:188](https://github.com/shopjs/commerce.js/blob/edb5ef8/src/types.ts#L188)*
+*Defined in [types.ts:188](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L188)*
 
 #### Type declaration:
 
