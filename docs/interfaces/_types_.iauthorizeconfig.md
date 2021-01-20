@@ -1,4 +1,4 @@
-[commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [IAuthorizeConfig](_types_.iauthorizeconfig.md)
+[@hanzo/commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [IAuthorizeConfig](_types_.iauthorizeconfig.md)
 
 # Interface: IAuthorizeConfig
 
@@ -22,7 +22,7 @@ Checkout Client Authorize Config
 
 • **order**: *[IOrder](_types_.iorder.md)*
 
-*Defined in [types.ts:150](https://github.com/hanzoai/commerce.js/blob/16d65ef/src/types.ts#L150)*
+*Defined in [types.ts:150](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L150)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **payment**: *[IPayment](_types_.ipayment.md)*
 
-*Defined in [types.ts:151](https://github.com/hanzoai/commerce.js/blob/16d65ef/src/types.ts#L151)*
+*Defined in [types.ts:151](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L151)*
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 • **user**: *[IUser](_types_.iuser.md)*
 
-*Defined in [types.ts:149](https://github.com/hanzoai/commerce.js/blob/16d65ef/src/types.ts#L149)*
+*Defined in [types.ts:149](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L149)*

@@ -1,6 +1,6 @@
-[commerce.js](README.md) › [Globals](globals.md)
+[@hanzo/commerce.js](README.md) › [Globals](globals.md)
 
-# commerce.js
+# @hanzo/commerce.js
 
 # `Document`
 

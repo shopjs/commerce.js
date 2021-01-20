@@ -69,11 +69,13 @@ const plugins = [
   visualizer(),
 ]
 
+
 export default [
   // source
+  // https://www.mixmax.com/engineering/rollup-externals/
   {
     input: 'src/index.ts',
-    external: [],
+    external: ['mobx'],
     plugins,
     output: [
       { name: pkg.name, file: pkg.browser, format: 'umd', sourcemap: true },

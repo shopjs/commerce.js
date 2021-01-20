@@ -1,4 +1,4 @@
-[commerce.js](../README.md) › [Globals](../globals.md) › ["Order"](_order_.md)
+[@hanzo/commerce.js](../README.md) › [Globals](../globals.md) › ["Order"](_order_.md)
 
 # Module: "Order"
 

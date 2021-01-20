@@ -4,6 +4,7 @@ import {
   observable,
   reaction,
   runInAction,
+  // @ts-ignore
 } from 'mobx'
 
 import akasha from 'akasha'

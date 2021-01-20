@@ -1,6 +1,7 @@
 import {
   observable,
   computed
+  // @ts-ignore
 } from 'mobx'
 
 import Product from './Product'

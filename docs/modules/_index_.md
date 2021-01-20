@@ -1,4 +1,4 @@
-[commerce.js](../README.md) › [Globals](../globals.md) › ["index"](_index_.md)
+[@hanzo/commerce.js](../README.md) › [Globals](../globals.md) › ["index"](_index_.md)
 
 # Module: "index"
 

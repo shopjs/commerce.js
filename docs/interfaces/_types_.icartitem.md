@@ -1,4 +1,4 @@
-[commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [ICartItem](_types_.icartitem.md)
+[@hanzo/commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [ICartItem](_types_.icartitem.md)
 
 # Interface: ICartItem
 
@@ -23,7 +23,7 @@ CartItem Abstraction
 
 • **id**: *string*
 
-*Defined in [types.ts:15](https://github.com/hanzoai/commerce.js/blob/16d65ef/src/types.ts#L15)*
+*Defined in [types.ts:15](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L15)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **productId**: *string*
 
-*Defined in [types.ts:16](https://github.com/hanzoai/commerce.js/blob/16d65ef/src/types.ts#L16)*
+*Defined in [types.ts:16](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L16)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • **quantity**: *number*
 
-*Defined in [types.ts:17](https://github.com/hanzoai/commerce.js/blob/16d65ef/src/types.ts#L17)*
+*Defined in [types.ts:17](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L17)*
 
 ___
 
@@ -47,4 +47,4 @@ ___
 
 • **storeId**: *string*
 
-*Defined in [types.ts:18](https://github.com/hanzoai/commerce.js/blob/16d65ef/src/types.ts#L18)*
+*Defined in [types.ts:18](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L18)*

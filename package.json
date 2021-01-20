@@ -1,16 +1,11 @@
 {
-  "name": "commerce.js",
+  "name": "@hanzo/commerce.js",
   "version": "2.0.24",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "browser": "dist/index.umd.js",
   "types": "dist/index.d.ts",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/shopjs/commerce.js"
-  },
-  "__COMMENT2_RE_MOBX": "https://github.com/mobxjs/mobx/issues/1082#issuecomment-352409804",
+  "license": "UNLICENSED",
   "devDependencies": {
     "@rollup/plugin-commonjs": "13.0.0",
     "@rollup/plugin-json": "4.1.0",
@@ -20,7 +15,6 @@
     "cross-fetch": "^3.0.5",
     "hanzo.js": "^2.5.13",
     "jest": "26.0.1",
-    "mobx": "^5.15.4",
     "node-eval": "^2.0.0",
     "rollup": "2.15.0",
     "rollup-plugin-filesize": "9.0.0",
@@ -78,9 +72,8 @@
     "akasha": "0.1.13",
     "npm-check-updates": "7.0.1"
   },
-  "__COMMENT": "https://github.com/mobxjs/mobx/issues/1082#issuecomment-352409804",
   "peerDependencies": {
-    "hanzo.js": "^2.5.13",
-    "mobx": "^5.15.4"
+    "mobx": "^6.0.4",
+    "hanzo.js": "^2.5.13"
   }
 }

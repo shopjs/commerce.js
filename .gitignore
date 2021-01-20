@@ -6,3 +6,4 @@ npm-debug.log
 .sake
 .package-lock.json
 dist/
+yarn-error.log

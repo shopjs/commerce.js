@@ -1,4 +1,4 @@
-[commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [IUser](_types_.iuser.md)
+[@hanzo/commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [IUser](_types_.iuser.md)
 
 # Interface: IUser
 
@@ -26,7 +26,7 @@ User Abstraction
 
 • **email**: *string*
 
-*Defined in [types.ts:91](https://github.com/hanzoai/commerce.js/blob/16d65ef/src/types.ts#L91)*
+*Defined in [types.ts:91](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L91)*
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 • **firstName**: *string*
 
-*Defined in [types.ts:92](https://github.com/hanzoai/commerce.js/blob/16d65ef/src/types.ts#L92)*
+*Defined in [types.ts:92](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L92)*
 
 ___
 
@@ -42,4 +42,4 @@ ___
 
 • **lastName**: *string*
 
-*Defined in [types.ts:93](https://github.com/hanzoai/commerce.js/blob/16d65ef/src/types.ts#L93)*
+*Defined in [types.ts:93](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L93)*

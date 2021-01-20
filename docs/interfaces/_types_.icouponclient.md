@@ -1,4 +1,4 @@
-[commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [ICouponClient](_types_.icouponclient.md)
+[@hanzo/commerce.js](../README.md) › [Globals](../globals.md) › ["types"](../modules/_types_.md) › [ICouponClient](_types_.icouponclient.md)
 
 # Interface: ICouponClient
 
@@ -22,7 +22,7 @@ Coupon Client
 
 • **coupon**: *object*
 
-*Defined in [types.ts:179](https://github.com/hanzoai/commerce.js/blob/16d65ef/src/types.ts#L179)*
+*Defined in [types.ts:179](https://github.com/hanzoai/commerce.js/blob/80c8ee8/src/types.ts#L179)*
 
 #### Type declaration:
 
