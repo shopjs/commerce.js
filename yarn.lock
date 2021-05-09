@@ -1073,11 +1073,6 @@ braces@^3.0.1:
   dependencies:
     fill-range "^7.0.1"
 
-broken@^0.1.13:
-  version "0.1.13"
-  resolved "https://registry.yarnpkg.com/broken/-/broken-0.1.13.tgz#e11ed8308f76a34a5a52b9ed0273984c53d61840"
-  integrity sha1-4R7YMI92o0paUrntAnOYTFPWGEA=
-
 brotli-size@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/brotli-size/-/brotli-size-4.0.0.tgz#a05ee3faad3c0e700a2f2da826ba6b4d76e69e5e"
@@ -1359,7 +1354,7 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@^2.20.0, commander@~2.20.3:
+commander@^2.20.0:
   version "2.20.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
@@ -1720,7 +1715,7 @@ es-md5@^2.7.2:
   resolved "https://registry.yarnpkg.com/es-md5/-/es-md5-2.7.2.tgz#c267f9422ad0dc5b92157fd41198869e75637117"
   integrity sha1-wmf5QirQ3FuSFX/UEZiGnnVjcRc=
 
-es-object-assign@4.1.4, es-object-assign@^4.1.4:
+es-object-assign@4.1.4:
   version "4.1.4"
   resolved "https://registry.yarnpkg.com/es-object-assign/-/es-object-assign-4.1.4.tgz#b7bda1793acc980c9f96305cf27283b5183f0b8b"
   integrity sha1-t72heTrMmAyfljBc8nKDtRg/C4s=
@@ -1729,14 +1724,6 @@ es-tostring@0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/es-tostring/-/es-tostring-0.1.0.tgz#a46ae622af90c191ab13f426b82599f854597722"
   integrity sha1-pGrmIq+QwZGrE/QmuCWZ+FRZdyI=
-
-es-xhr-promise@^1.2.17:
-  version "1.2.17"
-  resolved "https://registry.yarnpkg.com/es-xhr-promise/-/es-xhr-promise-1.2.17.tgz#1dbede066c39c721c9c39cec46a33b36bcb16626"
-  integrity sha512-tO2lT05Kcp/kO1RjYvmKfoQ7fSyyn849oWDWu6hNu/sr1mGEQwEjf9J+LaoVXRr8+0ltx1eRD40J9KkE8rF+LQ==
-  dependencies:
-    broken "^0.1.13"
-    es-object-assign "^4.1.4"
 
 escape-goat@^2.0.0:
   version "2.1.1"
@@ -2166,9 +2153,9 @@ gzip-size@^5.1.1:
     pify "^4.0.1"
 
 handlebars@^4.7.6:
-  version "4.7.6"
-  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.7.6.tgz#d4c05c1baf90e9945f77aa68a7a219aa4a7df74e"
-  integrity sha512-1f2BACcBfiwAfStCKZNrUCgqNZkGsAT7UM3kkYtXuLo0KnaVfjKOyf7PRzB6++aK9STyT1Pd2ZCPe3EGOXleXA==
+  version "4.7.7"
+  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.7.7.tgz#9ce33416aad02dbd6c8fafa8240d5d98004945a1"
+  integrity sha512-aAcXm5OAfE/8IXkcZvCepKU3VzW1/39Fb5ZuqMtgI/hT8X2YgoMvBY5dLhq/cpOvw7Lk1nK/UF71aLG/ZnVYRA==
   dependencies:
     minimist "^1.2.5"
     neo-async "^2.6.0"
@@ -2176,16 +2163,6 @@ handlebars@^4.7.6:
     wordwrap "^1.0.0"
   optionalDependencies:
     uglify-js "^3.1.4"
-
-hanzo.js@^2.5.13:
-  version "2.5.13"
-  resolved "https://registry.yarnpkg.com/hanzo.js/-/hanzo.js-2.5.13.tgz#97db23a6e7f6165a1faa4e28c485574ed89e5353"
-  integrity sha512-2RhMARnd7eCBMVgCrqiATMMkYNSLlbsNeBAdimkYZ2wqs4HJ8OZuyAQEiUjUMibvPEHEZLTuS/Fq4+UMR6cWvQ==
-  dependencies:
-    broken "^0.1.13"
-    es-cookies "^2.1.18"
-    es-xhr-promise "^1.2.17"
-    request "^2.88.0"
 
 har-schema@^2.0.0:
   version "2.0.0"
@@ -3577,9 +3554,9 @@ natural-compare@^1.4.0:
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
 neo-async@^2.6.0:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
-  integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
+  integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
 nested-error-stacks@~2.0.1:
   version "2.0.1"
@@ -5181,11 +5158,9 @@ typescript@3.9.5:
   integrity sha512-hSAifV3k+i6lEoCJ2k6R2Z/rp/H3+8sdmcn5NrS3/3kE7+RyZXm9aqvxWqjEXHAd8b0pShatpcdMTvEdvAJltQ==
 
 uglify-js@^3.1.4:
-  version "3.9.4"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.9.4.tgz#867402377e043c1fc7b102253a22b64e5862401b"
-  integrity sha512-8RZBJq5smLOa7KslsNsVcSH+KOXf1uDU8yqLeNuVKwmT0T3FA0ZoXlinQfRad7SDcbZZRZE4ov+2v71EnxNyCA==
-  dependencies:
-    commander "~2.20.3"
+  version "3.13.5"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.13.5.tgz#5d71d6dbba64cf441f32929b1efce7365bb4f113"
+  integrity sha512-xtB8yEqIkn7zmOyS2zUNBsYCBRhDkvlNxMMY2smuJ/qA8NCHeQvKCF3i9Z4k8FJH4+PJvZRtMrPynfZ75+CSZw==
 
 union-value@^1.0.0:
   version "1.0.1"
