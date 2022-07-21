@@ -1073,11 +1073,6 @@ braces@^3.0.1:
   dependencies:
     fill-range "^7.0.1"
 
-broken@^0.1.13:
-  version "0.1.13"
-  resolved "https://registry.yarnpkg.com/broken/-/broken-0.1.13.tgz#e11ed8308f76a34a5a52b9ed0273984c53d61840"
-  integrity sha1-4R7YMI92o0paUrntAnOYTFPWGEA=
-
 brotli-size@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/brotli-size/-/brotli-size-4.0.0.tgz#a05ee3faad3c0e700a2f2da826ba6b4d76e69e5e"
@@ -1109,10 +1104,15 @@ btoa@^1.2.1:
   resolved "https://registry.yarnpkg.com/btoa/-/btoa-1.2.1.tgz#01a9909f8b2c93f6bf680ba26131eb30f7fa3d73"
   integrity sha512-SB4/MIGlsiVkMcHmT+pSmIPoNDoHg+7cMzmt3Uxt628MTz2487DKSqK/fuhFBrkuqrYv5UCEnACpF4dTFNKc/g==
 
-buffer-from@1.x, buffer-from@^1.0.0:
+buffer-from@1.x:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.1.tgz#32713bc028f75c02fdb710d7c7bcec1f2c6070ef"
   integrity sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==
+
+buffer-from@^1.0.0:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.2.tgz#2b146a6fd72e80b4f55d255f35ed59a3a9a41bd5"
+  integrity sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==
 
 builtin-modules@^3.1.0:
   version "3.1.0"
@@ -1720,7 +1720,7 @@ es-md5@^2.7.2:
   resolved "https://registry.yarnpkg.com/es-md5/-/es-md5-2.7.2.tgz#c267f9422ad0dc5b92157fd41198869e75637117"
   integrity sha1-wmf5QirQ3FuSFX/UEZiGnnVjcRc=
 
-es-object-assign@4.1.4, es-object-assign@^4.1.4:
+es-object-assign@4.1.4:
   version "4.1.4"
   resolved "https://registry.yarnpkg.com/es-object-assign/-/es-object-assign-4.1.4.tgz#b7bda1793acc980c9f96305cf27283b5183f0b8b"
   integrity sha1-t72heTrMmAyfljBc8nKDtRg/C4s=
@@ -1729,14 +1729,6 @@ es-tostring@0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/es-tostring/-/es-tostring-0.1.0.tgz#a46ae622af90c191ab13f426b82599f854597722"
   integrity sha1-pGrmIq+QwZGrE/QmuCWZ+FRZdyI=
-
-es-xhr-promise@^1.2.17:
-  version "1.2.17"
-  resolved "https://registry.yarnpkg.com/es-xhr-promise/-/es-xhr-promise-1.2.17.tgz#1dbede066c39c721c9c39cec46a33b36bcb16626"
-  integrity sha512-tO2lT05Kcp/kO1RjYvmKfoQ7fSyyn849oWDWu6hNu/sr1mGEQwEjf9J+LaoVXRr8+0ltx1eRD40J9KkE8rF+LQ==
-  dependencies:
-    broken "^0.1.13"
-    es-object-assign "^4.1.4"
 
 escape-goat@^2.0.0:
   version "2.1.1"
@@ -2176,16 +2168,6 @@ handlebars@^4.7.6:
     wordwrap "^1.0.0"
   optionalDependencies:
     uglify-js "^3.1.4"
-
-hanzo.js@^2.5.13:
-  version "2.5.13"
-  resolved "https://registry.yarnpkg.com/hanzo.js/-/hanzo.js-2.5.13.tgz#97db23a6e7f6165a1faa4e28c485574ed89e5353"
-  integrity sha512-2RhMARnd7eCBMVgCrqiATMMkYNSLlbsNeBAdimkYZ2wqs4HJ8OZuyAQEiUjUMibvPEHEZLTuS/Fq4+UMR6cWvQ==
-  dependencies:
-    broken "^0.1.13"
-    es-cookies "^2.1.18"
-    es-xhr-promise "^1.2.17"
-    request "^2.88.0"
 
 har-schema@^2.0.0:
   version "2.0.0"
@@ -4679,10 +4661,18 @@ source-map-resolve@^0.5.0:
     source-map-url "^0.4.0"
     urix "^0.1.0"
 
-source-map-support@0.5.19, source-map-support@^0.5.17, source-map-support@^0.5.6, source-map-support@~0.5.12:
+source-map-support@0.5.19:
   version "0.5.19"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.19.tgz#a98b62f86dcaf4f67399648c085291ab9e8fed61"
   integrity sha512-Wonm7zOCIJzBGQdB+thsPar0kYuCIzYvxZwlBa87yi/Mdjv7Tip2cyVbLj5o0cFPN4EVkuTwb3GDDyUx2DGnGw==
+  dependencies:
+    buffer-from "^1.0.0"
+    source-map "^0.6.0"
+
+source-map-support@^0.5.17, source-map-support@^0.5.6, source-map-support@~0.5.12:
+  version "0.5.21"
+  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.21.tgz#04fe7c7f9e1ed2d662233c28cb2b35b9f63f6e4f"
+  integrity sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==
   dependencies:
     buffer-from "^1.0.0"
     source-map "^0.6.0"
@@ -4968,9 +4958,9 @@ terminal-link@^2.0.0:
     supports-hyperlinks "^2.0.0"
 
 terser@^4.6.12:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/terser/-/terser-4.7.0.tgz#15852cf1a08e3256a80428e865a2fa893ffba006"
-  integrity sha512-Lfb0RiZcjRDXCC3OSHJpEkxJ9Qeqs6mp2v4jf2MHfy8vGERmVDuvjXdd/EnP5Deme5F2yBRBymKmKHCBg2echw==
+  version "4.8.1"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-4.8.1.tgz#a00e5634562de2239fd404c649051bf6fc21144f"
+  integrity sha512-4GnLC0x667eJG0ewJTa6z/yXrbLGv80D9Ru6HIpCQmO+Q4PfEtBFi0ObSckqwL6VyQv/7ENJieXHo2ANmdQwgw==
   dependencies:
     commander "^2.20.0"
     source-map "~0.6.1"
